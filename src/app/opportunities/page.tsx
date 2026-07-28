@@ -1,0 +1,352 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase/client";
+import { MobileNav } from "@/components/mobile-nav";
+import type { LifeMode, LifeModeId, Opportunity } from "@/lib/lifemode/types";
+import {
+  deleteOpportunityAction,
+  fetchOpportunities,
+  fetchOpportunityActions,
+  upsertOpportunityAction,
+  type OpportunityActionRow,
+} from "@/lib/lifemode/database";
+
+type TrackerItem = {
+  status: "saved" | "applied" | "interview" | "rejected" | "won";
+  notes: string;
+  deadline: string;
+  followUp: string;
+};
+
+type TrackerState = Record<string, OpportunityActionRow>;
+
+const defaultTrackerItem: TrackerItem = {
+  status: "saved",
+  notes: "",
+  deadline: "",
+  followUp: "",
+};
+
+export default function OpportunitiesPage() {
+  const router = useRouter();
+  const [userId, setUserId] = useState("");
+  const [modes, setModes] = useState<LifeMode[]>([]);
+  const [activeMode, setActiveMode] = useState<LifeModeId>("student");
+  const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
+  const [tracker, setTracker] = useState<TrackerState>({});
+  const [typeFilter, setTypeFilter] = useState("all");
+  const [search, setSearch] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [statusMessage, setStatusMessage] = useState("Saved to Supabase");
+
+  const filteredOpportunities = useMemo(() => {
+    return opportunities.filter((opportunity) => {
+      const matchesType =
+        typeFilter === "all" || opportunity.type === typeFilter;
+      const searchText = `${opportunity.title} ${opportunity.organization} ${opportunity.tags.join(" ")}`.toLowerCase();
+      const matchesSearch = searchText.includes(search.toLowerCase());
+
+      return matchesType && matchesSearch;
+    });
+  }, [opportunities, search, typeFilter]);
+
+  const trackedCount = Object.keys(tracker).length;
+  const appliedCount = Object.values(tracker).filter(
+    (item) => item.status === "applied" || item.status === "interview",
+  ).length;
+
+  useEffect(() => {
+    async function loadPage() {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        router.push("/login");
+        return;
+      }
+
+      setUserId(user.id);
+
+      const configResponse = await fetch("/api/app-config");
+      const config = (await configResponse.json()) as { modes: LifeMode[] };
+      setModes(config.modes);
+
+      const actions = await fetchOpportunityActions(user.id);
+      setTracker(
+        Object.fromEntries(
+          actions.map((action) => [action.opportunity_id, action]),
+        ),
+      );
+
+      setIsLoading(false);
+    }
+
+    loadPage();
+  }, [router]);
+
+  useEffect(() => {
+    async function loadOpportunities() {
+      const data = await fetchOpportunities(activeMode);
+      setOpportunities(data);
+    }
+
+    loadOpportunities();
+  }, [activeMode]);
+
+  async function updateTracker(id: string, update: Partial<TrackerItem>) {
+    if (!userId) {
+      return;
+    }
+
+    const current = tracker[id];
+    setStatusMessage("Saving opportunity...");
+    const action = await upsertOpportunityAction({
+      userId,
+      opportunityId: id,
+      status: update.status ?? current?.status ?? "saved",
+      notes: update.notes ?? current?.notes ?? "",
+      deadline: update.deadline ?? current?.deadline ?? null,
+      followUp: update.followUp ?? current?.follow_up ?? null,
+    });
+    setTracker((current) => ({
+      ...current,
+      [id]: action,
+    }));
+    setStatusMessage("Saved to Supabase");
+  }
+
+  async function removeTracker(id: string) {
+    const action = tracker[id];
+
+    if (!action) {
+      return;
+    }
+
+    setStatusMessage("Removing opportunity...");
+    await deleteOpportunityAction(action.id);
+    setTracker((current) => {
+      const next = { ...current };
+      delete next[id];
+      return next;
+    });
+    setStatusMessage("Saved to Supabase");
+  }
+
+  if (isLoading) {
+    return <LoadingCard label="Loading opportunities..." />;
+  }
+
+  return (
+    <main className="min-h-screen bg-[#f3f5f0] pb-24 text-[#181713] lg:pb-0">
+      <header className="border-b border-[#d8d1c2] bg-[#fbfaf6]">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <Link
+              href="/dashboard"
+              className="text-sm font-semibold uppercase tracking-[0.18em] text-[#7b3f2a]"
+            >
+              LifeMode
+            </Link>
+            <h1 className="mt-2 text-3xl font-semibold">
+              Opportunity Tracker
+            </h1>
+            <p className="mt-1 text-sm text-[#5f5a50]">
+              Track jobs, internships, freelance gigs, scholarships, and startup roles.
+            </p>
+          </div>
+          <nav className="flex flex-col gap-3 sm:flex-row">
+            <Link className="nav-button" href="/dashboard">
+              Dashboard
+            </Link>
+            <Link className="nav-button-dark" href="/profile">
+              Proof Profile
+            </Link>
+            <Link className="nav-button" href="/subscription">
+              Plus
+            </Link>
+          </nav>
+        </div>
+      </header>
+
+      <section className="mx-auto grid max-w-7xl gap-5 px-5 py-6 sm:px-8 lg:grid-cols-4">
+        <Metric label="Mode" value={modeLabel(activeMode, modes)} />
+        <Metric label="Tracked" value={String(trackedCount)} />
+        <Metric label="Active applications" value={String(appliedCount)} />
+        <Metric label="Save status" value={statusMessage} />
+      </section>
+
+      <section className="mx-auto grid max-w-7xl gap-4 px-5 pb-6 sm:px-8 lg:grid-cols-[1fr_1fr_1.2fr]">
+        <select
+          value={activeMode}
+          onChange={(event) => setActiveMode(event.target.value as LifeModeId)}
+          className="h-12 rounded-lg border border-[#c8beaa] bg-white px-4 text-sm font-semibold outline-none"
+        >
+          {modes.map((mode) => (
+            <option key={mode.id} value={mode.id}>
+              {mode.name}
+            </option>
+          ))}
+        </select>
+        <select
+          value={typeFilter}
+          onChange={(event) => setTypeFilter(event.target.value)}
+          className="h-12 rounded-lg border border-[#c8beaa] bg-white px-4 text-sm font-semibold outline-none"
+        >
+          <option value="all">All types</option>
+          <option value="job">Jobs</option>
+          <option value="internship">Internships</option>
+          <option value="freelance">Freelance</option>
+          <option value="scholarship">Scholarships</option>
+          <option value="competition">Competitions</option>
+          <option value="startup_role">Startup roles</option>
+        </select>
+        <input
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+          placeholder="Search by title, company, or tag"
+          className="h-12 rounded-lg border border-[#c8beaa] bg-white px-4 outline-none focus:border-[#7b3f2a]"
+        />
+      </section>
+
+      <section className="mx-auto grid max-w-7xl gap-5 px-5 pb-10 sm:px-8 lg:grid-cols-[1fr_1fr]">
+        {filteredOpportunities.map((opportunity) => {
+          const tracked = tracker[opportunity.id];
+
+          return (
+            <article
+              key={opportunity.id}
+              className="rounded-lg border border-[#d8d1c2] bg-white p-5 shadow-sm"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#7b3f2a]">
+                {opportunity.type.replace("_", " ")}
+              </p>
+              <h2 className="mt-2 text-2xl font-semibold">
+                {opportunity.title}
+              </h2>
+              <p className="mt-1 text-sm text-[#5f5a50]">
+                {opportunity.organization} - {opportunity.location}
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {opportunity.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-md border border-[#dfd8c8] bg-[#fffdf8] px-2 py-1 text-xs font-medium"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-5 grid gap-3">
+                <select
+                  value={tracked?.status ?? defaultTrackerItem.status}
+                  onChange={(event) =>
+                    updateTracker(opportunity.id, {
+                      status: event.target.value as TrackerItem["status"],
+                    })
+                  }
+                  className="h-11 rounded-lg border border-[#c8beaa] bg-[#fffdf8] px-3 text-sm font-semibold outline-none"
+                >
+                  <option value="saved">Saved</option>
+                  <option value="applied">Applied</option>
+                  <option value="interview">Interview</option>
+                  <option value="rejected">Rejected</option>
+                  <option value="won">Won</option>
+                </select>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <input
+                    type="date"
+                    value={tracked?.deadline ?? ""}
+                    onChange={(event) =>
+                      updateTracker(opportunity.id, {
+                        deadline: event.target.value,
+                      })
+                    }
+                    className="h-11 rounded-lg border border-[#c8beaa] bg-[#fffdf8] px-3 outline-none"
+                  />
+                  <input
+                    type="date"
+                    value={tracked?.follow_up ?? ""}
+                    onChange={(event) =>
+                      updateTracker(opportunity.id, {
+                        followUp: event.target.value,
+                      })
+                    }
+                    className="h-11 rounded-lg border border-[#c8beaa] bg-[#fffdf8] px-3 outline-none"
+                  />
+                </div>
+                <textarea
+                  value={tracked?.notes ?? ""}
+                  onChange={(event) =>
+                    updateTracker(opportunity.id, {
+                      notes: event.target.value,
+                    })
+                  }
+                  placeholder="Notes, proof to attach, follow-up plan..."
+                  className="min-h-24 rounded-lg border border-[#c8beaa] bg-[#fffdf8] p-3 text-sm leading-6 outline-none focus:border-[#7b3f2a]"
+                />
+                <div className="flex flex-col gap-2 sm:flex-row">
+                  <button
+                    onClick={() =>
+                      updateTracker(opportunity.id, {
+                        status: tracked?.status ?? "saved",
+                      })
+                    }
+                    className="h-10 rounded-lg bg-[#181713] px-4 text-sm font-semibold text-white"
+                  >
+                    Track
+                  </button>
+                  <button
+                    onClick={() => removeTracker(opportunity.id)}
+                    className="h-10 rounded-lg border border-[#c8beaa] bg-white px-4 text-sm font-semibold text-[#181713]"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            </article>
+          );
+        })}
+
+        {!filteredOpportunities.length ? (
+          <p className="rounded-lg border border-[#d8d1c2] bg-white p-5 text-sm text-[#5f5a50] shadow-sm">
+            No opportunities match this filter yet.
+          </p>
+        ) : null}
+      </section>
+      <MobileNav />
+    </main>
+  );
+}
+
+function modeLabel(activeMode: LifeModeId, modes: LifeMode[]) {
+  return modes.find((mode) => mode.id === activeMode)?.name ?? activeMode;
+}
+
+function LoadingCard({ label }: { label: string }) {
+  return (
+    <main className="flex min-h-screen items-center justify-center bg-[#f7f5ef] px-5 text-[#181713]">
+      <div className="rounded-lg border border-[#d8d1c2] bg-white p-6 shadow-sm">
+        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#7b3f2a]">
+          LifeMode
+        </p>
+        <p className="mt-3 text-2xl font-semibold">{label}</p>
+      </div>
+    </main>
+  );
+}
+
+function Metric({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-lg border border-[#d8d1c2] bg-white p-4 shadow-sm">
+      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#696257]">
+        {label}
+      </p>
+      <p className="mt-2 text-2xl font-semibold text-[#181713]">{value}</p>
+    </div>
+  );
+}
