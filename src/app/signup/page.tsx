@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { supabase } from "@/lib/supabase/client";
+import { AuthStory } from "@/components/auth-story";
 
 const modes = [
   "Student",
@@ -60,24 +61,19 @@ export default function SignupPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f7f5ef] px-5 py-8 text-[#181713] sm:px-8">
-      <div className="mx-auto grid min-h-[calc(100vh-4rem)] max-w-6xl gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-        <section className="rounded-lg border border-[#d8d1c2] bg-white p-5 shadow-sm lg:p-7">
-          <Link
-            href="/"
-            className="text-sm font-semibold uppercase tracking-[0.18em] text-[#7b3f2a]"
-          >
-            LifeMode
-          </Link>
-          <p className="mt-10 text-sm font-semibold uppercase tracking-[0.16em] text-[#7b3f2a]">
-            Start your mode
-          </p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-normal sm:text-4xl">
-            Create your account and choose what you are building.
+    <main className="auth-experience min-h-screen px-5 py-6 text-[#181713] sm:px-8 sm:py-8">
+      <div className="auth-layout mx-auto grid min-h-[calc(100vh-3rem)] max-w-[1440px] gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
+        <AuthStory mode={mode} />
+        <section className="auth-form-panel premium-panel rounded-[30px] p-5 sm:p-7 lg:p-9">
+          <div className="auth-form-topline">
+            <span className="auth-step-indicator"><i /> YOUR FIRST STEP</span>
+            <span className="auth-step-count">01 <span>/ 03</span></span>
+          </div>
+          <h1 className="auth-form-title mt-3 text-3xl font-semibold tracking-normal sm:text-4xl">
+            Create your account.
           </h1>
-          <p className="mt-4 text-base leading-7 text-[#5f5a50]">
-            LifeMode starts with your identity, your first mode, and your
-            safety settings before any social features appear.
+          <p className="auth-form-subtitle mt-4 text-base leading-7 text-[#5f5a50]">
+            Choose a starting point. You can shape the rest as you go.
           </p>
 
           <form className="mt-8 grid gap-4" onSubmit={handleSignup}>
@@ -120,10 +116,10 @@ export default function SignupPage() {
                 Choose your first mode
               </p>
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                {modes.map((modeName) => (
+                {modes.map((modeName, index) => (
                   <label
                     key={modeName}
-                    className="flex h-12 items-center gap-2 rounded-lg border border-[#c8beaa] bg-[#fffdf8] px-3 text-sm font-semibold transition hover:border-[#7b3f2a]"
+                    className={`auth-mode-tile ${mode === modeName ? "is-selected" : ""}`}
                   >
                     <input
                       type="radio"
@@ -132,15 +128,16 @@ export default function SignupPage() {
                       checked={mode === modeName}
                       onChange={(event) => setMode(event.target.value)}
                       required
-                      className="accent-[#181713]"
                     />
+                    <span className="auth-mode-number">0{index + 1}</span>
                     {modeName}
+                    <span className="auth-mode-check" aria-hidden="true">↗</span>
                   </label>
                 ))}
               </div>
             </div>
 
-            <label className="flex items-start gap-3 rounded-lg border border-[#dfd8c8] bg-[#fffdf8] p-4 text-sm leading-6 text-[#5f5a50]">
+            <label className="auth-consent flex items-start gap-3 rounded-lg border border-[#dfd8c8] bg-[#fffdf8] p-4 text-sm leading-6 text-[#5f5a50]">
               <input
                 type="checkbox"
                 required
@@ -154,16 +151,17 @@ export default function SignupPage() {
             </label>
 
             {message ? (
-              <p className="rounded-lg border border-[#dfd8c8] bg-[#fffdf8] p-3 text-sm font-medium leading-6 text-[#5f5a50]">
+              <p role="status" className="auth-feedback rounded-lg border border-[#dfd8c8] bg-[#fffdf8] p-3 text-sm font-medium leading-6 text-[#5f5a50]">
                 {message}
               </p>
             ) : null}
 
             <button
               disabled={isSubmitting}
-              className="mt-2 h-12 rounded-lg bg-[#181713] px-5 text-sm font-semibold text-white transition hover:bg-[#2a2821] disabled:cursor-not-allowed disabled:bg-[#8f8778]"
+              className="auth-submit mt-2 h-14 rounded-xl bg-[#181713] px-5 text-sm font-semibold text-white transition hover:bg-[#2a2821] disabled:cursor-not-allowed disabled:bg-[#8f8778]"
             >
-              {isSubmitting ? "Creating account..." : "Create account"}
+              <span>{isSubmitting ? "Creating your space..." : "Create my LifeMode"}</span>
+              {!isSubmitting ? <span className="auth-submit-arrow" aria-hidden="true">↗</span> : null}
             </button>
           </form>
 
@@ -175,34 +173,6 @@ export default function SignupPage() {
           </p>
         </section>
 
-        <section className="rounded-lg border border-[#d8d1c2] bg-[#181713] p-5 text-[#f5f1e8] shadow-sm lg:p-7">
-          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#d6c29d]">
-            Account setup order
-          </p>
-          <div className="mt-6 grid gap-4">
-            {[
-              ["1", "Create profile"],
-              ["2", "Choose first mode"],
-              ["3", "Set privacy"],
-              ["4", "Enter dashboard"],
-            ].map(([step, label]) => (
-              <div
-                key={step}
-                className="flex items-center gap-4 rounded-lg border border-[#3b4138] bg-[#202820] p-4"
-              >
-                <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#d1e6b7] text-sm font-bold text-[#202820]">
-                  {step}
-                </span>
-                <span className="font-semibold">{label}</span>
-              </div>
-            ))}
-          </div>
-          <p className="mt-6 rounded-lg bg-[#2b3028] p-4 text-sm leading-6 text-[#d8d1c2]">
-            Social discovery stays off by default. Users choose whether they
-            want AI only, human partners, professional networking, or 18+
-            dating.
-          </p>
-        </section>
       </div>
     </main>
   );
