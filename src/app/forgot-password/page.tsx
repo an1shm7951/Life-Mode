@@ -32,7 +32,7 @@ export default function ForgotPasswordPage() {
   return (
     <main className="min-h-screen bg-[#f7f5ef] px-5 py-8 text-[#181713] sm:px-8">
       <div className="mx-auto grid min-h-[calc(100vh-4rem)] max-w-4xl items-center">
-        <section className="rounded-lg border border-[#d8d1c2] bg-white p-5 shadow-sm lg:p-7">
+        <section className="premium-panel rounded-lg p-5 lg:p-7">
           <Link
             href="/"
             className="text-sm font-semibold uppercase tracking-[0.18em] text-[#7b3f2a]"
