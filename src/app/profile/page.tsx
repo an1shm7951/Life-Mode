@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import { MobileNav } from "@/components/mobile-nav";
+import { ThemePicker } from "@/components/theme-picker";
 import type { LifeModeId } from "@/lib/lifemode/types";
 import {
   ensureProfile,
@@ -213,8 +214,12 @@ export default function ProfilePage() {
     <main className="min-h-screen bg-[#f3f5f0] pb-24 text-[#181713] lg:pb-0">
       <AppHeader title="Proof Profile" subtitle="Show proof, not just claims." />
 
+      <section className="mx-auto max-w-7xl px-5 pt-6 sm:px-8">
+        <ThemePicker />
+      </section>
+
       <section className="mx-auto grid max-w-7xl gap-5 px-5 py-6 sm:px-8 lg:grid-cols-[0.9fr_1.1fr]">
-        <section className="rounded-lg border border-[#d8d1c2] bg-white p-5 shadow-sm">
+        <section className="premium-panel rounded-lg p-5">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#7b3f2a]">
@@ -300,7 +305,7 @@ export default function ProfilePage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-5 pb-10 sm:px-8">
-        <section className="rounded-lg border border-[#d8d1c2] bg-white p-5 shadow-sm">
+        <section className="premium-panel rounded-lg p-5">
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#7b3f2a]">
             Recent Proof
           </p>
@@ -309,7 +314,7 @@ export default function ProfilePage() {
               recentProof.map((proof) => (
                 <article
                   key={proof.id}
-                  className="rounded-lg border border-[#dfd8c8] bg-[#fffdf8] p-4"
+                  className="glass-card rounded-lg border border-[#dfd8c8] bg-[#fffdf8] p-4"
                 >
                   <div className="flex items-center justify-between gap-3">
                     <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[#7b3f2a]">
@@ -322,6 +327,7 @@ export default function ProfilePage() {
                   <p className="mt-2 text-sm font-medium leading-6">
                     {proof.text}
                   </p>
+                  <ProofAttachment proof={proof} />
                 </article>
               ))
             ) : (
@@ -417,9 +423,46 @@ function LoadingCard({ label }: { label: string }) {
   );
 }
 
+function ProofAttachment({ proof }: { proof: ProofPostRow }) {
+  if (!proof.media_path) {
+    return null;
+  }
+
+  if (!proof.media_url) {
+    return <p className="mt-3 text-sm text-[#7b3f2a]">Attachment link unavailable. Refresh the page to try again.</p>;
+  }
+
+  const mediaType = proof.media_type ?? "";
+  const canPreview = mediaType.startsWith("image/") &&
+    !["image/heic", "image/heif"].includes(mediaType);
+
+  return (
+    <div className="mt-3 grid gap-2">
+      {canPreview ? (
+        <a href={proof.media_url} target="_blank" rel="noreferrer" aria-label={`Open ${proof.media_name ?? "evidence image"}`}>
+          <img
+            src={proof.media_url}
+            alt={proof.media_name ?? "Proof evidence"}
+            className="max-h-80 max-w-full rounded-lg border border-[#dfd8c8] object-contain"
+          />
+        </a>
+      ) : null}
+      <a
+        href={proof.media_url}
+        target="_blank"
+        rel="noreferrer"
+        download={proof.media_name ?? true}
+        className="w-fit text-sm font-semibold text-[#315260] underline"
+      >
+        Open or download {proof.media_name ?? "attachment"}
+      </a>
+    </div>
+  );
+}
+
 function Metric({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg border border-[#d8d1c2] bg-white p-4 shadow-sm">
+    <div className="premium-surface rounded-lg p-4">
       <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#696257]">
         {label}
       </p>

@@ -1,6 +1,23 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
+import { ScrollReveal } from "@/components/scroll-reveal";
+import { ThemeRuntime } from "@/components/theme-runtime";
+import { MotionField } from "@/components/motion-field";
+import Script from "next/script";
+
+const themeBootstrap = `(() => {
+  try {
+    const stored = localStorage.getItem("lifemode-theme");
+    const preference = stored === "light" || stored === "dark" ? stored : "system";
+    const isDark = preference === "dark" || (preference === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    document.documentElement.dataset.themePreference = preference;
+    document.documentElement.dataset.theme = isDark ? "dark" : "light";
+  } catch {
+    document.documentElement.dataset.themePreference = "system";
+    document.documentElement.dataset.theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+})();`;
 
 export const metadata: Metadata = {
   title: "LifeMode",
@@ -30,9 +47,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <body className="min-h-full flex flex-col">
+        <Script id="lifemode-theme-bootstrap" strategy="beforeInteractive">
+          {themeBootstrap}
+        </Script>
         {children}
+        <ThemeRuntime />
+        <MotionField />
+        <ScrollReveal />
         <ServiceWorkerRegistration />
       </body>
     </html>

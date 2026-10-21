@@ -235,7 +235,7 @@ async function createOllamaReply(
           },
         ],
       }),
-    });
+    }, 120_000);
 
     if (!response.ok) {
       return null;

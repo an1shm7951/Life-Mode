@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { supabase } from "@/lib/supabase/client";
+import { AuthStory } from "@/components/auth-story";
 
 type OAuthProvider = "google" | "apple" | "facebook";
 
@@ -54,8 +55,10 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center bg-[#f3f5f0] px-5 py-8 text-[#181713] sm:px-8">
-      <section className="premium-panel mx-auto w-full max-w-md rounded-lg p-5 sm:p-7">
+    <main className="auth-experience min-h-screen px-5 py-6 text-[#181713] sm:px-8 sm:py-8">
+      <div className="auth-layout mx-auto grid min-h-[calc(100vh-3rem)] max-w-[1440px] gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
+      <AuthStory variant="login" />
+      <section className="auth-form-panel premium-panel mx-auto w-full max-w-xl rounded-[30px] p-5 sm:p-7 lg:p-9">
         <Link
           href="/"
           className="text-sm font-semibold uppercase tracking-[0.18em] text-[#315260]"
@@ -139,6 +142,7 @@ export default function LoginPage() {
           {" "}and <Link href="/privacy" className="font-semibold text-[#315260]">Privacy Notice</Link>.
         </p>
       </section>
+      </div>
     </main>
   );
 }
