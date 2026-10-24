@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import { MobileNav } from "@/components/mobile-nav";
+import { SettingsIcon } from "@/components/settings-icon";
 import { ThemePicker } from "@/components/theme-picker";
 import type { LifeModeId } from "@/lib/lifemode/types";
 import {
@@ -43,7 +44,6 @@ export default function ProfilePage() {
   const [skillsText, setSkillsText] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [statusMessage, setStatusMessage] = useState("Saved to Supabase");
-  const [accountMessage, setAccountMessage] = useState("");
 
   const completedGoals = useMemo(
     () => goals.filter((goal) => goal.done).length,
@@ -140,70 +140,6 @@ export default function ProfilePage() {
     setProfile(updatedProfile);
     setSkillsText(updatedProfile.skills.join(", "));
     setStatusMessage("Saved to Supabase");
-  }
-
-  async function exportAccountData() {
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-
-    if (!session?.access_token) {
-      router.push("/login");
-      return;
-    }
-
-    setAccountMessage("Preparing your export...");
-    const response = await fetch("/api/account/export", {
-      headers: { Authorization: `Bearer ${session.access_token}` },
-    });
-
-    if (!response.ok) {
-      setAccountMessage("Your export could not be created.");
-      return;
-    }
-
-    const blob = await response.blob();
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "lifemode-data.json";
-    link.click();
-    URL.revokeObjectURL(url);
-    setAccountMessage("Export downloaded.");
-  }
-
-  async function deleteAccount() {
-    const confirmed = window.confirm(
-      "Delete your LifeMode account and all of its stored data? This cannot be undone.",
-    );
-
-    if (!confirmed) {
-      return;
-    }
-
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-
-    if (!session?.access_token) {
-      router.push("/login");
-      return;
-    }
-
-    setAccountMessage("Deleting account...");
-    const response = await fetch("/api/account/delete", {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${session.access_token}` },
-    });
-    const result = (await response.json()) as { error?: string };
-
-    if (!response.ok) {
-      setAccountMessage(result.error ?? "Account deletion failed.");
-      return;
-    }
-
-    await supabase.auth.signOut();
-    router.push("/");
   }
 
   if (isLoading) {
@@ -341,29 +277,19 @@ export default function ProfilePage() {
       <section className="mx-auto max-w-7xl px-5 pb-10 sm:px-8">
         <section className="premium-panel rounded-lg p-5">
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#315260]">
-            Account and data
+            Account and settings
           </p>
-          <div className="mt-4 flex flex-col gap-3 sm:flex-row">
-            <button
-              onClick={exportAccountData}
-              className="h-11 rounded-lg border border-[#aeb8ad] bg-white px-4 text-sm font-semibold"
-            >
-              Export my data
-            </button>
-            <button
-              onClick={deleteAccount}
-              className="h-11 rounded-lg border border-[#d8a7a0] bg-[#fff7f5] px-4 text-sm font-semibold text-[#8c3027]"
-            >
-              Delete account
-            </button>
-          </div>
-          {accountMessage ? (
-            <p className="mt-3 text-sm text-[#5f5a50]">{accountMessage}</p>
-          ) : null}
-          <div className="mt-4 flex gap-5 text-sm font-semibold text-[#315260]">
-            <Link href="/privacy">Privacy</Link>
-            <Link href="/terms">Terms</Link>
-          </div>
+          <p className="mt-3 text-sm leading-6 text-[#5f5a50]">
+            Export your data, delete your account, and read the Privacy Policy and
+            Terms of Service in Settings.
+          </p>
+          <Link
+            href="/settings"
+            className="nav-button mt-4 w-fit gap-2"
+          >
+            <SettingsIcon />
+            Open Settings
+          </Link>
         </section>
       </section>
       <MobileNav />
@@ -403,6 +329,10 @@ function AppHeader({ title, subtitle }: { title: string; subtitle: string }) {
           </Link>
           <Link className="nav-button" href="/subscription">
             Plus
+          </Link>
+          <Link className="nav-button gap-2" href="/settings">
+            <SettingsIcon />
+            Settings
           </Link>
         </nav>
       </div>

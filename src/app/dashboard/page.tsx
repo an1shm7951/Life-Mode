@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import { MobileNav } from "@/components/mobile-nav";
+import { SettingsIcon } from "@/components/settings-icon";
 import { AmbientScene } from "@/components/ambient-scene";
 import type { AiBuddyResponse, ConnectionIntent, LifeMode, LifeModeId, Opportunity } from "@/lib/lifemode/types";
 import {
@@ -635,6 +636,10 @@ export default function DashboardPage() {
             </Link>
             <Link href="/subscription" className="nav-button">
               Plus
+            </Link>
+            <Link href="/settings" className="nav-button gap-2">
+              <SettingsIcon />
+              Settings
             </Link>
             <select
               aria-label="Choose your mode"

@@ -498,7 +498,7 @@ select:focus {
   left: 0.8rem;
   z-index: 50;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr)) 3.25rem;
   gap: 0.3rem;
   min-height: 4rem;
   padding: 0.4rem;
@@ -2901,4 +2901,91 @@ html[data-theme="light"] .dashboard-shell .goal-row.is-complete {
   .dashboard-shell .goal-row > span.min-w-0 { flex-basis: calc(100% - 2.5rem); }
   .dashboard-shell .goal-row > button { margin-top: .1rem; }
   .dashboard-view-heading { align-items: flex-start; }
+}
+
+/* Settings entry in the mobile nav (icon-only to keep the four text labels readable). */
+.mobile-nav-settings {
+  padding: 0;
+}
+
+/* Global footer with legal links. Own background so contrast holds in both themes. */
+.site-footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid rgba(48, 41, 74, 0.2);
+  background: #fbfaf6;
+  color: #30294a;
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+
+.site-footer-inner {
+  display: flex;
+  max-width: 80rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 auto;
+}
+
+.site-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 0.75rem;
+}
+
+.site-footer-links a {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  padding: 0 0.75rem;
+  color: #30294a;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.site-footer-links a:hover {
+  color: #4434ba;
+}
+
+.site-footer-links a:focus-visible {
+  outline: 2px solid #4434ba;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.site-footer-note {
+  color: #4a4560;
+  font-size: 0.8rem;
+}
+
+html[data-theme="dark"] .site-footer {
+  border-top-color: rgba(171, 194, 224, 0.28);
+  background: #0b192a;
+  color: #e6eefb;
+}
+
+html[data-theme="dark"] .site-footer-links a {
+  color: #e6eefb;
+}
+
+html[data-theme="dark"] .site-footer-links a:hover {
+  color: #ffffff;
+}
+
+html[data-theme="dark"] .site-footer-links a:focus-visible {
+  outline-color: #b4aaff;
+}
+
+html[data-theme="dark"] .site-footer-note {
+  color: #b8c7dc;
+}
+
+/* Keep the footer clear of the fixed mobile nav. */
+@media (max-width: 1023px) {
+  .site-footer {
+    padding-bottom: calc(6rem + env(safe-area-inset-bottom));
+  }
 }

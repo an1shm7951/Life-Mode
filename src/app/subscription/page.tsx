@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SettingsIcon } from "@/components/settings-icon";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { MobileNav } from "@/components/mobile-nav";
@@ -158,7 +159,10 @@ export default function SubscriptionPage() {
             <Link href="/dashboard" className="text-sm font-semibold uppercase tracking-[0.18em] text-[#315260]">LifeMode</Link>
             <h1 className="mt-1 text-2xl font-semibold">Membership</h1>
           </div>
-          <Link href="/dashboard" className="nav-button">Dashboard</Link>
+          <div className="flex gap-3">
+            <Link href="/dashboard" className="nav-button">Dashboard</Link>
+            <Link href="/settings" className="nav-button gap-2"><SettingsIcon />Settings</Link>
+          </div>
         </div>
       </header>
 

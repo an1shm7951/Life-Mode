@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import { MobileNav } from "@/components/mobile-nav";
+import { SettingsIcon } from "@/components/settings-icon";
 import type { LifeMode, LifeModeId, Opportunity } from "@/lib/lifemode/types";
 import {
   deleteOpportunityAction,
@@ -238,6 +239,10 @@ export default function OpportunitiesPage() {
             </Link>
             <Link className="nav-button" href="/subscription">
               Plus
+            </Link>
+            <Link className="nav-button gap-2" href="/settings">
+              <SettingsIcon />
+              Settings
             </Link>
           </nav>
         </div>
