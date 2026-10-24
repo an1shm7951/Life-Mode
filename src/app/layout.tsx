@@ -4,6 +4,7 @@ import { ServiceWorkerRegistration } from "@/components/service-worker-registrat
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { ThemeRuntime } from "@/components/theme-runtime";
 import { MotionField } from "@/components/motion-field";
+import { SiteFooter } from "@/components/site-footer";
 import Script from "next/script";
 
 const themeBootstrap = `(() => {
@@ -53,6 +54,7 @@ export default function RootLayout({
           {themeBootstrap}
         </Script>
         {children}
+        <SiteFooter />
         <ThemeRuntime />
         <MotionField />
         <ScrollReveal />
