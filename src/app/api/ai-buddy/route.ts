@@ -81,6 +81,20 @@ export async function POST(request: NextRequest) {
 
   requestLog.set(authentication.user.id, [...recentRequests, now]);
 
+  const { data: savedGoals, error: goalsError } = await authentication.client
+    .from("goals")
+    .select("mode, title, done, due_date")
+    .eq("user_id", authentication.user.id)
+    .order("created_at", { ascending: true })
+    .limit(100);
+
+  if (goalsError) {
+    return NextResponse.json(
+      { error: "AI Buddy could not load your saved goals. Please try again." },
+      { status: 503, headers: { "Cache-Control": "no-store" } },
+    );
+  }
+
   try {
     const plan = await createAiBuddyReply({
       userId: authentication.user.id,
@@ -88,6 +102,7 @@ export async function POST(request: NextRequest) {
       goal,
       mood: typeof body.mood === "string" ? body.mood.slice(0, 100) : undefined,
       history,
+      savedGoals: savedGoals ?? [],
     });
 
     return NextResponse.json(
