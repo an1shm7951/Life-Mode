@@ -96,18 +96,18 @@ export async function POST(request: NextRequest) {
   }
 
   const asksForGoalList =
-    /\\b(what|which|show|list|where)\\b.{0,50}\\b(my|saved|the)\\b.{0,25}\\b(goals?|targets?)\\b/i.test(goal) ||
-    /\\b(goals?|targets?)\\b.{0,35}\\b(i|we)\\s+(added|saved|created|set)\\b/i.test(goal);
+    /\b(what|which|show|list|where)\b.{0,50}\b(my|saved|the)\b.{0,25}\b(goals?|targets?)\b/i.test(goal) ||
+    /\b(goals?|targets?)\b.{0,35}\b(i|we)\s+(added|saved|created|set)\b/i.test(goal);
 
   if (asksForGoalList) {
     const message = savedGoals?.length
-      ? `Here are the goals you have saved:\\n\\n${savedGoals
+      ? `Here are the goals you have saved:\n\n${savedGoals
           .map((item, index) => {
             const status = item.done ? "Completed" : "In progress";
             const dueDate = item.due_date ? ` · Due ${item.due_date}` : "";
             return `${index + 1}. ${item.title} — ${item.mode} · ${status}${dueDate}`;
           })
-          .join("\\n")}`
+          .join("\n")}`
       : "I couldn't find any saved goals on your account yet. If you just added one, try refreshing the dashboard and I'll check again.";
 
     return NextResponse.json(
