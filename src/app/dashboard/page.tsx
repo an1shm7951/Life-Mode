@@ -631,9 +631,9 @@ export default function DashboardPage() {
             <Link href="/profile" className="nav-button">
               Profile
             </Link>
-            <Link href="/opportunities" className="nav-button">
-              Opportunities
-            </Link>
+            <Link href="/goals/daily" className="nav-button">Daily goals</Link>
+            <Link href="/goals/short-term" className="nav-button">Short-term</Link>
+            <Link href="/goals/long-term" className="nav-button">Long-term</Link>
             <Link href="/subscription" className="nav-button">
               Plus
             </Link>
