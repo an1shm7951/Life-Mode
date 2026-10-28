@@ -2,20 +2,17 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { SettingsIcon } from "@/components/settings-icon";
 
 const items = [
   { href: "/dashboard", label: "Today" },
-  { href: "/planning", label: "Plan" },
-  { href: "/profile", label: "Proof" },
-  { href: "/opportunities", label: "Opportunities" },
+  { href: "/goals/daily", label: "Daily" },
+  { href: "/goals/short-term", label: "Short-term" },
+  { href: "/goals/long-term", label: "Long-term" },
   { href: "/subscription", label: "Plus" },
 ];
 
 export function MobileNav() {
   const pathname = usePathname();
-  const settingsActive = pathname === "/settings";
-
   return (
     <nav
       aria-label="Primary navigation"
@@ -35,19 +32,7 @@ export function MobileNav() {
           </Link>
         );
       })}
-      <Link
-        href="/settings"
-        aria-current={settingsActive ? "page" : undefined}
-        aria-label="Settings"
-        title="Settings"
-        className={
-          settingsActive
-            ? "mobile-nav-item mobile-nav-settings is-active"
-            : "mobile-nav-item mobile-nav-settings"
-        }
-      >
-        <SettingsIcon />
-      </Link>
+
     </nav>
   );
 }
