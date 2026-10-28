@@ -1,53 +1,35 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { SettingsIcon } from "@/components/settings-icon";
+import { usePathname, useSearchParams } from "next/navigation";
 
 const items = [
   { href: "/dashboard", label: "Today" },
+  { href: "/dashboard?view=proof", label: "Proof" },
   { href: "/planning", label: "Plan" },
-  { href: "/profile", label: "Proof" },
-  { href: "/opportunities", label: "Opportunities" },
+  { href: "/dashboard?view=connections", label: "Connections" },
   { href: "/subscription", label: "Plus" },
 ];
 
 export function MobileNav() {
   const pathname = usePathname();
-  const settingsActive = pathname === "/settings";
+  const searchParams = useSearchParams();
+  const view = searchParams.get("view") ?? "";
 
   return (
-    <nav
-      aria-label="Primary navigation"
-      className="mobile-nav lg:hidden"
-    >
+    <nav aria-label="Primary navigation" className="mobile-nav lg:hidden">
       {items.map((item) => {
-        const active = pathname === item.href;
-
+        const active = item.href === "/dashboard"
+          ? pathname === "/dashboard" && !view
+          : item.href.startsWith("/dashboard?")
+            ? pathname === "/dashboard" && view === new URLSearchParams(item.href.split("?")[1]).get("view")
+            : pathname === item.href;
         return (
-          <Link
-            key={item.href}
-            href={item.href}
-            aria-current={active ? "page" : undefined}
-            className={active ? "mobile-nav-item is-active" : "mobile-nav-item"}
-          >
+          <Link key={item.label} href={item.href} aria-current={active ? "page" : undefined} className={active ? "mobile-nav-item is-active" : "mobile-nav-item"}>
             {item.label}
           </Link>
         );
       })}
-      <Link
-        href="/settings"
-        aria-current={settingsActive ? "page" : undefined}
-        aria-label="Settings"
-        title="Settings"
-        className={
-          settingsActive
-            ? "mobile-nav-item mobile-nav-settings is-active"
-            : "mobile-nav-item mobile-nav-settings"
-        }
-      >
-        <SettingsIcon />
-      </Link>
     </nav>
   );
 }

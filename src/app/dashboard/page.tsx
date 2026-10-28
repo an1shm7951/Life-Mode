@@ -2,10 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import { MobileNav } from "@/components/mobile-nav";
-import { SettingsIcon } from "@/components/settings-icon";
 import { AmbientScene } from "@/components/ambient-scene";
 import type { AiBuddyResponse, ConnectionIntent, LifeMode, LifeModeId, Opportunity } from "@/lib/lifemode/types";
 import {
@@ -41,12 +40,12 @@ type AppState = {
   buddyHistory: AiBuddyHistoryRow[];
 };
 
-type DashboardView = "today" | "proof" | "grow";
+type DashboardView = "today" | "proof" | "connections";
 
 const dashboardViews: { id: DashboardView; label: string; description: string }[] = [
   { id: "today", label: "Today", description: "Choose a small goal and make a little progress." },
   { id: "proof", label: "Proof", description: "Save what you have done and choose who may connect with you." },
-  { id: "grow", label: "Grow", description: "Keep track of opportunities and make a plan with AI Buddy." },
+  { id: "connections", label: "Connections", description: "Choose how you want to connect with people on LifeMode." },
 ];
 
 const defaultState: AppState = {
@@ -70,6 +69,7 @@ const connectionIntents: { label: string; value: ConnectionIntent }[] = [
 
 export default function DashboardPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [displayName, setDisplayName] = useState("");
   const [userId, setUserId] = useState("");
   const [modes, setModes] = useState<LifeMode[]>([]);
@@ -93,11 +93,18 @@ export default function DashboardPage() {
   const [isBuddyLoading, setIsBuddyLoading] = useState(false);
   const [dashboardView, setDashboardView] = useState<DashboardView>("today");
 
+  useEffect(() => {
+    const view = searchParams.get("view");
+    setDashboardView(view === "proof" || view === "connections" ? view : "today");
+  }, [searchParams]);
+
   const activeModeData = useMemo(
     () => modes.find((mode) => mode.id === state.activeMode),
     [state.activeMode, modes],
   );
-  const modeGoals = state.goals.filter((goal) => goal.mode === state.activeMode);
+  const modeGoals = state.goals.filter((goal) => goal.mode === state.activeMode && goal.goal_type === "daily");
+  const shortTermGoals = state.goals.filter((goal) => goal.mode === state.activeMode && goal.goal_type === "short_term");
+  const longTermGoals = state.goals.filter((goal) => goal.mode === state.activeMode && goal.goal_type === "long_term");
   const completedGoals = modeGoals.filter((goal) => goal.done).length;
   const dailyProgress = modeGoals.length
     ? Math.round((completedGoals / modeGoals.length) * 100)
@@ -631,16 +638,10 @@ export default function DashboardPage() {
             <Link href="/profile" className="nav-button">
               Profile
             </Link>
-            <Link href="/opportunities" className="nav-button">
-              Opportunities
-            </Link>
-            <Link href="/subscription" className="nav-button">
-              Plus
-            </Link>
-            <Link href="/settings" className="nav-button gap-2">
-              <SettingsIcon />
-              Settings
-            </Link>
+
+            <Link href="/planning" className="nav-button">Plan</Link>
+            <Link href="/subscription" className="nav-button">Plus</Link>
+
             <select
               aria-label="Choose your mode"
               value={state.activeMode}
@@ -907,7 +908,19 @@ export default function DashboardPage() {
               Add goal
             </button>
           </div>
-          <button
+                    <div className="mt-7 grid gap-4 sm:grid-cols-2">
+            <section className="rounded-xl border border-[#dfd8c8] bg-white/70 p-4">
+              <h3 className="text-lg font-semibold">Short-term goals</h3><p className="mt-2 text-sm text-[#5f5a50]">Goals for the next few days or weeks.</p>
+              <div className="mt-3 grid gap-2">{shortTermGoals.map(goal => <div key={goal.id} className="flex items-center gap-2 rounded-lg border border-[#dfd8c8] bg-[#fffdf8] p-3"><input type="checkbox" checked={goal.done} onChange={() => toggleGoal(goal.id)} aria-label={`Complete ${goal.title}`} className="h-4 w-4"/><span className={goal.done ? "min-w-0 flex-1 text-sm line-through" : "min-w-0 flex-1 text-sm"}>{goal.title}</span><button onClick={() => deleteGoal(goal.id)} className="text-xs text-[#7b3f2a]">Delete</button></div>)}{!shortTermGoals.length && <p className="text-sm text-[#77756d]">No short-term goals yet.</p>}</div>
+              <Link href="/goals/short-term" className="mt-3 inline-flex text-sm font-semibold text-[#315260]">Add a short-term goal ↗</Link>
+            </section>
+            <section className="rounded-xl border border-[#dfd8c8] bg-white/70 p-4">
+              <h3 className="text-lg font-semibold">Long-term goals</h3><p className="mt-2 text-sm text-[#5f5a50]">Goals you are building toward over months or years.</p>
+              <div className="mt-3 grid gap-2">{longTermGoals.map(goal => <div key={goal.id} className="flex items-center gap-2 rounded-lg border border-[#dfd8c8] bg-[#fffdf8] p-3"><input type="checkbox" checked={goal.done} onChange={() => toggleGoal(goal.id)} aria-label={`Complete ${goal.title}`} className="h-4 w-4"/><span className={goal.done ? "min-w-0 flex-1 text-sm line-through" : "min-w-0 flex-1 text-sm"}>{goal.title}</span><button onClick={() => deleteGoal(goal.id)} className="text-xs text-[#7b3f2a]">Delete</button></div>)}{!longTermGoals.length && <p className="text-sm text-[#77756d]">No long-term goals yet.</p>}</div>
+              <Link href="/goals/long-term" className="mt-3 inline-flex text-sm font-semibold text-[#315260]">Add a long-term goal ↗</Link>
+            </section>
+          </div>
+<button
             onClick={clearCompletedGoals}
             className="mt-3 h-10 rounded-lg border border-[#c8beaa] bg-white px-4 text-sm font-semibold text-[#181713]"
           >
@@ -986,7 +999,15 @@ export default function DashboardPage() {
           </div>
         </Panel>
 
-        <Panel title="Who can connect?" eyebrow="Your privacy">
+
+      </section>
+      </div>
+      ) : null}
+
+      {dashboardView === "connections" ? (
+        <div className="dashboard-view-stage" key={dashboardView}>
+          <section className="dashboard-content-grid mx-auto grid max-w-3xl gap-5 px-5 pb-12 sm:px-8">
+                    <Panel title="Your connections" eyebrow="Your privacy">
           <p className="mb-4 text-sm leading-6 text-[#5f5a50]">Choose the kinds of connections you may be open to. Keep it private if you prefer.</p>
           <div className="grid gap-3">
             {connectionIntents.map((intent) => (
@@ -1030,140 +1051,8 @@ export default function DashboardPage() {
               "Choose a connection type to check the mode's safety rule."}
           </p>
         </Panel>
-      </section>
-      </div>
-      ) : null}
-
-      {dashboardView === "grow" ? (
-      <div className="dashboard-view-stage" key={dashboardView}>
-      <section className="dashboard-content-grid dashboard-last-grid mx-auto grid max-w-7xl gap-5 px-5 pb-12 sm:px-8 lg:grid-cols-2">
-        <Panel title="Opportunities" eyebrow="Things to explore">
-          <div className="grid gap-3">
-            {opportunities.length ? opportunities.map((opportunity) => {
-              const saved = savedOpportunityIds.includes(opportunity.id);
-              const applied = appliedOpportunityIds.includes(opportunity.id);
-
-              return (
-                <article
-                  key={opportunity.id}
-                  className="glass-card rounded-lg border border-[#dfd8c8] bg-[#fffdf8] p-4"
-                >
-                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#7b3f2a]">
-                    {opportunity.type.replace("_", " ")}
-                  </p>
-                  <h2 className="mt-2 text-lg font-semibold">
-                    {opportunity.title}
-                  </h2>
-                  <p className="mt-1 text-sm text-[#5f5a50]">
-                    {opportunity.organization} - {opportunity.location}
-                  </p>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {opportunity.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-md border border-[#dfd8c8] bg-white px-2 py-1 text-xs font-medium"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="mt-4 flex flex-col gap-2 sm:flex-row">
-                    <button
-                      onClick={() => toggleOpportunity(opportunity.id, "saved")}
-                      className={`h-10 rounded-lg px-4 text-sm font-semibold ${
-                        saved
-                          ? "bg-[#e7f0dd] text-[#315b36]"
-                          : "border border-[#c8beaa] bg-white text-[#181713]"
-                      }`}
-                    >
-                      {saved ? "Saved" : "Save"}
-                    </button>
-                    <button
-                      onClick={() => toggleOpportunity(opportunity.id, "applied")}
-                      className={`h-10 rounded-lg px-4 text-sm font-semibold ${
-                        applied
-                          ? "bg-[#181713] text-white"
-                          : "border border-[#c8beaa] bg-white text-[#181713]"
-                      }`}
-                    >
-                      {applied ? "Applied" : "Mark applied"}
-                    </button>
-                    <button
-                      onClick={() => createGoalFromOpportunity(opportunity)}
-                      className="h-10 rounded-lg border border-[#c8beaa] bg-white px-4 text-sm font-semibold text-[#181713]"
-                    >
-                      Add goal
-                    </button>
-                  </div>
-                </article>
-              );
-            }) : (
-              <p className="rounded-lg border border-[#dfd8c8] bg-[#fffdf8] p-4 text-sm leading-6 text-[#5f5a50]">
-                There are no opportunities for this mode yet. Try another mode, or check back later.
-              </p>
-            )}
-          </div>
-        </Panel>
-
-        <Panel title="AI Buddy" eyebrow="Your planning pal">
-          <p className="mb-3 rounded-lg border border-[#d8c49c] bg-[#fff8e6] p-3 text-sm leading-6 text-[#6a4a13]">
-            AI Buddy is still in preview. Don&apos;t share passwords or private
-            or sensitive details.
-          </p>
-          <div className="rounded-lg border border-[#dfd8c8] bg-[#fffdf8] p-3">
-            <textarea
-              value={buddyMessage}
-              onChange={(event) => setBuddyMessage(event.target.value)}
-              onKeyDown={(event) => {
-                if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
-                  createBuddyPlan();
-                }
-              }}
-              placeholder="What would you like help planning today?"
-              rows={4}
-              className="min-h-28 w-full resize-none bg-transparent text-sm leading-6 outline-none placeholder:text-[#8f8778]"
-            />
-            <button
-              onClick={createBuddyPlan}
-              disabled={isBuddyLoading || !buddyMessage.trim()}
-              className="mt-3 h-11 w-full rounded-lg bg-[#181713] px-5 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-[#8f8778]"
-            >
-              {isBuddyLoading ? "Thinking..." : "Send to AI Buddy"}
-            </button>
-          </div>
-          <div className="mt-4 flex max-h-[520px] flex-col-reverse gap-4 overflow-y-auto pr-1">
-            {state.buddyHistory.length ? (
-              state.buddyHistory.map((plan) => (
-                <article key={plan.id} className="grid gap-3">
-                  <div className="ml-auto max-w-[86%] rounded-lg bg-[#181713] px-4 py-3 text-white">
-                    <p className="text-sm leading-6">{plan.prompt}</p>
-                    <span className="mt-2 block text-right text-xs text-[#d8d1c2]">
-                      {formatDateTime(plan.created_at)}
-                    </span>
-                  </div>
-                  <div className="mr-auto max-w-[92%] rounded-lg border border-[#dfd8c8] bg-white px-4 py-3 shadow-sm">
-                    <div className="mb-2 flex items-center justify-between gap-3">
-                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#7b3f2a]">
-                        {plan.buddy_mode}
-                      </p>
-                    </div>
-                    <p className="text-sm leading-6 text-[#5f5a50]">
-                      {plan.message}
-                    </p>
-                  </div>
-                </article>
-              ))
-            ) : (
-              <p className="rounded-lg border border-[#dfd8c8] bg-[#fffdf8] p-4 text-sm text-[#5f5a50]">
-                Start a private conversation with AI Buddy. It can help you
-                plan, reflect, practice, or get unstuck in the mode you are
-                using.
-              </p>
-            )}
-          </div>
-        </Panel>
-      </section>
-      </div>
+          </section>
+        </div>
       ) : null}
       <MobileNav />
     </main>
