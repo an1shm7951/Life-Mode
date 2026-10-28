@@ -6,6 +6,7 @@ import { SettingsIcon } from "@/components/settings-icon";
 
 const items = [
   { href: "/dashboard", label: "Today" },
+  { href: "/planning", label: "Plan" },
   { href: "/profile", label: "Proof" },
   { href: "/opportunities", label: "Opportunities" },
   { href: "/subscription", label: "Plus" },
