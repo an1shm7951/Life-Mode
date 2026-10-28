@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 
 const items = [
   { href: "/dashboard", label: "Today" },
@@ -14,13 +13,8 @@ const items = [
 
 export function MobileNav() {
   const pathname = usePathname();
-  const [view, setView] = useState("");
-  useEffect(() => {
-    const syncView = () => setView(new URLSearchParams(window.location.search).get("view") ?? "");
-    syncView();
-    window.addEventListener("popstate", syncView);
-    return () => window.removeEventListener("popstate", syncView);
-  }, [pathname]);
+  const searchParams = useSearchParams();
+  const view = searchParams.get("view") ?? "";
 
   return (
     <nav aria-label="Primary navigation" className="mobile-nav lg:hidden">
