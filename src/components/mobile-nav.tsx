@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Suspense } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
 const items = [
@@ -12,6 +13,14 @@ const items = [
 ];
 
 export function MobileNav() {
+  return (
+    <Suspense fallback={<nav aria-label="Primary navigation" className="mobile-nav lg:hidden">{items.map(item => <Link key={item.label} href={item.href} className="mobile-nav-item">{item.label}</Link>)}</nav>}>
+      <MobileNavContent />
+    </Suspense>
+  );
+}
+
+function MobileNavContent() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const view = searchParams.get("view") ?? "";
