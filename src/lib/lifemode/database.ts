@@ -14,6 +14,7 @@ export type GoalRow = {
   user_id: string;
   mode: LifeModeId;
   title: string;
+  goal_type: GoalType;
   done: boolean;
   due_date: string | null;
   created_at: string;
