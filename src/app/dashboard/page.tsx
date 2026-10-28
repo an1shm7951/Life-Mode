@@ -5,7 +5,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import { MobileNav } from "@/components/mobile-nav";
-import { SettingsIcon } from "@/components/settings-icon";
 import { AmbientScene } from "@/components/ambient-scene";
 import type { AiBuddyResponse, ConnectionIntent, LifeMode, LifeModeId, Opportunity } from "@/lib/lifemode/types";
 import {
@@ -98,6 +97,8 @@ export default function DashboardPage() {
     [state.activeMode, modes],
   );
   const modeGoals = state.goals.filter((goal) => goal.mode === state.activeMode && goal.goal_type === "daily");
+  const shortTermGoals = state.goals.filter((goal) => goal.mode === state.activeMode && goal.goal_type === "short_term");
+  const longTermGoals = state.goals.filter((goal) => goal.mode === state.activeMode && goal.goal_type === "long_term");
   const completedGoals = modeGoals.filter((goal) => goal.done).length;
   const dailyProgress = modeGoals.length
     ? Math.round((completedGoals / modeGoals.length) * 100)
@@ -631,16 +632,10 @@ export default function DashboardPage() {
             <Link href="/profile" className="nav-button">
               Profile
             </Link>
-            <Link href="/goals/daily" className="nav-button">Daily goals</Link>
-            <Link href="/goals/short-term" className="nav-button">Short-term</Link>
-            <Link href="/goals/long-term" className="nav-button">Long-term</Link>
-            <Link href="/subscription" className="nav-button">
-              Plus
-            </Link>
-            <Link href="/settings" className="nav-button gap-2">
-              <SettingsIcon />
-              Settings
-            </Link>
+
+            <Link href="/planning" className="nav-button">Plan</Link>
+            <Link href="/subscription" className="nav-button">Plus</Link>
+
             <select
               aria-label="Choose your mode"
               value={state.activeMode}
@@ -907,7 +902,19 @@ export default function DashboardPage() {
               Add goal
             </button>
           </div>
-          <button
+                    <div className="mt-7 grid gap-4 sm:grid-cols-2">
+            <section className="rounded-xl border border-[#dfd8c8] bg-white/70 p-4">
+              <h3 className="text-lg font-semibold">Short-term goals</h3><p className="mt-2 text-sm text-[#5f5a50]">Goals for the next few days or weeks.</p>
+              <div className="mt-3 grid gap-2">{shortTermGoals.map(goal => <div key={goal.id} className="flex items-center gap-2 rounded-lg border border-[#dfd8c8] bg-[#fffdf8] p-3"><input type="checkbox" checked={goal.done} onChange={() => toggleGoal(goal.id)} aria-label={`Complete ${goal.title}`} className="h-4 w-4"/><span className={goal.done ? "min-w-0 flex-1 text-sm line-through" : "min-w-0 flex-1 text-sm"}>{goal.title}</span><button onClick={() => deleteGoal(goal.id)} className="text-xs text-[#7b3f2a]">Delete</button></div>)}{!shortTermGoals.length && <p className="text-sm text-[#77756d]">No short-term goals yet.</p>}</div>
+              <Link href="/goals/short-term" className="mt-3 inline-flex text-sm font-semibold text-[#315260]">Add a short-term goal ↗</Link>
+            </section>
+            <section className="rounded-xl border border-[#dfd8c8] bg-white/70 p-4">
+              <h3 className="text-lg font-semibold">Long-term goals</h3><p className="mt-2 text-sm text-[#5f5a50]">Goals you are building toward over months or years.</p>
+              <div className="mt-3 grid gap-2">{longTermGoals.map(goal => <div key={goal.id} className="flex items-center gap-2 rounded-lg border border-[#dfd8c8] bg-[#fffdf8] p-3"><input type="checkbox" checked={goal.done} onChange={() => toggleGoal(goal.id)} aria-label={`Complete ${goal.title}`} className="h-4 w-4"/><span className={goal.done ? "min-w-0 flex-1 text-sm line-through" : "min-w-0 flex-1 text-sm"}>{goal.title}</span><button onClick={() => deleteGoal(goal.id)} className="text-xs text-[#7b3f2a]">Delete</button></div>)}{!longTermGoals.length && <p className="text-sm text-[#77756d]">No long-term goals yet.</p>}</div>
+              <Link href="/goals/long-term" className="mt-3 inline-flex text-sm font-semibold text-[#315260]">Add a long-term goal ↗</Link>
+            </section>
+          </div>
+<button
             onClick={clearCompletedGoals}
             className="mt-3 h-10 rounded-lg border border-[#c8beaa] bg-white px-4 text-sm font-semibold text-[#181713]"
           >
