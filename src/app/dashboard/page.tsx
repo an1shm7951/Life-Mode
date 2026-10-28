@@ -97,7 +97,7 @@ export default function DashboardPage() {
     () => modes.find((mode) => mode.id === state.activeMode),
     [state.activeMode, modes],
   );
-  const modeGoals = state.goals.filter((goal) => goal.mode === state.activeMode);
+  const modeGoals = state.goals.filter((goal) => goal.mode === state.activeMode && goal.goal_type === "daily");
   const completedGoals = modeGoals.filter((goal) => goal.done).length;
   const dailyProgress = modeGoals.length
     ? Math.round((completedGoals / modeGoals.length) * 100)
