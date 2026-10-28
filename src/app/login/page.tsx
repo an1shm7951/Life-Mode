@@ -8,6 +8,11 @@ import { AuthStory } from "@/components/auth-story";
 
 type OAuthProvider = "google" | "apple" | "facebook";
 
+function destinationAfterLogin() {
+  const next = new URLSearchParams(window.location.search).get("next");
+  return next && next.startsWith("/") && !next.startsWith("//") ? next : "/dashboard";
+}
+
 const oauthProviders: { label: string; provider: OAuthProvider }[] = [
   { label: "Continue with Google", provider: "google" },
   { label: "Continue with Apple", provider: "apple" },
@@ -21,11 +26,6 @@ export default function LoginPage() {
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [oauthLoading, setOauthLoading] = useState<OAuthProvider | null>(null);
-
-  function destinationAfterLogin() {
-    const next = new URLSearchParams(window.location.search).get("next");
-    return next && next.startsWith("/") && !next.startsWith("//") ? next : "/dashboard";
-  }
 
   useEffect(() => {
     let active = true;
