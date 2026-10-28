@@ -65,12 +65,20 @@ export type RespectLock = {
   createdAt: string;
 };
 
+export type SavedGoalContext = {
+  mode: LifeModeId;
+  title: string;
+  done: boolean;
+  due_date: string | null;
+};
+
 export type AiBuddyRequest = {
   userId: string;
   mode: LifeModeId;
   goal: string;
   mood?: string;
   history?: AiBuddyChatMessage[];
+  savedGoals?: SavedGoalContext[];
 };
 
 export type AiBuddyChatMessage = {

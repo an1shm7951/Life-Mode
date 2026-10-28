@@ -81,6 +81,41 @@ export async function POST(request: NextRequest) {
 
   requestLog.set(authentication.user.id, [...recentRequests, now]);
 
+  const { data: savedGoals, error: goalsError } = await authentication.client
+    .from("goals")
+    .select("mode, title, done, due_date")
+    .eq("user_id", authentication.user.id)
+    .order("created_at", { ascending: true })
+    .limit(100);
+
+  if (goalsError) {
+    return NextResponse.json(
+      { error: "AI Buddy could not load your saved goals. Please try again." },
+      { status: 503, headers: { "Cache-Control": "no-store" } },
+    );
+  }
+
+  const asksForGoalList =
+    /\b(what|which|show|list|where)\b.{0,50}\b(my|saved|the)\b.{0,25}\b(goals?|targets?)\b/i.test(goal) ||
+    /\b(goals?|targets?)\b.{0,35}\b(i|we)\s+(added|saved|created|set)\b/i.test(goal);
+
+  if (asksForGoalList) {
+    const message = savedGoals?.length
+      ? `Here are the goals you have saved:\n\n${savedGoals
+          .map((item, index) => {
+            const status = item.done ? "Completed" : "In progress";
+            const dueDate = item.due_date ? ` · Due ${item.due_date}` : "";
+            return `${index + 1}. ${item.title} — ${item.mode} · ${status}${dueDate}`;
+          })
+          .join("\n")}`
+      : "I couldn't find any saved goals on your account yet. If you just added one, try refreshing the dashboard and I'll check again.";
+
+    return NextResponse.json(
+      { plan: { buddyMode: "AI Buddy", message, nextActions: [] } },
+      { headers: { "Cache-Control": "no-store" } },
+    );
+  }
+
   try {
     const plan = await createAiBuddyReply({
       userId: authentication.user.id,
@@ -88,6 +123,7 @@ export async function POST(request: NextRequest) {
       goal,
       mood: typeof body.mood === "string" ? body.mood.slice(0, 100) : undefined,
       history,
+      savedGoals: savedGoals ?? [],
     });
 
     return NextResponse.json(
