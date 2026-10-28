@@ -7,6 +7,8 @@ import type {
   OpportunityType,
 } from "./types";
 
+export type GoalType = "daily" | "short_term" | "long_term";
+
 export type GoalRow = {
   id: string;
   user_id: string;
@@ -217,10 +219,15 @@ export async function fetchGoals(userId: string) {
   return data;
 }
 
-export async function createGoal(userId: string, mode: LifeModeId, title: string) {
+export async function createGoal(
+  userId: string,
+  mode: LifeModeId,
+  title: string,
+  goalType: GoalType = "daily",
+) {
   const { data, error } = await supabase
     .from("goals")
-    .insert({ user_id: userId, mode, title })
+    .insert({ user_id: userId, mode, title, goal_type: goalType })
     .select("*")
     .single<GoalRow>();
 
