@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Suspense } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
@@ -67,7 +68,7 @@ const connectionIntents: { label: string; value: ConnectionIntent }[] = [
   { label: "Dating", value: "dating" },
 ];
 
-export default function DashboardPage() {
+function DashboardContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [displayName, setDisplayName] = useState("");
@@ -1056,6 +1057,14 @@ export default function DashboardPage() {
       ) : null}
       <MobileNav />
     </main>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={<main className="min-h-screen bg-[#f7f4ec] px-5 py-10 text-[#5f5a50]">Loading LifeMode…</main>}>
+      <DashboardContent />
+    </Suspense>
   );
 }
 
