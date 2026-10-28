@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
 import { AuthStory } from "@/components/auth-story";
 
@@ -22,6 +22,20 @@ export default function LoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [oauthLoading, setOauthLoading] = useState<OAuthProvider | null>(null);
 
+  function destinationAfterLogin() {
+    const next = new URLSearchParams(window.location.search).get("next");
+    return next && next.startsWith("/") && !next.startsWith("//") ? next : "/dashboard";
+  }
+
+  useEffect(() => {
+    let active = true;
+    const destination = destinationAfterLogin();
+    void supabase.auth.getSession().then(({ data: { session } }) => {
+      if (active && session) router.replace(destination);
+    });
+    return () => { active = false; };
+  }, [router]);
+
   async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setMessage("");
@@ -35,7 +49,7 @@ export default function LoginPage() {
       return;
     }
 
-    router.push("/dashboard");
+    router.replace(destinationAfterLogin());
   }
 
   async function handleOAuth(provider: OAuthProvider) {
