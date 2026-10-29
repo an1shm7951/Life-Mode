@@ -153,7 +153,7 @@ export default function DiscoverPage() {
                 <p className="mt-2 text-xs text-[#77756d]">Via {story.source} · {story.score} points · {story.comments} comments</p>
                 <div className="mt-auto pt-5 text-sm font-semibold">
                   <Link href={`/discover/${story.id}`} className="inline-flex items-center rounded-full bg-[#181713] px-4 py-2.5 text-white transition hover:bg-[#38362e]">Read in LifeMode <span className="ml-2" aria-hidden="true">→</span></Link>
-                </div>          </div>
+                </div>
               </article>
             ))}
           </div>
