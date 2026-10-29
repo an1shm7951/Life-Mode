@@ -11,6 +11,8 @@ type HackerNewsItem = {
   time?: number;
   descendants?: number;
   type?: string;
+  deleted?: boolean;
+  dead?: boolean;
 };
 
 type StoryCategory = "AI & Tech" | "Science" | "Ideas";
