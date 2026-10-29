@@ -3676,3 +3676,70 @@ main:not(.auth-experience) a[class*="bg-rose-"]:hover {
   background-color: #e9eee3 !important;
   border-color: #91a584 !important;
 }
+
+
+/* Final no-blue guarantee: normalize legacy blue/navy/purple utility classes app-wide. */
+:root {
+  --background: #f7f6ef;
+  --foreground: #20291f;
+  --accent: #263d2b;
+  --accent-deep: #1c2f20;
+  --lm-forest: #263d2b;
+  --lm-forest-hover: #355239;
+  --lm-gold: #d7ad54;
+  --lm-gold-hover: #c49638;
+  --lm-red: #b9433e;
+  --lm-red-hover: #9f332f;
+  --glass-border: rgba(38,61,43,.16);
+}
+html, body {
+  background-color: #f7f6ef !important;
+}
+body {
+  background:
+    radial-gradient(ellipse at 8% 2%, rgba(174,190,151,.22), transparent 34rem),
+    radial-gradient(ellipse at 94% 12%, rgba(215,173,84,.13), transparent 32rem),
+    radial-gradient(ellipse at 76% 88%, rgba(174,190,151,.15), transparent 36rem),
+    linear-gradient(145deg,#fbfaf5 0%,#f2f2e9 50%,#f8f6ed 100%) !important;
+}
+/* Blue/navy/purple solid actions become gold; red destructive actions remain red. */
+button[class*="bg-blue-"], button[class*="bg-sky-"], button[class*="bg-indigo-"],
+button[class*="bg-cyan-"], button[class*="bg-violet-"], button[class*="bg-purple-"],
+a[class*="bg-blue-"], a[class*="bg-sky-"], a[class*="bg-indigo-"],
+a[class*="bg-cyan-"], a[class*="bg-violet-"], a[class*="bg-purple-"],
+[role="button"][class*="bg-blue-"], [role="button"][class*="bg-sky-"],
+[role="button"][class*="bg-indigo-"], [role="button"][class*="bg-cyan-"],
+[role="button"][class*="bg-violet-"], [role="button"][class*="bg-purple-"] {
+  background: #d7ad54 !important;
+  background-color: #d7ad54 !important;
+  border-color: #d7ad54 !important;
+  color: #20291f !important;
+}
+button[class*="bg-blue-"]:hover, button[class*="bg-sky-"]:hover,
+button[class*="bg-indigo-"]:hover, button[class*="bg-cyan-"]:hover,
+button[class*="bg-violet-"]:hover, button[class*="bg-purple-"]:hover,
+a[class*="bg-blue-"]:hover, a[class*="bg-sky-"]:hover,
+a[class*="bg-indigo-"]:hover, a[class*="bg-cyan-"]:hover,
+a[class*="bg-violet-"]:hover, a[class*="bg-purple-"]:hover {
+  background: #c49638 !important;
+  background-color: #c49638 !important;
+  border-color: #c49638 !important;
+}
+/* Links, outlines, focus rings, and selected states use forest green, never blue. */
+a[class*="text-blue-"], a[class*="text-sky-"], a[class*="text-indigo-"],
+a[class*="text-cyan-"], a[class*="text-violet-"], a[class*="text-purple-"],
+[class*="text-blue-"], [class*="text-sky-"], [class*="text-indigo-"],
+[class*="text-cyan-"], [class*="text-violet-"], [class*="text-purple-"] {
+  color: #263d2b !important;
+}
+[class*="border-blue-"], [class*="border-sky-"], [class*="border-indigo-"],
+[class*="border-cyan-"], [class*="border-violet-"], [class*="border-purple-"] {
+  border-color: #9aaa8d !important;
+}
+[class*="ring-blue-"], [class*="ring-sky-"], [class*="ring-indigo-"],
+[class*="ring-cyan-"], [class*="ring-violet-"], [class*="ring-purple-"] {
+  --tw-ring-color: rgba(120,146,100,.4) !important;
+}
+input, select, textarea, button {
+  accent-color: #263d2b;
+}
