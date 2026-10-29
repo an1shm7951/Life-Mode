@@ -22,7 +22,7 @@ function categoryFor(title: string): StoryCategory {
   if (/science|space|nasa|biology|physics|climate|planet|research|discovery|health|nature|quantum|robot/.test(value)) {
     return "Science";
   }
-  if (/ai|machine learning|llm|software|programming|developer|open source|chip|computer|startup|security|internet|robotics|coding|github|database|browser|app/.test(value)) {
+  if (/ai|machine learning|llm|software|programming|developer|open source|chip|computer|startup|security|internet|robotics|coding|github|database|browser|app\b/.test(value)) {
     return "AI & Tech";
   }
   return "Ideas";
