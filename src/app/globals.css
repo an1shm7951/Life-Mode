@@ -4273,3 +4273,14 @@ html[data-theme="light"] .mobile-nav-item.is-active { background: #355239 !impor
 @keyframes lm-star-drift{from{background-position:7px 15px,29px 43px}to{background-position:7px 150px,29px 220px}}@keyframes lm-drop-glow{from{filter:brightness(.88)}to{filter:brightness(1.25)}}@keyframes lm-ship-bob{from{margin-bottom:0}to{margin-bottom:5px}}
 @media(max-width:480px){.lm-orbit-scene{height:390px}.lm-orbit-player{width:48px;height:48px}.lm-orbit-player span{font-size:27px}.lm-orbit-player i{top:41px}.lm-orbit-controls{grid-template-columns:52px 1fr 52px;gap:8px}.lm-orbit-controls>button{height:51px}.lm-orbit-legend{font-size:9px;gap:12px}.lm-orbit-hero h1{font-size:65px}}
 @media(prefers-reduced-motion:reduce){.lm-orbit-scene:before,.lm-orbit-drop,.lm-orbit-scene.is-running .lm-orbit-player{animation:none!important}}
+
+/* Orbit Dash polish: touch lanes, shields, combos, and pause states */
+.lm-orbit-lane{appearance:none;-webkit-appearance:none;padding:0;margin:0;min-width:0;cursor:pointer;outline-offset:-4px}
+.lm-orbit-lane:focus-visible{outline:2px solid #e8d39a}
+.lm-orbit-controls>button:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.lm-orbit-drop.shield{color:#a9e3c0;font-size:clamp(28px,4.2vw,39px);text-shadow:0 0 22px rgba(126,241,180,.8);animation:lm-shield-pulse .75s ease-in-out infinite alternate}
+.lm-orbit-mission{display:flex;align-items:flex-start;gap:16px;padding:18px 20px;border:1px solid rgba(215,173,84,.18);border-radius:8px;background:linear-gradient(110deg,rgba(215,173,84,.07),rgba(255,255,255,.015));margin-top:22px}
+.lm-orbit-mission>span{white-space:nowrap;font-size:8px;letter-spacing:.17em;color:#d7ad54;padding-top:3px}
+.lm-orbit-mission p{font-size:11px;line-height:1.8;color:#aeb7a8}.lm-orbit-mission strong{color:#e7d4a0;font-weight:500}
+@keyframes lm-shield-pulse{from{filter:brightness(.9);transform:translate(-50%,-50%) scale(.9)}to{filter:brightness(1.4);transform:translate(-50%,-50%) scale(1.12)}}
+@media(max-width:480px){.lm-orbit-mission{padding:15px;gap:10px}.lm-orbit-mission p{font-size:10px}}
