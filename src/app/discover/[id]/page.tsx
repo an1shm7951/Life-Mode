@@ -43,7 +43,7 @@ export default function DiscoverStoryPage() {
         return;
       }
       try {
-        const response = await fetch(\`/api/discover/\${encodeURIComponent(params.id)}\`, { cache: "no-store" });
+        const response = await fetch("/api/discover/" + encodeURIComponent(params.id), { cache: "no-store" });
         const payload = (await response.json()) as StoryResponse;
         if (!response.ok || !payload.story) throw new Error(payload.error ?? "This story could not be loaded.");
         if (active) {
