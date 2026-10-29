@@ -77,7 +77,7 @@ export default function PlayPage() {
       setDrops([...kept]);
       if (livesRef.current <= 0) {
         runningRef.current = false; setRunning(false); setEnded(true);
-        const finalScore = scoreRef.current + gain;
+        const finalScore = scoreRef.current;
         setBest(previous => {
           const nextBest = Math.max(previous, finalScore);
           try { window.localStorage.setItem("lifemode-orbit-best", String(nextBest)); } catch {}
