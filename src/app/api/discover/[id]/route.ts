@@ -33,7 +33,7 @@ function plainText(value: string | undefined): string {
 }
 
 async function getItem(id: number): Promise<HackerNewsItem | null> {
-  const response = await fetch(\`https://hacker-news.firebaseio.com/v0/item/\${id}.json\`, {
+  const response = await fetch("https://hacker-news.firebaseio.com/v0/item/" + id + ".json",
     next: { revalidate: 900 },
     signal: AbortSignal.timeout(5000),
     headers: { Accept: "application/json" },
