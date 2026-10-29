@@ -88,25 +88,15 @@ export default function DiscoverStoryPage() {
             <p className="mt-4 text-sm text-[#6b665c]">Shared by {story.by} · {relativeTime(story.time)} · {story.score} points</p>
 
             <section className="premium-panel mt-7 rounded-[24px] p-6 sm:p-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#7b3f2a]">The story</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#7b3f2a]">Inside LifeMode</p>
               <p className="mt-3 text-base leading-7 text-[#39372f]">
-                The article is displayed here when its publisher allows in-app embedding. Some publishers block this, so we also keep the story details and public conversation available in LifeMode.
+                This is the in-app reading view for this discovery. The headline and community discussion are shown here, without opening another website or embedding a third-party page.
               </p>
-              {story.url ? (
-                <iframe
-                  src={story.url}
-                  title={`Article: ${story.title}`}
-                  className="mt-5 min-h-[65vh] w-full rounded-xl border border-[#d8d1c2] bg-white"
-                  loading="lazy"
-                  referrerPolicy="no-referrer"
-                  sandbox="allow-scripts allow-forms"
-                />
-              ) : null}
-              {story.url ? (
-                <p className="mt-3 text-xs leading-5 text-[#77756d]">
-                  If the publisher blocks the embedded article, its full text cannot be shown inside LifeMode. The story discussion below still works here.
-                </p>
-              ) : null}
+              <div className="mt-5 rounded-xl border border-[#d8d1c2] bg-white/70 p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#7b3f2a]">Source</p>
+                <p className="mt-1 break-words text-sm text-[#39372f]">{story.url ? (() => { try { return new URL(story.url).hostname.replace(/^www\./, ""); } catch { return "Public story feed"; } })() : "Public story feed"}</p>
+                <p className="mt-2 text-xs leading-5 text-[#77756d]">LifeMode keeps the story experience here and credits its source. The publisher’s full article text is not copied into the app.</p>
+              </div>
             </section>
 
             <section className="mt-9">
