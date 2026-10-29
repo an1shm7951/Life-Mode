@@ -110,11 +110,11 @@ export default function DiscoverPage() {
         <div className="premium-panel rounded-[28px] border border-[#2f352d] bg-[#151814] p-6 text-white sm:p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#d6c29d]">Your curiosity feed</p>
           <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight sm:text-4xl">A little inspiration for the life you’re building.</h2>
-          <p className="mt-3 max-w-xl text-sm leading-6 text-[#e2ddcf]">Explore technology, science, and unexpected ideas. Open a story here to read its details and explore the public conversation without leaving LifeMode.</p>
+          <p className="mt-3 max-w-xl text-sm leading-6 text-[#e2ddcf]">Explore technology, science, and unexpected ideas. Discover is its own space for curiosity—your goals and progress remain at the heart of LifeMode.</p>
           <div className="mt-6 flex flex-wrap gap-2">
             <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs">Live links</span>
             <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs">Source credited</span>
-            <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs">No endless scroll</span>
+            <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs">Explore with intention</span>
           </div>
         </div>
         <div className="premium-panel rounded-[28px] p-6 sm:p-7">
