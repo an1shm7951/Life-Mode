@@ -679,7 +679,6 @@ function DashboardContent() {
               Profile
             </Link>
 
-            <Link href="/planning" className="nav-button">Plan</Link>
             <Link href="/subscription" className="nav-button">Plus</Link>
 
             <select
@@ -718,6 +717,24 @@ function DashboardContent() {
             Review your profile
           </Link>
         </div>
+      </section>
+
+      <section aria-label="Explore LifeMode" className="lifemode-launchpad mx-auto grid max-w-7xl grid-cols-1 gap-3 px-5 pt-5 sm:grid-cols-3 sm:px-8 sm:pt-7">
+        <Link href="/discover" className="lifemode-launch-card discover-card group relative flex min-h-40 flex-col justify-between overflow-hidden rounded-2xl border border-[#2f352d] bg-[#151814] p-5 text-white shadow-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7b3f2a] sm:min-h-48 sm:p-6">
+          <span className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.16em] text-[#d6c29d]"><span>01 · Explore</span><span aria-hidden="true" className="text-xl">✳</span></span>
+          <span><span className="block text-2xl font-semibold sm:text-3xl">Discover</span><span className="mt-2 block max-w-xs text-sm leading-5 text-[#ddd5c4]">Fresh ideas, technology, science, and stories worth thinking about.</span></span>
+          <span className="mt-4 text-sm font-semibold text-[#f1d7a5]">Explore stories <span aria-hidden="true">→</span></span>
+        </Link>
+        <Link href="/dashboard#goals" className="lifemode-launch-card goals-card group flex min-h-40 flex-col justify-between rounded-2xl border border-[#d8c49c] bg-[#fff8e8] p-5 shadow-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7b3f2a] sm:min-h-48 sm:p-6">
+          <span className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.16em] text-[#7b3f2a]"><span>02 · Build</span><span aria-hidden="true" className="text-xl">↗</span></span>
+          <span><span className="block text-2xl font-semibold text-[#25221d] sm:text-3xl">Goals</span><span className="mt-2 block max-w-xs text-sm leading-5 text-[#5f5a50]">Turn what matters to you into small, doable steps.</span></span>
+          <span className="mt-4 text-sm font-semibold text-[#7b3f2a]">Work on your goals <span aria-hidden="true">→</span></span>
+        </Link>
+        <Link href="/planning" className="lifemode-launch-card plan-card group flex min-h-40 flex-col justify-between rounded-2xl border border-[#d8d1c2] bg-white p-5 shadow-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7b3f2a] sm:min-h-48 sm:p-6">
+          <span className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.16em] text-[#315260]"><span>03 · Organize</span><span aria-hidden="true" className="text-xl">◷</span></span>
+          <span><span className="block text-2xl font-semibold text-[#25221d] sm:text-3xl">Plan</span><span className="mt-2 block max-w-xs text-sm leading-5 text-[#5f5a50]">Shape your day around routines, time, and priorities.</span></span>
+          <span className="mt-4 text-sm font-semibold text-[#315260]">Open your plan <span aria-hidden="true">→</span></span>
+        </Link>
       </section>
 
       <section className="dashboard-overview mx-auto grid max-w-7xl gap-5 px-5 py-8 sm:px-8 lg:grid-cols-[1.2fr_0.8fr]">
@@ -827,6 +844,38 @@ function DashboardContent() {
       {dashboardView === "today" ? (
       <div className="dashboard-view-stage" key={dashboardView}>
       <section className="dashboard-content-grid mx-auto grid max-w-3xl gap-5 px-5 pb-12 sm:px-8">
+        <Panel title="A moment for you" eyebrow="Daily check-in">
+          <p className="mb-4 text-sm leading-6 text-[#5f5a50]">You don't have to be productive every minute. Take a second to notice how you're feeling.</p>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
+            {[
+              { value: "great", label: "Great", emoji: "☀️" },
+              { value: "good", label: "Good", emoji: "🙂" },
+              { value: "okay", label: "Okay", emoji: "😐" },
+              { value: "low", label: "Low", emoji: "🌧️" },
+              { value: "stressed", label: "Stressed", emoji: "🌊" },
+            ].map((mood) => (
+              <button key={mood.value} type="button" onClick={() => { setCheckinMood(mood.value); setCheckinSaved(false); }} aria-pressed={checkinMood === mood.value}
+                className={`flex flex-col items-center gap-1 rounded-xl border px-3 py-3 text-sm transition ${checkinMood === mood.value ? "border-[#315260] bg-[#e8eeeb] font-semibold text-[#203f42]" : "border-[#dfd8c8] bg-[#fffdf8] hover:border-[#a99e89]"}`}>
+                <span className="text-xl" aria-hidden="true">{mood.emoji}</span>{mood.label}
+              </button>
+            ))}
+          </div>
+          <label className="mt-4 grid gap-2 text-sm font-semibold text-[#25221d]">
+            What would make today a little better? <span className="font-normal text-[#77756d]">(optional)</span>
+            <textarea value={checkinNote} onChange={(event) => { setCheckinNote(event.target.value.slice(0, 240)); setCheckinSaved(false); }}
+              placeholder="A little rest, finishing one task, talking to someone…" rows={2} maxLength={240}
+              className="w-full rounded-lg border border-[#c8beaa] bg-[#fffdf8] px-3 py-2 font-normal outline-none focus:border-[#315260]" />
+          </label>
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            <button type="button" onClick={saveDailyCheckin} disabled={!checkinMood} className="h-10 rounded-lg bg-[#181713] px-4 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50">
+              {checkinSaved ? "Check-in saved" : "Save check-in"}
+            </button>
+            {checkinSaved ? <p role="status" className="text-sm text-[#315260]">Thanks for checking in with yourself. Take today one step at a time.</p> : null}
+          </div>
+          <p className="mt-3 text-xs leading-5 text-[#77756d]">Your check-in stays in this browser on this device for now. It isn't shared on your profile.</p>
+        </Panel>
+
+        <div id="goals" className="scroll-mt-24">
         <Panel title="Today's goals" eyebrow="Your plan">
           <p className="dashboard-goal-guidance mb-4 text-sm leading-6 text-[#5f5a50]">Keep it simple: choose one thing you can finish today.</p>
           <div className="grid gap-3">
@@ -967,37 +1016,9 @@ function DashboardContent() {
             Clear finished goals
           </button>
         </Panel>
+        </div>
 
-              <Panel title="A moment for you" eyebrow="Daily check-in">
-          <p className="mb-4 text-sm leading-6 text-[#5f5a50]">You don't have to be productive every minute. Take a second to notice how you're feeling.</p>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
-            {[
-              { value: "great", label: "Great", emoji: "☀️" },
-              { value: "good", label: "Good", emoji: "🙂" },
-              { value: "okay", label: "Okay", emoji: "😐" },
-              { value: "low", label: "Low", emoji: "🌧️" },
-              { value: "stressed", label: "Stressed", emoji: "🌊" },
-            ].map((mood) => (
-              <button key={mood.value} type="button" onClick={() => { setCheckinMood(mood.value); setCheckinSaved(false); }} aria-pressed={checkinMood === mood.value}
-                className={`flex flex-col items-center gap-1 rounded-xl border px-3 py-3 text-sm transition ${checkinMood === mood.value ? "border-[#315260] bg-[#e8eeeb] font-semibold text-[#203f42]" : "border-[#dfd8c8] bg-[#fffdf8] hover:border-[#a99e89]"}`}>
-                <span className="text-xl" aria-hidden="true">{mood.emoji}</span>{mood.label}
-              </button>
-            ))}
-          </div>
-          <label className="mt-4 grid gap-2 text-sm font-semibold text-[#25221d]">
-            What would make today a little better? <span className="font-normal text-[#77756d]">(optional)</span>
-            <textarea value={checkinNote} onChange={(event) => { setCheckinNote(event.target.value.slice(0, 240)); setCheckinSaved(false); }}
-              placeholder="A little rest, finishing one task, talking to someone…" rows={2} maxLength={240}
-              className="w-full rounded-lg border border-[#c8beaa] bg-[#fffdf8] px-3 py-2 font-normal outline-none focus:border-[#315260]" />
-          </label>
-          <div className="mt-4 flex flex-wrap items-center gap-3">
-            <button type="button" onClick={saveDailyCheckin} disabled={!checkinMood} className="h-10 rounded-lg bg-[#181713] px-4 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50">
-              {checkinSaved ? "Check-in saved" : "Save check-in"}
-            </button>
-            {checkinSaved ? <p role="status" className="text-sm text-[#315260]">Thanks for checking in with yourself. Take today one step at a time.</p> : null}
-          </div>
-          <p className="mt-3 text-xs leading-5 text-[#77756d]">Your check-in stays in this browser on this device for now. It isn't shared on your profile.</p>
-        </Panel>
+              
 
       </section>
       </div>
@@ -1080,6 +1101,7 @@ function DashboardContent() {
           <section className="dashboard-content-grid mx-auto grid max-w-3xl gap-5 px-5 pb-12 sm:px-8">
                     <Panel title="Your connections" eyebrow="Your privacy">
           <p className="mb-4 text-sm leading-6 text-[#5f5a50]">Choose the kinds of connections you may be open to. Keep it private if you prefer.</p>
+          <p className="mb-4 rounded-xl border border-[#d8d1c2] bg-white/70 p-3 text-sm leading-6 text-[#5f5a50]">Dating is an adults-only feature (18+). College email alone does not prove age. This preview does not yet provide dating matches or chat; those need separate age assurance, mutual consent, and block/report safeguards before launch.</p>
           <div className="grid gap-3">
             {connectionIntents.map((intent) => (
               <label

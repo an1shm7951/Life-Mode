@@ -5,8 +5,8 @@ import { Suspense } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
 const items = [
-  { href: "/dashboard", label: "Today" },
-  { href: "/dashboard?view=proof", label: "Proof" },
+  { href: "/discover", label: "Discover" },
+  { href: "/dashboard#goals", label: "Goals" },
   { href: "/planning", label: "Plan" },
   { href: "/dashboard?view=connections", label: "Connections" },
   { href: "/subscription", label: "Plus" },
@@ -28,11 +28,11 @@ function MobileNavContent() {
   return (
     <nav aria-label="Primary navigation" className="mobile-nav lg:hidden">
       {items.map((item) => {
-        const active = item.href === "/dashboard"
-          ? pathname === "/dashboard" && !view
-          : item.href.startsWith("/dashboard?")
-            ? pathname === "/dashboard" && view === new URLSearchParams(item.href.split("?")[1]).get("view")
-            : pathname === item.href;
+        const active = item.href === "/dashboard#goals"
+          ? pathname === "/dashboard" && (!view || view === "today")
+          : item.href === "/dashboard?view=connections"
+            ? pathname === "/dashboard" && view === "connections"
+            : pathname === item.href || (item.href === "/discover" && pathname.startsWith("/discover"));
         return (
           <Link key={item.label} href={item.href} aria-current={active ? "page" : undefined} className={active ? "mobile-nav-item is-active" : "mobile-nav-item"}>
             {item.label}
