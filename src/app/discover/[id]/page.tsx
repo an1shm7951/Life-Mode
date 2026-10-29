@@ -21,9 +21,9 @@ type StoryResponse = { story?: Story; comments?: StoryComment[]; error?: string 
 function relativeTime(timestamp: number) {
   if (!timestamp) return "Recently";
   const minutes = Math.max(0, Math.floor((Date.now() / 1000 - timestamp) / 60));
-  if (minutes < 60) return minutes < 1 ? "Just now" : \`\${minutes}m ago\`;
-  if (minutes < 1440) return \`\${Math.floor(minutes / 60)}h ago\`;
-  return \`\${Math.floor(minutes / 1440)}d ago\`;
+  if (minutes < 60) return minutes < 1 ? "Just now" : `${minutes}m ago`;
+  if (minutes < 1440) return `${Math.floor(minutes / 60)}h ago`;
+  return `${Math.floor(minutes / 1440)}d ago`;
 }
 
 export default function DiscoverStoryPage() {
