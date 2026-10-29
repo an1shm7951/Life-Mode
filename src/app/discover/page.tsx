@@ -40,7 +40,7 @@ const curiosityCards = [
   {
     eyebrow: "Look closer",
     title: "Find one everyday object that is secretly an engineering marvel.",
-    detail: "A zipper, lift, camera, bicycle gear or tap can lead to a surprisingly deep rabbit hole.",
+    detail: "A zipper, lift, camera, bicycle gear or tap can reveal a surprising piece of engineering.",
     tag: "Curiosity",
   },
 ];
@@ -99,8 +99,8 @@ export default function DiscoverPage() {
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-5 sm:px-8">
           <div>
             <Link href="/dashboard" className="text-sm font-semibold uppercase tracking-[0.18em] text-[#7b3f2a]">LifeMode<span className="text-[#7b3f2a]">.</span></Link>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">Discover your next rabbit hole.</h1>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-[#5f5a50]">Fresh ideas from the wider web, useful questions, and little sparks worth following.</p>
+            <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">Discover</h1>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-[#5f5a50]">Stories, ideas, and conversations to inspire the life you’re building.</p>
           </div>
           <Link href="/dashboard" className="nav-button shrink-0">Today</Link>
         </div>
@@ -109,8 +109,8 @@ export default function DiscoverPage() {
       <section className="mx-auto grid max-w-7xl gap-4 px-5 py-7 sm:px-8 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="premium-panel rounded-[28px] border border-[#2f352d] bg-[#151814] p-6 text-white sm:p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#d6c29d]">Your curiosity feed</p>
-          <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight sm:text-4xl">The world is bigger than your to-do list.</h2>
-          <p className="mt-3 max-w-xl text-sm leading-6 text-[#e2ddcf]">Explore technology, science, unexpected ideas and conversations. Save a link by bookmarking it in your browser, or open the original source to go deeper.</p>
+          <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight sm:text-4xl">A little inspiration for the life you’re building.</h2>
+          <p className="mt-3 max-w-xl text-sm leading-6 text-[#e2ddcf]">Explore technology, science, and unexpected ideas. Open a story here to read its details and explore the public conversation without leaving LifeMode.</p>
           <div className="mt-6 flex flex-wrap gap-2">
             <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs">Live links</span>
             <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs">Source credited</span>
@@ -130,7 +130,7 @@ export default function DiscoverPage() {
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#7b3f2a]">From the wider web</p>
             <h2 className="mt-1 text-2xl font-semibold">Fresh stories</h2>
-            <p className="mt-1 text-sm text-[#5f5a50]">Public Hacker News links · refreshed about every 15 minutes{updatedAt ? ` · checked ${new Date(updatedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}` : ""}</p>
+            <p className="mt-1 text-sm text-[#5f5a50]">Publicly sourced stories · refreshed about every 15 minutes{updatedAt ? ` · checked ${new Date(updatedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}` : ""}</p>
           </div>
           <div className="flex flex-wrap gap-2" role="group" aria-label="Filter stories">
             {categories.map((category) => (
@@ -160,7 +160,7 @@ export default function DiscoverPage() {
           </div>
         ) : null}
         {!loading && !visibleStories.length ? <p className="rounded-2xl border border-[#d8d1c2] bg-white/70 p-5 text-sm text-[#5f5a50]">{stories.length ? "No stories in this category just now. Pick another topic." : "No live stories arrived this time. Try again in a little while."}</p> : null}
-        <p className="mt-4 text-xs leading-5 text-[#77756d]">LifeMode shows story titles, public discussion counts and links; the linked publishers own their articles. External pages may contain material we do not control.</p>
+        <p className="mt-4 text-xs leading-5 text-[#77756d]">Story details and a selection of public comments open inside LifeMode. Original article text remains with its publisher.</p>
       </section>
 
       <section className="mx-auto max-w-7xl px-5 pb-12 sm:px-8">
