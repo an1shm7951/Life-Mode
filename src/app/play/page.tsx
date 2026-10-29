@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { MobileNav } from "@/components/mobile-nav";
 
 const symbols = ["✦", "☾", "✿", "☼", "✧", "❋"];
@@ -11,17 +11,16 @@ function makeDeck(): Card[] {
 }
 
 export default function PlayPage() {
-  const [deck, setDeck] = useState<Card[]>([]);
+  const [deck, setDeck] = useState<Card[]>(() => makeDeck());
   const [open, setOpen] = useState<number[]>([]);
   const [matched, setMatched] = useState<number[]>([]);
   const [moves, setMoves] = useState(0);
   const [locked, setLocked] = useState(false);
-  const [started, setStarted] = useState(false);
+  const [started, setStarted] = useState(true);
 
   const reset = useCallback(() => {
     setDeck(makeDeck()); setOpen([]); setMatched([]); setMoves(0); setLocked(false); setStarted(true);
   }, []);
-  useEffect(() => { reset(); }, [reset]);
 
   function flip(card: Card) {
     if (locked || matched.includes(card.id) || open.includes(card.id)) return;
