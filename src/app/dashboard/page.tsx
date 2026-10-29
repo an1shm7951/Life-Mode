@@ -1082,6 +1082,7 @@ function DashboardContent() {
           <section className="dashboard-content-grid mx-auto grid max-w-3xl gap-5 px-5 pb-12 sm:px-8">
                     <Panel title="Your connections" eyebrow="Your privacy">
           <p className="mb-4 text-sm leading-6 text-[#5f5a50]">Choose the kinds of connections you may be open to. Keep it private if you prefer.</p>
+          <p className="mb-4 rounded-xl border border-[#d8d1c2] bg-white/70 p-3 text-sm leading-6 text-[#5f5a50]">Dating is an adults-only feature (18+). College email alone does not prove age. This preview does not yet provide dating matches or chat; those need separate age assurance, mutual consent, and block/report safeguards before launch.</p>
           <div className="grid gap-3">
             {connectionIntents.map((intent) => (
               <label
