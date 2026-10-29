@@ -3743,3 +3743,304 @@ a[class*="text-cyan-"], a[class*="text-violet-"], a[class*="text-purple-"],
 input, select, textarea, button {
   accent-color: #263d2b;
 }
+
+
+/* FINAL BRAND LOCK — no blue or navy in any theme. Keep all legacy dashboard
+   selectors below the old styles so the cascade cannot restore navy surfaces. */
+:root {
+  --lm-forest: #263d2b !important;
+  --lm-forest-hover: #355239 !important;
+  --lm-gold: #d7ad54 !important;
+  --lm-gold-hover: #c49638 !important;
+  --lm-ivory: #f5f0e5 !important;
+  --lm-charcoal: #171a15 !important;
+}
+html[data-theme="dark"] body,
+html[data-theme="dark"] main,
+html[data-theme="dark"] .app-shell,
+html[data-theme="dark"] .page-shell,
+html[data-theme="dark"] .dashboard-shell,
+html[data-theme="dark"] body:has(.dashboard-shell) {
+  background: #171a15 !important;
+  background-image: none !important;
+  color: #f5f0e5 !important;
+}
+html[data-theme="dark"] body::before,
+html[data-theme="dark"] body::after,
+html[data-theme="dark"] body:has(.dashboard-shell)::before,
+html[data-theme="dark"] body:has(.dashboard-shell)::after {
+  background: none !important;
+  box-shadow: none !important;
+  animation: none !important;
+  opacity: 0 !important;
+}
+html[data-theme="dark"] .dashboard-header,
+html[data-theme="dark"] .dashboard-command,
+html[data-theme="dark"] .dashboard-momentum,
+html[data-theme="dark"] .dashboard-mission,
+html[data-theme="dark"] .dashboard-metric,
+html[data-theme="dark"] .dashboard-panel,
+html[data-theme="dark"] .dashboard-view-switcher,
+html[data-theme="dark"] .dashboard-command .mt-5.grid > div,
+html[data-theme="dark"] .dashboard-mode-select,
+html[data-theme="dark"] .dashboard-sync,
+html[data-theme="dark"] .dashboard-notice,
+html[data-theme="dark"] .mobile-nav,
+html[data-theme="dark"] .premium-panel,
+html[data-theme="dark"] .glass-card,
+html[data-theme="dark"] .premium-surface,
+html[data-theme="dark"] .premium-focus,
+html[data-theme="dark"] .theme-choice {
+  background: #20271f !important;
+  background-image: none !important;
+  border-color: rgba(215,173,84,.22) !important;
+  color: #f5f0e5 !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] .dashboard-command,
+html[data-theme="dark"] .dashboard-panel,
+html[data-theme="dark"] .dashboard-mission,
+html[data-theme="dark"] .dashboard-metric {
+  background: #1c211a !important;
+}
+html[data-theme="dark"] .dashboard-brand,
+html[data-theme="dark"] .dashboard-welcome,
+html[data-theme="dark"] .dashboard-command-title,
+html[data-theme="dark"] .dashboard-mission h2,
+html[data-theme="dark"] .dashboard-panel h2,
+html[data-theme="dark"] .dashboard-view-heading h2 {
+  color: #f5f0e5 !important;
+}
+html[data-theme="dark"] .dashboard-brand-period,
+html[data-theme="dark"] .dashboard-eyebrow,
+html[data-theme="dark"] .dashboard-view-kicker,
+html[data-theme="dark"] .dashboard-mission > p:first-child,
+html[data-theme="dark"] .dashboard-panel > div:first-child p,
+html[data-theme="dark"] .dashboard-metric > p:first-child,
+html[data-theme="dark"] .dashboard-momentum .text-\\[\\#d6c29d\\] {
+  color: #d7ad54 !important;
+}
+html[data-theme="dark"] .dashboard-description,
+html[data-theme="dark"] .dashboard-mission > p:not(:first-child),
+html[data-theme="dark"] .dashboard-view-heading > p,
+html[data-theme="dark"] .dashboard-inspiration-quote blockquote {
+  color: #d8d4c9 !important;
+}
+html[data-theme="dark"] .dashboard-actions .nav-button,
+html[data-theme="dark"] .dashboard-view-button,
+html[data-theme="dark"] .mobile-nav-item {
+  background: transparent !important;
+  background-image: none !important;
+  border-color: rgba(215,173,84,.18) !important;
+  color: #e5dfd0 !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] .dashboard-actions .nav-button:hover,
+html[data-theme="dark"] .dashboard-view-button:hover:not(.is-active),
+html[data-theme="dark"] .dashboard-command .mt-5.grid > div:hover,
+html[data-theme="dark"] .dashboard-metric:hover {
+  background: #293529 !important;
+  background-image: none !important;
+  border-color: rgba(215,173,84,.38) !important;
+  color: #fffaf0 !important;
+}
+html[data-theme="dark"] .dashboard-view-button.is-active,
+html[data-theme="dark"] .mobile-nav-item.is-active {
+  background: #355239 !important;
+  background-image: none !important;
+  border-color: #d7ad54 !important;
+  color: #fffaf0 !important;
+}
+html[data-theme="dark"] .dashboard-logout,
+html[data-theme="dark"] .dashboard-mission > button,
+html[data-theme="dark"] .dashboard-shell button[class*="bg-blue-"],
+html[data-theme="dark"] .dashboard-shell button[class*="bg-indigo-"],
+html[data-theme="dark"] .dashboard-shell button[class*="bg-sky-"] {
+  background: #d7ad54 !important;
+  background-color: #d7ad54 !important;
+  background-image: none !important;
+  border-color: #d7ad54 !important;
+  color: #20291f !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] .dashboard-logout:hover,
+html[data-theme="dark"] .dashboard-mission > button:hover {
+  background: #c49638 !important;
+  background-color: #c49638 !important;
+  border-color: #c49638 !important;
+}
+html[data-theme="dark"] .dashboard-shell .progress-ring-value,
+html[data-theme="dark"] .dashboard-shell .readiness-fill {
+  stroke: #d7ad54 !important;
+  background: #d7ad54 !important;
+  filter: none !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] .dashboard-shell .progress-ring-track {
+  stroke: rgba(245,240,229,.22) !important;
+}
+html[data-theme="dark"] .dashboard-panel input:not([type=checkbox]),
+html[data-theme="dark"] .dashboard-panel textarea,
+html[data-theme="dark"] .dashboard-panel select,
+html[data-theme="dark"] input:not([type=checkbox]):not([type=radio]),
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] select {
+  background: #171a15 !important;
+  background-image: none !important;
+  border-color: rgba(215,173,84,.25) !important;
+  color: #f5f0e5 !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] :focus-visible,
+html[data-theme="dark"] input:focus,
+html[data-theme="dark"] textarea:focus,
+html[data-theme="dark"] select:focus {
+  outline-color: #d7ad54 !important;
+  border-color: #d7ad54 !important;
+  box-shadow: 0 0 0 3px rgba(215,173,84,.2) !important;
+}
+html[data-theme="dark"] .dashboard-command::before,
+html[data-theme="dark"] .dashboard-command::after,
+html[data-theme="dark"] .dashboard-panel::before,
+html[data-theme="dark"] .dashboard-panel::after,
+html[data-theme="dark"] .premium-panel::before,
+html[data-theme="dark"] .premium-panel::after,
+html[data-theme="dark"] .glass-card::before,
+html[data-theme="dark"] .glass-card::after,
+html[data-theme="dark"] .theme-choice::before,
+html[data-theme="dark"] .theme-choice::after {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+/* Light theme uses the same green/gold/ivory identity. */
+html[data-theme="light"] body:has(.dashboard-shell),
+html[data-theme="light"] .dashboard-shell {
+  background: #f5f0e5 !important;
+  background-image: none !important;
+  color: #263d2b !important;
+}
+html[data-theme="light"] body:has(.dashboard-shell)::before,
+html[data-theme="light"] body:has(.dashboard-shell)::after {
+  display: none !important;
+  background: none !important;
+}
+html[data-theme="light"] .dashboard-header,
+html[data-theme="light"] .dashboard-command,
+html[data-theme="light"] .dashboard-momentum,
+html[data-theme="light"] .dashboard-mission,
+html[data-theme="light"] .dashboard-metric,
+html[data-theme="light"] .dashboard-panel,
+html[data-theme="light"] .dashboard-view-switcher,
+html[data-theme="light"] .dashboard-command .mt-5.grid > div {
+  background: #fffdf8 !important;
+  background-image: none !important;
+  border-color: rgba(38,61,43,.15) !important;
+  color: #263d2b !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] .dashboard-brand,
+html[data-theme="light"] .dashboard-welcome,
+html[data-theme="light"] .dashboard-command-title,
+html[data-theme="light"] .dashboard-mission h2,
+html[data-theme="light"] .dashboard-panel h2,
+html[data-theme="light"] .dashboard-view-heading h2 {
+  color: #263d2b !important;
+}
+html[data-theme="light"] .dashboard-brand-period,
+html[data-theme="light"] .dashboard-eyebrow,
+html[data-theme="light"] .dashboard-view-kicker,
+html[data-theme="light"] .dashboard-mission > p:first-child,
+html[data-theme="light"] .dashboard-panel > div:first-child p,
+html[data-theme="light"] .dashboard-metric > p:first-child {
+  color: #7b6234 !important;
+}
+html[data-theme="light"] .dashboard-description,
+html[data-theme="light"] .dashboard-mission > p:not(:first-child),
+html[data-theme="light"] .dashboard-view-heading > p {
+  color: #665f51 !important;
+}
+html[data-theme="light"] .dashboard-actions .nav-button,
+html[data-theme="light"] .dashboard-view-button {
+  background: transparent !important;
+  background-image: none !important;
+  border-color: rgba(38,61,43,.15) !important;
+  color: #263d2b !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] .dashboard-actions .nav-button:hover,
+html[data-theme="light"] .dashboard-view-button:hover:not(.is-active) {
+  background: #e8eddf !important;
+  border-color: rgba(38,61,43,.28) !important;
+}
+html[data-theme="light"] .dashboard-view-button.is-active {
+  background: #355239 !important;
+  border-color: #355239 !important;
+  color: #fffaf0 !important;
+}
+html[data-theme="light"] .dashboard-logout,
+html[data-theme="light"] .dashboard-mission > button {
+  background: #d7ad54 !important;
+  background-image: none !important;
+  border-color: #d7ad54 !important;
+  color: #20291f !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] .dashboard-logout:hover,
+html[data-theme="light"] .dashboard-mission > button:hover {
+  background: #c49638 !important;
+  border-color: #c49638 !important;
+}
+html[data-theme="light"] .dashboard-shell .progress-ring-value,
+html[data-theme="light"] .dashboard-shell .readiness-fill {
+  stroke: #49684b !important;
+  background: #49684b !important;
+  filter: none !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] .dashboard-shell .progress-ring-track {
+  stroke: rgba(38,61,43,.18) !important;
+}
+html[data-theme="light"] .dashboard-panel input:not([type=checkbox]),
+html[data-theme="light"] .dashboard-panel textarea,
+html[data-theme="light"] .dashboard-panel select,
+html[data-theme="light"] input:not([type=checkbox]):not([type=radio]),
+html[data-theme="light"] textarea,
+html[data-theme="light"] select {
+  background: #fffdf8 !important;
+  background-image: none !important;
+  border-color: #d8ddcf !important;
+  color: #20291f !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] :focus-visible,
+html[data-theme="light"] input:focus,
+html[data-theme="light"] textarea:focus,
+html[data-theme="light"] select:focus {
+  outline-color: #78966c !important;
+  border-color: #78966c !important;
+  box-shadow: 0 0 0 3px rgba(120,150,108,.18) !important;
+}
+/* Shared legacy controls, progress indicators and selected states. */
+.nav-button-dark {
+  background: #355239 !important;
+  background-image: none !important;
+  border-color: #d7ad54 !important;
+  color: #fffaf0 !important;
+}
+.nav-button-dark:hover { background: #263d2b !important; }
+.progress-ring { background: radial-gradient(circle, #263d2b 0 57%, transparent 59%) !important; }
+.progress-ring-track { stroke: rgba(38,61,43,.2) !important; }
+.progress-ring-value { stroke: #d7ad54 !important; filter: none !important; }
+.readiness-fill { background: #d7ad54 !important; box-shadow: none !important; }
+.goal-complete-mark,
+.premium-focus span[class*="bg-[#d1e6b7]"] {
+  background: #d7ad54 !important;
+  background-image: none !important;
+  color: #20291f !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] .mobile-nav { background: #20271f !important; border-color: rgba(215,173,84,.22) !important; }
+html[data-theme="dark"] .mobile-nav-item.is-active { background: #355239 !important; border-color: #d7ad54 !important; }
+html[data-theme="light"] .mobile-nav { background: #fffdf8 !important; border-color: rgba(38,61,43,.15) !important; }
+html[data-theme="light"] .mobile-nav-item.is-active { background: #355239 !important; border-color: #d7ad54 !important; color: #fffaf0 !important; }
