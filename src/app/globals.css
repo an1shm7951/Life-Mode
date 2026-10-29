@@ -3631,3 +3631,48 @@ main:not(.auth-experience) a[class*="bg-rose-"]:hover {
   background:var(--lm-red-hover)!important;
   border-color:var(--lm-red-hover)!important;
 }
+
+
+/* LifeMode luxury palette enforcement — overrides legacy utility colors and inline component styles. */
+:root {
+  --lm-forest: #263d2b;
+  --lm-forest-hover: #355239;
+  --lm-gold: #d7ad54;
+  --lm-gold-hover: #c49638;
+  --lm-red: #b9433e;
+  --lm-red-hover: #9f332f;
+}
+.auth-experience .auth-form-panel form button[type="submit"],
+.auth-experience .auth-form-panel form button:not([type]),
+.auth-experience .auth-form-panel .auth-submit {
+  background: var(--lm-gold) !important;
+  background-color: var(--lm-gold) !important;
+  color: #171b15 !important;
+  border-color: var(--lm-gold) !important;
+  box-shadow: 0 8px 20px rgba(166,125,43,.2) !important;
+}
+.auth-experience .auth-form-panel form button[type="submit"]:hover,
+.auth-experience .auth-form-panel form button:not([type]):hover,
+.auth-experience .auth-form-panel .auth-submit:hover {
+  background: var(--lm-gold-hover) !important;
+  background-color: var(--lm-gold-hover) !important;
+  border-color: var(--lm-gold-hover) !important;
+}
+.auth-experience .auth-form-panel a:not(.auth-form-brand):not(.auth-switch-pills a) {
+  color: var(--lm-forest) !important;
+}
+.auth-experience .auth-form-panel input:focus {
+  border-color: #789264 !important;
+  box-shadow: 0 0 0 4px rgba(120,146,100,.16) !important;
+}
+.auth-experience .auth-form-panel button[type="button"] {
+  background: #f5f6ef !important;
+  background-color: #f5f6ef !important;
+  color: var(--lm-forest) !important;
+  border-color: #cbd4c3 !important;
+}
+.auth-experience .auth-form-panel button[type="button"]:hover {
+  background: #e9eee3 !important;
+  background-color: #e9eee3 !important;
+  border-color: #91a584 !important;
+}
