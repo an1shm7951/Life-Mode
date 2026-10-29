@@ -90,12 +90,22 @@ export default function DiscoverStoryPage() {
             <section className="premium-panel mt-7 rounded-[24px] p-6 sm:p-8">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#7b3f2a]">The story</p>
               <p className="mt-3 text-base leading-7 text-[#39372f]">
-                You’re reading this story inside LifeMode. We keep the title and community conversation here, while the original article remains with its publisher. Some publishers prevent their full articles from being embedded in other apps.
+                The article is displayed here when its publisher allows in-app embedding. Some publishers block this, so we also keep the story details and public conversation available in LifeMode.
               </p>
               {story.url ? (
-                <a href={story.url} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center rounded-full bg-[#181713] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#38362e]">
-                  Open original publisher
-                </a>
+                <iframe
+                  src={story.url}
+                  title={`Article: ${story.title}`}
+                  className="mt-5 min-h-[65vh] w-full rounded-xl border border-[#d8d1c2] bg-white"
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                  sandbox="allow-scripts allow-forms"
+                />
+              ) : null}
+              {story.url ? (
+                <p className="mt-3 text-xs leading-5 text-[#77756d]">
+                  If the publisher blocks the embedded article, its full text cannot be shown inside LifeMode. The story discussion below still works here.
+                </p>
               ) : null}
             </section>
 
