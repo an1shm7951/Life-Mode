@@ -3466,3 +3466,58 @@ html[data-theme="dark"] .site-footer { background:#f7f5ee !important; color:#334
 @media (prefers-reduced-motion:reduce) {
   .auth-showcase-core,.auth-float-card,.lifemode-launch-card,.premium-panel,button { animation:none !important; transition:none !important; }
 }
+
+
+/* Contrast corrections for page-specific feature surfaces and optional dark theme. */
+main.dashboard-shell section > div.premium-panel[class*="bg-[#151814]"] {
+  background:
+    radial-gradient(ellipse at 92% 5%,rgba(171,194,142,.2),transparent 40%),
+    linear-gradient(135deg,#223327,#304934) !important;
+  border-color:rgba(215,229,199,.2) !important;
+  color:#fbf8ef !important;
+}
+main.dashboard-shell section > div.premium-panel[class*="bg-[#151814]"] h2,
+main.dashboard-shell section > div.premium-panel[class*="bg-[#151814]"] p { color:inherit; }
+main.dashboard-shell section > div.premium-panel[class*="bg-[#151814]"] p:not([class*="text-[#d6c29d]"]) { color:#dce4d5; }
+.auth-form-panel button:not([type="submit"]) {
+  border-radius:13px !important; border-color:#dce1d4 !important;
+  background:rgba(255,255,251,.8) !important; color:#344331 !important;
+}
+.auth-form-panel button:not([type="submit"]):hover {
+  border-color:#91a885 !important; background:#f5f8ef !important;
+}
+html[data-theme="dark"] .auth-experience {
+  background:
+    radial-gradient(ellipse at 18% 20%,rgba(105,133,88,.2),transparent 34rem),
+    radial-gradient(ellipse at 80% 90%,rgba(173,129,77,.14),transparent 36rem),
+    #1c2820 !important;
+}
+html[data-theme="dark"] body:has(.dashboard-shell),
+html[data-theme="dark"] body:has(.mobile-nav),
+html[data-theme="dark"] body:has(main > header) {
+  background:
+    radial-gradient(ellipse at 3% 0%,rgba(64,89,56,.18),transparent 32rem),
+    #111a13 !important;
+  color:#e9eee2 !important;
+}
+html[data-theme="dark"] main:not(.auth-experience) > header,
+html[data-theme="dark"] .dashboard-header {
+  background:rgba(20,31,22,.9) !important;
+  border-color:rgba(211,225,196,.12) !important;
+}
+html[data-theme="dark"] main:not(.auth-experience) > header a:first-child { color:#e1e9d7; }
+html[data-theme="dark"] .premium-panel, html[data-theme="dark"] .glass-card {
+  border-color:rgba(211,225,196,.13) !important;
+  background:linear-gradient(145deg,rgba(34,48,35,.96),rgba(25,37,27,.96)) !important;
+  color:#e9eee2 !important;
+}
+html[data-theme="dark"] .premium-panel p:not([class*="text-[#"]), html[data-theme="dark"] .glass-card p { color:#c2cdbb; }
+html[data-theme="dark"] main:has(.mobile-nav) input:not([type="checkbox"]):not([type="radio"]),
+html[data-theme="dark"] main:has(.mobile-nav) select,
+html[data-theme="dark"] main:has(.mobile-nav) textarea {
+  border-color:#40533f !important; background:#1d2b1f !important; color:#f1f3e9 !important;
+}
+html[data-theme="dark"] .dashboard-shell .goal-row { border-color:#3a4a38 !important; background:rgba(31,45,32,.8) !important; color:#e9eee2; }
+html[data-theme="dark"] .dashboard-shell .goal-row.is-complete { border-color:#6f8d5f !important; background:#30462f !important; color:#f2f5e9 !important; }
+html[data-theme="dark"] .site-footer { background:#111a13 !important; color:#dce5d4 !important; border-top-color:#344532 !important; }
+html[data-theme="dark"] .site-footer a { color:#dce5d4 !important; }
