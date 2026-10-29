@@ -679,6 +679,7 @@ function DashboardContent() {
               Profile
             </Link>
 
+            <Link href="/discover" className="nav-button">Discover</Link>
             <Link href="/planning" className="nav-button">Plan</Link>
             <Link href="/subscription" className="nav-button">Plus</Link>
 
