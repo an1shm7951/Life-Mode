@@ -3544,3 +3544,90 @@ html[data-theme="dark"] .site-footer a { color:#dce5d4 !important; }
 @media(max-width:900px){.auth-layout{display:flex!important;flex-direction:column-reverse!important;gap:1.2rem!important}.auth-story-v2{min-height:auto!important;padding:1.5rem!important;border-radius:24px!important}.auth-story-copy-v2{margin-top:1.8rem!important}.auth-story-copy-v2 h1{max-width:12ch!important;font-size:clamp(2.65rem,8vw,4.4rem)!important}.auth-showcase{min-height:220px!important}.auth-story-footer-v2{margin-top:1rem!important}.auth-form-panel{max-width:650px!important;align-self:stretch!important}}
 @media(max-width:560px){.auth-experience{padding:.7rem!important}.auth-layout{gap:.8rem!important}.auth-form-panel{padding:1.25rem!important;border-radius:22px!important}.auth-auth-switch{align-items:flex-start;flex-direction:column;margin-bottom:1.8rem}.auth-switch-pills{align-self:stretch}.auth-switch-pills>*{flex:1;text-align:center}.auth-form-panel h1{font-size:2.15rem!important}.auth-story-v2{padding:1.25rem!important}.auth-showcase{min-height:200px!important}.auth-float-card{width:66%!important}}
 @media(prefers-reduced-motion:reduce){.auth-form-panel *,.auth-story-v2 *{animation:none!important;transition:none!important}}
+
+
+/* Brand color lock: forest green surfaces, gold primary actions, red destructive actions. */
+:root {
+  --lm-forest:#263d2b;
+  --lm-forest-hover:#355239;
+  --lm-gold:#d7ad54;
+  --lm-gold-hover:#c49638;
+  --lm-red:#b9433e;
+  --lm-red-hover:#9f332f;
+}
+.auth-form-panel button[type="submit"],
+.auth-form-panel .auth-submit,
+.auth-form-panel button.bg-blue-600,
+.auth-form-panel button.bg-blue-500,
+.auth-form-panel button[class*="bg-blue-"],
+.auth-form-panel button[class*="bg-sky-"],
+.auth-form-panel button[class*="bg-indigo-"],
+.auth-form-panel a[class*="bg-blue-"],
+.auth-form-panel a[class*="bg-sky-"],
+.auth-form-panel a[class*="bg-indigo-"] {
+  background:var(--lm-gold)!important;
+  border-color:var(--lm-gold)!important;
+  color:#20291f!important;
+  box-shadow:0 8px 18px rgba(166,125,43,.2)!important;
+}
+.auth-form-panel button[type="submit"]:hover,
+.auth-form-panel .auth-submit:hover,
+.auth-form-panel button[class*="bg-blue-"]:hover,
+.auth-form-panel button[class*="bg-sky-"]:hover,
+.auth-form-panel button[class*="bg-indigo-"]:hover,
+.auth-form-panel a[class*="bg-blue-"]:hover,
+.auth-form-panel a[class*="bg-sky-"]:hover,
+.auth-form-panel a[class*="bg-indigo-"]:hover {
+  background:var(--lm-gold-hover)!important;
+  border-color:var(--lm-gold-hover)!important;
+  color:#20291f!important;
+}
+.auth-form-panel button:not([type="submit"]):not([class*="bg-"]) {
+  background:#f3f4eb!important;
+  border-color:#dce2d3!important;
+  color:var(--lm-forest)!important;
+}
+.auth-form-panel button:not([type="submit"]):not([class*="bg-"]):hover {
+  background:#e7eddd!important;
+  border-color:#9eb18c!important;
+}
+/* Remove blue from solid primary buttons across the inner app too. */
+main:not(.auth-experience) button[class*="bg-blue-"],
+main:not(.auth-experience) button[class*="bg-sky-"],
+main:not(.auth-experience) button[class*="bg-indigo-"],
+main:not(.auth-experience) a[class*="bg-blue-"],
+main:not(.auth-experience) a[class*="bg-sky-"],
+main:not(.auth-experience) a[class*="bg-indigo-"],
+main:not(.auth-experience) [role="button"][class*="bg-blue-"],
+main:not(.auth-experience) [role="button"][class*="bg-sky-"],
+main:not(.auth-experience) [role="button"][class*="bg-indigo-"] {
+  background:var(--lm-gold)!important;
+  border-color:var(--lm-gold)!important;
+  color:#20291f!important;
+}
+main:not(.auth-experience) button[class*="bg-blue-"]:hover,
+main:not(.auth-experience) button[class*="bg-sky-"]:hover,
+main:not(.auth-experience) button[class*="bg-indigo-"]:hover,
+main:not(.auth-experience) a[class*="bg-blue-"]:hover,
+main:not(.auth-experience) a[class*="bg-sky-"]:hover,
+main:not(.auth-experience) a[class*="bg-indigo-"]:hover {
+  background:var(--lm-gold-hover)!important;
+  border-color:var(--lm-gold-hover)!important;
+}
+/* Destructive controls stay red rather than being recolored gold. */
+main:not(.auth-experience) button[class*="bg-red-"],
+main:not(.auth-experience) button[class*="bg-rose-"],
+main:not(.auth-experience) button[class*="bg-rose-600"],
+main:not(.auth-experience) a[class*="bg-red-"],
+main:not(.auth-experience) a[class*="bg-rose-"] {
+  background:var(--lm-red)!important;
+  border-color:var(--lm-red)!important;
+  color:#fffaf5!important;
+}
+main:not(.auth-experience) button[class*="bg-red-"]:hover,
+main:not(.auth-experience) button[class*="bg-rose-"]:hover,
+main:not(.auth-experience) a[class*="bg-red-"]:hover,
+main:not(.auth-experience) a[class*="bg-rose-"]:hover {
+  background:var(--lm-red-hover)!important;
+  border-color:var(--lm-red-hover)!important;
+}
