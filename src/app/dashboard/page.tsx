@@ -719,18 +719,18 @@ function DashboardContent() {
         </div>
       </section>
 
-      <section aria-label="Explore LifeMode" className="mx-auto grid max-w-7xl grid-cols-1 gap-3 px-5 pt-5 sm:grid-cols-3 sm:px-8 sm:pt-7">
-        <Link href="/discover" className="group relative flex min-h-40 flex-col justify-between overflow-hidden rounded-2xl border border-[#2f352d] bg-[#151814] p-5 text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7b3f2a] sm:min-h-48 sm:p-6">
+      <section aria-label="Explore LifeMode" className="lifemode-launchpad mx-auto grid max-w-7xl grid-cols-1 gap-3 px-5 pt-5 sm:grid-cols-3 sm:px-8 sm:pt-7">
+        <Link href="/discover" className="lifemode-launch-card discover-card group relative flex min-h-40 flex-col justify-between overflow-hidden rounded-2xl border border-[#2f352d] bg-[#151814] p-5 text-white shadow-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7b3f2a] sm:min-h-48 sm:p-6">
           <span className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.16em] text-[#d6c29d]"><span>01 · Explore</span><span aria-hidden="true" className="text-xl">✳</span></span>
           <span><span className="block text-2xl font-semibold sm:text-3xl">Discover</span><span className="mt-2 block max-w-xs text-sm leading-5 text-[#ddd5c4]">Fresh ideas, technology, science, and stories worth thinking about.</span></span>
           <span className="mt-4 text-sm font-semibold text-[#f1d7a5]">Explore stories <span aria-hidden="true">→</span></span>
         </Link>
-        <Link href="/dashboard#goals" className="group flex min-h-40 flex-col justify-between rounded-2xl border border-[#d8c49c] bg-[#fff8e8] p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7b3f2a] sm:min-h-48 sm:p-6">
+        <Link href="/dashboard#goals" className="lifemode-launch-card goals-card group flex min-h-40 flex-col justify-between rounded-2xl border border-[#d8c49c] bg-[#fff8e8] p-5 shadow-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7b3f2a] sm:min-h-48 sm:p-6">
           <span className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.16em] text-[#7b3f2a]"><span>02 · Build</span><span aria-hidden="true" className="text-xl">↗</span></span>
           <span><span className="block text-2xl font-semibold text-[#25221d] sm:text-3xl">Goals</span><span className="mt-2 block max-w-xs text-sm leading-5 text-[#5f5a50]">Turn what matters to you into small, doable steps.</span></span>
           <span className="mt-4 text-sm font-semibold text-[#7b3f2a]">Work on your goals <span aria-hidden="true">→</span></span>
         </Link>
-        <Link href="/planning" className="group flex min-h-40 flex-col justify-between rounded-2xl border border-[#d8d1c2] bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7b3f2a] sm:min-h-48 sm:p-6">
+        <Link href="/planning" className="lifemode-launch-card plan-card group flex min-h-40 flex-col justify-between rounded-2xl border border-[#d8d1c2] bg-white p-5 shadow-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7b3f2a] sm:min-h-48 sm:p-6">
           <span className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.16em] text-[#315260]"><span>03 · Organize</span><span aria-hidden="true" className="text-xl">◷</span></span>
           <span><span className="block text-2xl font-semibold text-[#25221d] sm:text-3xl">Plan</span><span className="mt-2 block max-w-xs text-sm leading-5 text-[#5f5a50]">Shape your day around routines, time, and priorities.</span></span>
           <span className="mt-4 text-sm font-semibold text-[#315260]">Open your plan <span aria-hidden="true">→</span></span>
