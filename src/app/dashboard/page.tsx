@@ -827,6 +827,37 @@ function DashboardContent() {
       {dashboardView === "today" ? (
       <div className="dashboard-view-stage" key={dashboardView}>
       <section className="dashboard-content-grid mx-auto grid max-w-3xl gap-5 px-5 pb-12 sm:px-8">
+        <Panel title="A moment for you" eyebrow="Daily check-in">
+          <p className="mb-4 text-sm leading-6 text-[#5f5a50]">You don't have to be productive every minute. Take a second to notice how you're feeling.</p>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
+            {[
+              { value: "great", label: "Great", emoji: "☀️" },
+              { value: "good", label: "Good", emoji: "🙂" },
+              { value: "okay", label: "Okay", emoji: "😐" },
+              { value: "low", label: "Low", emoji: "🌧️" },
+              { value: "stressed", label: "Stressed", emoji: "🌊" },
+            ].map((mood) => (
+              <button key={mood.value} type="button" onClick={() => { setCheckinMood(mood.value); setCheckinSaved(false); }} aria-pressed={checkinMood === mood.value}
+                className={`flex flex-col items-center gap-1 rounded-xl border px-3 py-3 text-sm transition ${checkinMood === mood.value ? "border-[#315260] bg-[#e8eeeb] font-semibold text-[#203f42]" : "border-[#dfd8c8] bg-[#fffdf8] hover:border-[#a99e89]"}`}>
+                <span className="text-xl" aria-hidden="true">{mood.emoji}</span>{mood.label}
+              </button>
+            ))}
+          </div>
+          <label className="mt-4 grid gap-2 text-sm font-semibold text-[#25221d]">
+            What would make today a little better? <span className="font-normal text-[#77756d]">(optional)</span>
+            <textarea value={checkinNote} onChange={(event) => { setCheckinNote(event.target.value.slice(0, 240)); setCheckinSaved(false); }}
+              placeholder="A little rest, finishing one task, talking to someone…" rows={2} maxLength={240}
+              className="w-full rounded-lg border border-[#c8beaa] bg-[#fffdf8] px-3 py-2 font-normal outline-none focus:border-[#315260]" />
+          </label>
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            <button type="button" onClick={saveDailyCheckin} disabled={!checkinMood} className="h-10 rounded-lg bg-[#181713] px-4 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50">
+              {checkinSaved ? "Check-in saved" : "Save check-in"}
+            </button>
+            {checkinSaved ? <p role="status" className="text-sm text-[#315260]">Thanks for checking in with yourself. Take today one step at a time.</p> : null}
+          </div>
+          <p className="mt-3 text-xs leading-5 text-[#77756d]">Your check-in stays in this browser on this device for now. It isn't shared on your profile.</p>
+        </Panel>
+
         <Panel title="Today's goals" eyebrow="Your plan">
           <p className="dashboard-goal-guidance mb-4 text-sm leading-6 text-[#5f5a50]">Keep it simple: choose one thing you can finish today.</p>
           <div className="grid gap-3">
@@ -968,36 +999,7 @@ function DashboardContent() {
           </button>
         </Panel>
 
-              <Panel title="A moment for you" eyebrow="Daily check-in">
-          <p className="mb-4 text-sm leading-6 text-[#5f5a50]">You don't have to be productive every minute. Take a second to notice how you're feeling.</p>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
-            {[
-              { value: "great", label: "Great", emoji: "☀️" },
-              { value: "good", label: "Good", emoji: "🙂" },
-              { value: "okay", label: "Okay", emoji: "😐" },
-              { value: "low", label: "Low", emoji: "🌧️" },
-              { value: "stressed", label: "Stressed", emoji: "🌊" },
-            ].map((mood) => (
-              <button key={mood.value} type="button" onClick={() => { setCheckinMood(mood.value); setCheckinSaved(false); }} aria-pressed={checkinMood === mood.value}
-                className={`flex flex-col items-center gap-1 rounded-xl border px-3 py-3 text-sm transition ${checkinMood === mood.value ? "border-[#315260] bg-[#e8eeeb] font-semibold text-[#203f42]" : "border-[#dfd8c8] bg-[#fffdf8] hover:border-[#a99e89]"}`}>
-                <span className="text-xl" aria-hidden="true">{mood.emoji}</span>{mood.label}
-              </button>
-            ))}
-          </div>
-          <label className="mt-4 grid gap-2 text-sm font-semibold text-[#25221d]">
-            What would make today a little better? <span className="font-normal text-[#77756d]">(optional)</span>
-            <textarea value={checkinNote} onChange={(event) => { setCheckinNote(event.target.value.slice(0, 240)); setCheckinSaved(false); }}
-              placeholder="A little rest, finishing one task, talking to someone…" rows={2} maxLength={240}
-              className="w-full rounded-lg border border-[#c8beaa] bg-[#fffdf8] px-3 py-2 font-normal outline-none focus:border-[#315260]" />
-          </label>
-          <div className="mt-4 flex flex-wrap items-center gap-3">
-            <button type="button" onClick={saveDailyCheckin} disabled={!checkinMood} className="h-10 rounded-lg bg-[#181713] px-4 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50">
-              {checkinSaved ? "Check-in saved" : "Save check-in"}
-            </button>
-            {checkinSaved ? <p role="status" className="text-sm text-[#315260]">Thanks for checking in with yourself. Take today one step at a time.</p> : null}
-          </div>
-          <p className="mt-3 text-xs leading-5 text-[#77756d]">Your check-in stays in this browser on this device for now. It isn't shared on your profile.</p>
-        </Panel>
+              
 
       </section>
       </div>
