@@ -95,6 +95,7 @@ export default function DiscoverPage() {
       <header className="du-topbar">
         <Link href="/dashboard" className="du-brand"><span className="du-brand-mark">L</span><span>LIFEMODE<span className="text-[#d7ad54]">.</span></span></Link>
         <div className="du-live"><span /> YOUR WORLD, STILL UNFOLDING</div>
+        <nav className="du-extras" aria-label="Explore more"><Link href="/stories">Stories <b>↗</b></Link><Link href="/play">Play <b>✦</b></Link></nav>
         <button className="du-journal" onClick={() => { setShowJournal(!showJournal); document.getElementById("world-signals")?.scrollIntoView({ behavior: "smooth" }); }} aria-pressed={showJournal}>▤ Journal <b>{savedIds.length}</b></button>
       </header>
 
@@ -149,7 +150,7 @@ export default function DiscoverPage() {
       </section>
 
       <section className="du-closing"><div className="du-closing-symbol">✳</div><p className="du-eyebrow">THE WORLD IS BIGGER THAN YOUR ROUTINE</p><h2>Leave with a new<br /><em>question.</em></h2><p>Take something interesting back into your day. A thought, a question, a thing to make, or a conversation you wouldn’t have had otherwise.</p><button onClick={() => document.getElementById("world-realms")?.scrollIntoView({ behavior: "smooth" })}>Choose another path ↑</button></section>
-      <footer className="du-footer"><Link href="/dashboard">← Back to your day</Link><span>LIFEMODE / DISCOVER</span><span>BUILT FOR A LIFE THAT KEEPS OPENING UP.</span></footer>
+      <footer className="du-footer"><Link href="/dashboard">← Back to your day</Link><span>LIFEMODE / DISCOVER</span><span className="du-footer-extras"><Link href="/stories">Enter the Story Room ↗</Link><Link href="/play">Play Starlight Pairs ✦</Link></span></footer>
       <MobileNav />
     </main>
   );
