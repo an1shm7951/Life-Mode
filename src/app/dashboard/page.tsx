@@ -719,7 +719,7 @@ function DashboardContent() {
         </div>
       </section>
 
-      <section aria-label="LifeMode spaces" className="lifemode-launchpad mx-auto grid max-w-7xl grid-cols-1 gap-3 px-5 pt-5 sm:grid-cols-2 sm:px-8 sm:pt-7 xl:grid-cols-4">
+      <section aria-label="LifeMode spaces" className="mx-auto max-w-7xl px-5 pt-6 sm:px-8 sm:pt-8"><div className="mb-4 flex flex-wrap items-end justify-between gap-3"><div><p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#7b4d10]">YOUR LIFE, ONE SPACE</p><h2 className="mt-1 text-2xl font-semibold tracking-tight text-[#20251d] sm:text-3xl">Your LifeMode spaces</h2><p className="mt-1 text-sm text-[#625f54]">Everything works together here. Pick up where you left off.</p></div><span className="rounded-full border border-[#d8c49c] bg-[#fff8e8] px-3 py-1.5 text-xs font-medium text-[#725323]">One account · One home</span></div><div className="lifemode-launchpad grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
         <Link href="/discover" className="lifemode-launch-card discover-card group relative flex min-h-40 flex-col justify-between overflow-hidden rounded-2xl border border-[#2f352d] bg-[#151814] p-5 text-white shadow-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7b3f2a] sm:min-h-48 sm:p-6">
           <span className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.16em] text-[#d6c29d]"><span>01 · Explore</span><span aria-hidden="true" className="text-xl">✳</span></span>
           <span><span className="block text-2xl font-semibold sm:text-3xl">Discover</span><span className="mt-2 block max-w-xs text-sm leading-5 text-[#ddd5c4]">Fresh ideas, technology, science, and stories worth thinking about.</span></span>
@@ -737,7 +737,7 @@ function DashboardContent() {
         </Link>
         <Link href="/buddy" className="lifemode-launch-card group relative flex min-h-40 flex-col justify-between overflow-hidden rounded-2xl border border-[#65704f] bg-[linear-gradient(145deg,#243323,#121a13)] p-5 text-white shadow-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d8bd7b] sm:min-h-48 sm:p-6">
           <span className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.16em] text-[#e2c783]"><span>04 · Assist</span><span aria-hidden="true" className="text-xl">✧</span></span>
-          <span><span className="block text-2xl font-semibold sm:text-3xl">AI Buddy</span><span className="mt-2 block max-w-xs text-sm leading-5 text-[#d6dfd0]">Your personal companion for goals, planning and timely reminders.</span></span>
+          <span><span className="block text-2xl font-semibold sm:text-3xl">AI Buddy</span><span className="mt-2 block max-w-xs text-sm leading-5 text-[#d6dfd0]">Your AI companion and LifeMode Pulse reminders, connected to your daily life.</span></span>
           <span className="mt-4 text-sm font-semibold text-[#e2c783]">Meet your companion <span aria-hidden="true">→</span></span>
         </Link>
         <Link href="/play" className="lifemode-launch-card group flex min-h-40 flex-col justify-between rounded-2xl border border-[#d8c49c] bg-[#20251d] p-5 text-white shadow-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d8bd7b] sm:min-h-48 sm:p-6">
@@ -745,6 +745,12 @@ function DashboardContent() {
           <span><span className="block text-2xl font-semibold sm:text-3xl">Orbit Dash</span><span className="mt-2 block max-w-xs text-sm leading-5 text-[#d6dfd0]">Take a quick break with a game built into your LifeMode space.</span></span>
           <span className="mt-4 text-sm font-semibold text-[#e2c783]">Play a round <span aria-hidden="true">→</span></span>
         </Link>
+        <Link href="/stories" className="lifemode-launch-card group flex min-h-40 flex-col justify-between rounded-2xl border border-[#65704f] bg-[linear-gradient(145deg,#29372b,#171f18)] p-5 text-white shadow-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d8bd7b] sm:min-h-48 sm:p-6">
+          <span className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.16em] text-[#e2c783]"><span>06 · Unwind</span><span aria-hidden="true" className="text-xl">✧</span></span>
+          <span><span className="block text-2xl font-semibold sm:text-3xl">Story Room</span><span className="mt-2 block max-w-xs text-sm leading-5 text-[#d6dfd0]">Original stories and small worlds to explore when you need a change of pace.</span></span>
+          <span className="mt-4 text-sm font-semibold text-[#e2c783]">Read a story <span aria-hidden="true">→</span></span>
+        </Link>
+      </div>
       </section>
 
       <section className="dashboard-overview mx-auto grid max-w-7xl gap-5 px-5 py-8 sm:px-8 lg:grid-cols-[1.2fr_0.8fr]">
