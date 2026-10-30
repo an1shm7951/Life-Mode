@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import type { AiBuddyResponse, LifeModeId } from "@/lib/lifemode/types";
 import { createAiBuddyHistory, fetchAiBuddyHistory } from "@/lib/lifemode/database";
+import { MobileNav } from "@/components/mobile-nav";
 
 type Message = { role: "user" | "assistant"; content: string };
 type Reminder = { id: string; title: string; when: string; place: string; createdAt: string };
@@ -226,6 +227,7 @@ export default function BuddyPage() {
         )}
         <footer className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-[#465443] pt-5 text-xs text-[#9eaa98]"><span>LifeMode is more than a checklist.</span><Link href="/dashboard" className="text-[#d8bd7b]">Back to your day →</Link></footer>
       </div>
+      <MobileNav />
     </main>
   );
 }
