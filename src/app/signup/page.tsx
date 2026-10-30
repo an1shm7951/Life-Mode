@@ -146,7 +146,7 @@ export default function SignupPage() {
               <span>
                 I agree to the <Link href="/terms" className="font-semibold text-[#315260]">Terms</Link>
                 {" "}and <Link href="/privacy" className="font-semibold text-[#315260]">Privacy Notice</Link>.
-                Dating features are 18+ and must be explicitly enabled.
+                Some features have additional age and safety requirements.
               </span>
             </label>
 
