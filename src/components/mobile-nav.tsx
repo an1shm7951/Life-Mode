@@ -8,6 +8,7 @@ const items = [
   { href: "/discover", label: "Discover" },
   { href: "/dashboard#goals", label: "Goals" },
   { href: "/planning", label: "Plan" },
+  { href: "/buddy", label: "AI Buddy" },
   { href: "/dashboard?view=connections", label: "Connections" },
   { href: "/subscription", label: "Plus" },
 ];
