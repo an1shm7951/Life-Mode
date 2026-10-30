@@ -4284,3 +4284,9 @@ html[data-theme="light"] .mobile-nav-item.is-active { background: #355239 !impor
 .lm-orbit-mission p{font-size:11px;line-height:1.8;color:#aeb7a8}.lm-orbit-mission strong{color:#e7d4a0;font-weight:500}
 @keyframes lm-shield-pulse{from{filter:brightness(.9);transform:translate(-50%,-50%) scale(.9)}to{filter:brightness(1.4);transform:translate(-50%,-50%) scale(1.12)}}
 @media(max-width:480px){.lm-orbit-mission{padding:15px;gap:10px}.lm-orbit-mission p{font-size:10px}}
+
+
+/* AI Buddy adds one destination to the compact mobile dock. */
+.mobile-nav { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.mobile-nav-item { font-size: 0.68rem; padding-inline: 0.2rem; }
+@media (max-width: 380px) { .mobile-nav { left: .4rem; right: .4rem; gap: .15rem; } .mobile-nav-item { font-size: .62rem; } }
