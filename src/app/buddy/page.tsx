@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import type { AiBuddyResponse, LifeModeId } from "@/lib/lifemode/types";
+import { createAiBuddyHistory, fetchAiBuddyHistory } from "@/lib/lifemode/database";
 
 type Message = { role: "user" | "assistant"; content: string };
 type Reminder = { id: string; title: string; when: string; place: string; createdAt: string };
@@ -42,6 +43,18 @@ export default function BuddyPage() {
       if (!active) return;
       setUserId(user.id);
       setName(user.user_metadata?.first_name || user.email?.split("@")[0] || "there");
+      try {
+        const savedHistory = await fetchAiBuddyHistory(user.id);
+        if (active && savedHistory.length) {
+          const restored = savedHistory.slice(0, 8).reverse().flatMap((item) => [
+            { role: "user" as const, content: item.prompt },
+            { role: "assistant" as const, content: item.message + (item.next_actions?.length ? "\\n\\nNext steps:\\n" + item.next_actions.map((action) => "• " + action).join("\\n") : "") },
+          ]);
+          setMessages((current) => [...current, ...restored]);
+        }
+      } catch {
+        // Chat remains usable if history cannot be loaded.
+      }
       const selected = user.user_metadata?.first_mode;
       const modeMap: Record<string, LifeModeId> = { Student: "student", Gym: "gym", Career: "career", Business: "business", Law: "law", Creator: "creator" };
       if (typeof selected === "string" && modeMap[selected]) setMode(modeMap[selected]);
@@ -81,6 +94,7 @@ export default function BuddyPage() {
       });
       const data = await response.json() as { plan?: AiBuddyResponse; error?: string };
       if (!response.ok || !data.plan) throw new Error(data.error || "AI Buddy is temporarily unavailable.");
+      await createAiBuddyHistory({ userId, mode, prompt, plan: data.plan });
       setMessages((current) => [...current, { role: "assistant", content: data.plan!.message + (data.plan!.nextActions.length ? "\\n\\nNext steps:\\n" + data.plan!.nextActions.map((item) => "• " + item).join("\\n") : "") }]);
     } catch (error) {
       setNotice(error instanceof Error ? error.message : "Couldn't reach AI Buddy. Please try again.");
