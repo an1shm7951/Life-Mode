@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { MobileNav } from "@/components/mobile-nav";
+import { originalStories } from "@/lib/lifemode/original-stories";
 
 const stories: Record<string, { category: string; title: string; subtitle: string; symbol: string; paragraphs: string[]; reflection: string }> = {
   "the-girl-who-collected-mornings": {
@@ -54,7 +55,7 @@ const stories: Record<string, { category: string; title: string; subtitle: strin
 
 export default function StoryReaderPage() {
   const params = useParams<{ slug: string }>();
-  const story = stories[params.slug];
+  const story = stories[params.slug] ?? originalStories.find((item) => item.slug === params.slug);
   return <main className="lm-reader min-h-screen pb-28 text-[#f7f1e8] lg:pb-8">
     <header className="lm-story-nav"><Link href="/stories" className="lm-story-brand"><span>L</span> STORY ROOM.</Link><Link href="/play" className="lm-story-nav-link">Take a break · Play ↗</Link></header>
     {!story ? <section className="lm-reader-error"><h1>This story has drifted away.</h1><Link href="/stories">Choose another story ↗</Link></section> : <>

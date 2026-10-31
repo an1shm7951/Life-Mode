@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import type { AiBuddyResponse, LifeModeId } from "@/lib/lifemode/types";
@@ -16,6 +16,12 @@ const prompts = [
   "Look at my goals and suggest my next step.",
   "I feel like I have too much to do. Help me prioritise.",
 ];
+
+function supportsMicrophoneRecording() {
+  const mediaDevices = (navigator as unknown as { mediaDevices?: { getUserMedia?: unknown } }).mediaDevices;
+  const recorder = (window as unknown as { MediaRecorder?: unknown }).MediaRecorder;
+  return typeof mediaDevices?.getUserMedia === "function" && typeof recorder === "function";
+}
 
 export default function BuddyPage() {
   const router = useRouter();
@@ -35,6 +41,11 @@ export default function BuddyPage() {
   const [reminderPlace, setReminderPlace] = useState("");
   const [notice, setNotice] = useState("");
   const [voiceAvailable, setVoiceAvailable] = useState(false);
+  const [recording, setRecording] = useState(false);
+  const [transcribing, setTranscribing] = useState(false);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -64,7 +75,7 @@ export default function BuddyPage() {
         if (saved) setReminders(JSON.parse(saved) as Reminder[]);
       } catch { /* Ignore invalid local reminder data. */ }
       const speechWindow = window as Window & { SpeechRecognition?: unknown; webkitSpeechRecognition?: unknown };
-      setVoiceAvailable(Boolean(speechWindow.SpeechRecognition || speechWindow.webkitSpeechRecognition));
+      setVoiceAvailable(supportsMicrophoneRecording() || Boolean(speechWindow.SpeechRecognition || speechWindow.webkitSpeechRecognition));
       setLoading(false);
     }
     init();
@@ -73,9 +84,14 @@ export default function BuddyPage() {
 
   const history = useMemo(() => messages.slice(-10), [messages]);
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [messages, sending]);
+
   async function sendMessage(value = draft) {
     const prompt = value.trim();
-    if (!prompt || !userId || sending) return;
+    if (!prompt || sending) return;
+    if (!userId) { setNotice("Your LifeMode session is still loading. Please try again in a moment."); return; }
     const nextMessages: Message[] = [...messages, { role: "user", content: prompt }];
     setMessages(nextMessages);
     setDraft("");
@@ -87,16 +103,22 @@ export default function BuddyPage() {
       const response = await fetch("/api/ai-buddy", {
         method: "POST",
         headers: { Authorization: `Bearer ${session.access_token}`, "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(45_000),
         body: JSON.stringify({
           mode,
           goal: prompt,
           history: history.map((item) => ({ role: item.role, content: item.content })),
         }),
       });
-      const data = await response.json() as { plan?: AiBuddyResponse; error?: string };
+      const data = await response.json().catch(() => ({})) as { plan?: AiBuddyResponse; error?: string };
       if (!response.ok || !data.plan) throw new Error(data.error || "AI Buddy is temporarily unavailable.");
-      await createAiBuddyHistory({ userId, mode, prompt, plan: data.plan });
-      setMessages((current) => [...current, { role: "assistant", content: data.plan!.message + (data.plan!.nextActions.length ? "\\n\\nNext steps:\\n" + data.plan!.nextActions.map((item) => "• " + item).join("\\n") : "") }]);
+      const assistantContent = data.plan.message + (data.plan.nextActions.length ? "\n\nNext steps:\n" + data.plan.nextActions.map((item) => "• " + item).join("\n") : "");
+      setMessages((current) => [...current, { role: "assistant", content: assistantContent }]);
+      try {
+        await createAiBuddyHistory({ userId, mode, prompt, plan: data.plan });
+      } catch {
+        setNotice("AI Buddy replied, but this message could not be saved to your history.");
+      }
     } catch (error) {
       setNotice(error instanceof Error ? error.message : "Couldn't reach AI Buddy. Please try again.");
     } finally {
@@ -131,17 +153,50 @@ export default function BuddyPage() {
     );
   }
 
-  function startVoiceInput() {
+  async function startVoiceInput() {
+    setNotice("");
+    if (supportsMicrophoneRecording()) {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const candidates = ["audio/mp4", "audio/webm;codecs=opus", "audio/webm"];
+        const mimeType = candidates.find((type) => MediaRecorder.isTypeSupported(type));
+        const recorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
+        audioChunksRef.current = [];
+        recorder.ondataavailable = (event) => { if (event.data.size) audioChunksRef.current.push(event.data); };
+        recorder.onerror = () => { stream.getTracks().forEach((track) => track.stop()); setRecording(false); setNotice("The microphone recording failed. Please try again."); };
+        recorder.onstop = async () => {
+          stream.getTracks().forEach((track) => track.stop());
+          setRecording(false);
+          const type = recorder.mimeType || "audio/webm";
+          const extension = type.includes("mp4") ? "mp4" : type.includes("ogg") ? "ogg" : "webm";
+          const audio = new File(audioChunksRef.current, "lifemode-voice." + extension, { type });
+          if (!audio.size) { setNotice("No audio was captured. Please try again."); return; }
+          setTranscribing(true);
+          try {
+            const form = new FormData(); form.append("audio", audio);
+            const sessionResult = await supabase.auth.getSession();
+            const session = sessionResult.data.session;
+            if (!session?.access_token) throw new Error("Your session expired. Please sign in again.");
+            const response = await fetch("/api/ai-buddy/transcribe", { method: "POST", headers: { Authorization: "Bearer " + session.access_token }, body: form });
+            const result = await response.json() as { text?: string; error?: string };
+            if (!response.ok || !result.text) throw new Error(result.error || "Voice transcription failed.");
+            setDraft((current) => current ? current + " " + result.text : result.text!);
+            setNotice("Voice added to your message. Review it, then tap Send.");
+          } catch (error) { setNotice(error instanceof Error ? error.message : "Couldn't transcribe that recording."); }
+          finally { setTranscribing(false); }
+        };
+        mediaRecorderRef.current = recorder; recorder.start(); setRecording(true);
+        setNotice("Listening… tap Stop when you've finished speaking."); return;
+      } catch { setNotice("Microphone access was blocked. Allow microphone access for LifeMode in your browser settings, then try again."); return; }
+    }
     const speechWindow = window as Window & { SpeechRecognition?: new () => { lang: string; interimResults: boolean; onresult: (event: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void; onerror: () => void; start: () => void }; webkitSpeechRecognition?: new () => { lang: string; interimResults: boolean; onresult: (event: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void; onerror: () => void; start: () => void } };
     const Recognition = speechWindow.SpeechRecognition || speechWindow.webkitSpeechRecognition;
-    if (!Recognition) { setNotice("Voice input isn't supported in this browser. You can still type to AI Buddy."); return; }
-    const recognition = new Recognition();
-    recognition.lang = "en-IN";
-    recognition.interimResults = false;
-    recognition.onresult = (event) => setDraft(event.results[0][0].transcript);
-    recognition.onerror = () => setNotice("Voice input couldn't start. Check microphone permission.");
-    recognition.start();
+    if (!Recognition) { setNotice("Voice input is not supported in this browser. Please use a browser with microphone recording enabled."); return; }
+    try { const recognition = new Recognition(); recognition.lang = "en-IN"; recognition.interimResults = false; recognition.onresult = (event) => setDraft((current) => current ? current + " " + event.results[0][0].transcript : event.results[0][0].transcript); recognition.onerror = () => setNotice("Voice input couldn't start. Check microphone permission and try again."); recognition.start(); }
+    catch { setNotice("Voice input couldn't start. Check microphone permission and try again."); }
   }
+
+  function stopVoiceInput() { const recorder = mediaRecorderRef.current; if (recorder && recorder.state !== "inactive") recorder.stop(); }
 
   if (loading) return <main className="min-h-screen bg-[#101710] p-8 text-[#f6f0df]">Opening your companion…</main>;
 
@@ -179,19 +234,20 @@ export default function BuddyPage() {
                   </article>
                 ))}
                 {sending && <p className="text-sm text-[#d8bd7b]">AI Buddy is thinking…</p>}
+                <div ref={messagesEndRef} aria-hidden="true" />
               </div>
               {notice && <p role="status" className="mb-3 rounded-xl border border-[#7d6940] bg-[#332d1d] p-3 text-xs leading-5 text-[#f0dfb5]">{notice}</p>}
               <form onSubmit={(event) => { event.preventDefault(); void sendMessage(); }} className="flex flex-col gap-2 sm:flex-row">
                 <input value={draft} onChange={(event) => setDraft(event.target.value)} placeholder="Ask about your goals, plans or next step…" className="h-12 min-w-0 flex-1 rounded-xl border border-[#53624e] bg-[#101810] px-4 text-sm text-white outline-none placeholder:text-[#87917f] focus:border-[#d8bd7b]" />
-                {voiceAvailable && <button type="button" onClick={startVoiceInput} aria-label="Use voice input" className="h-12 rounded-xl border border-[#65715c] px-4 text-sm">Voice</button>}
+                <button type="button" onClick={recording ? stopVoiceInput : voiceAvailable ? startVoiceInput : () => setNotice("This browser does not expose microphone recording here. On iPhone, tap the microphone on the keyboard to dictate, or open LifeMode in Safari and allow microphone access.")} disabled={transcribing} aria-pressed={recording} aria-label={recording ? "Stop voice recording" : "Start voice input"} className="h-12 rounded-xl border border-[#65715c] px-4 text-sm disabled:opacity-50">{recording ? "Stop" : transcribing ? "Transcribing…" : "🎙 Voice"}</button>
                 <button disabled={sending || !draft.trim()} className="h-12 rounded-xl bg-[#d8bd7b] px-6 text-sm font-semibold text-[#172016] disabled:opacity-50">Send</button>
               </form>
-              <p className="mt-2 text-[11px] text-[#9eaa98]">Voice input depends on browser and microphone support. Spoken AI replies are not enabled yet.</p>
+              <p className="mt-2 text-[11px] text-[#9eaa98]">Tap Voice, speak, then Stop. Review the transcription before sending. Spoken AI replies are not enabled yet.</p>
             </div>
             <aside className="grid content-start gap-4">
               <div className="rounded-3xl border border-[#3d4b3a] bg-[#182219] p-5">
                 <p className="text-xs font-semibold uppercase tracking-[.18em] text-[#d8bd7b]">Try asking</p>
-                <div className="mt-3 grid gap-2">{prompts.map((prompt) => <button key={prompt} onClick={() => void sendMessage(prompt)} className="rounded-xl border border-[#465443] bg-[#202d21] p-3 text-left text-sm leading-5 text-[#e6e7dc] transition hover:border-[#d8bd7b]">{prompt}</button>)}</div>
+                <div className="mt-3 grid gap-2">{prompts.map((prompt) => <button type="button" key={prompt} disabled={sending || !userId} onClick={() => void sendMessage(prompt)} aria-label={"Ask AI Buddy: " + prompt} className="rounded-xl disabled:cursor-wait disabled:opacity-50 border border-[#465443] bg-[#202d21] p-3 text-left text-sm leading-5 text-[#e6e7dc] transition hover:border-[#d8bd7b]">{prompt}</button>)}</div>
               </div>
               <div className="rounded-3xl border border-[#5c5137] bg-[#282619] p-5">
                 <p className="text-xs font-semibold uppercase tracking-[.18em] text-[#d8bd7b]">Provider settings</p>
