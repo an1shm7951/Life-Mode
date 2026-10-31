@@ -39,6 +39,7 @@ export default function BuddyPage() {
   const [transcribing, setTranscribing] = useState(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -77,9 +78,14 @@ export default function BuddyPage() {
 
   const history = useMemo(() => messages.slice(-10), [messages]);
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [messages, sending]);
+
   async function sendMessage(value = draft) {
     const prompt = value.trim();
-    if (!prompt || !userId || sending) return;
+    if (!prompt || sending) return;
+    if (!userId) { setNotice("Your LifeMode session is still loading. Please try again in a moment."); return; }
     const nextMessages: Message[] = [...messages, { role: "user", content: prompt }];
     setMessages(nextMessages);
     setDraft("");
@@ -221,11 +227,12 @@ export default function BuddyPage() {
                   </article>
                 ))}
                 {sending && <p className="text-sm text-[#d8bd7b]">AI Buddy is thinking…</p>}
+                <div ref={messagesEndRef} aria-hidden="true" />
               </div>
               {notice && <p role="status" className="mb-3 rounded-xl border border-[#7d6940] bg-[#332d1d] p-3 text-xs leading-5 text-[#f0dfb5]">{notice}</p>}
               <form onSubmit={(event) => { event.preventDefault(); void sendMessage(); }} className="flex flex-col gap-2 sm:flex-row">
                 <input value={draft} onChange={(event) => setDraft(event.target.value)} placeholder="Ask about your goals, plans or next step…" className="h-12 min-w-0 flex-1 rounded-xl border border-[#53624e] bg-[#101810] px-4 text-sm text-white outline-none placeholder:text-[#87917f] focus:border-[#d8bd7b]" />
-                {voiceAvailable && <button type="button" onClick={recording ? stopVoiceInput : startVoiceInput} disabled={transcribing} aria-label={recording ? "Stop voice recording" : "Start voice input"} className="h-12 rounded-xl border border-[#65715c] px-4 text-sm disabled:opacity-50">{recording ? "Stop" : transcribing ? "Transcribing…" : "🎙 Voice"}</button>}
+                <button type="button" onClick={recording ? stopVoiceInput : voiceAvailable ? startVoiceInput : () => setNotice("This browser does not expose microphone recording here. On iPhone, tap the microphone on the keyboard to dictate, or open LifeMode in Safari and allow microphone access.")} disabled={transcribing} aria-pressed={recording} aria-label={recording ? "Stop voice recording" : "Start voice input"} className="h-12 rounded-xl border border-[#65715c] px-4 text-sm disabled:opacity-50">{recording ? "Stop" : transcribing ? "Transcribing…" : "🎙 Voice"}</button>
                 <button disabled={sending || !draft.trim()} className="h-12 rounded-xl bg-[#d8bd7b] px-6 text-sm font-semibold text-[#172016] disabled:opacity-50">Send</button>
               </form>
               <p className="mt-2 text-[11px] text-[#9eaa98]">Tap Voice, speak, then Stop. Review the transcription before sending. Spoken AI replies are not enabled yet.</p>
@@ -233,7 +240,7 @@ export default function BuddyPage() {
             <aside className="grid content-start gap-4">
               <div className="rounded-3xl border border-[#3d4b3a] bg-[#182219] p-5">
                 <p className="text-xs font-semibold uppercase tracking-[.18em] text-[#d8bd7b]">Try asking</p>
-                <div className="mt-3 grid gap-2">{prompts.map((prompt) => <button type="button" key={prompt} disabled={sending || !userId} onClick={() => void sendMessage(prompt)} className="rounded-xl disabled:cursor-wait disabled:opacity-50 border border-[#465443] bg-[#202d21] p-3 text-left text-sm leading-5 text-[#e6e7dc] transition hover:border-[#d8bd7b]">{prompt}</button>)}</div>
+                <div className="mt-3 grid gap-2">{prompts.map((prompt) => <button type="button" key={prompt} disabled={sending || !userId} onClick={() => void sendMessage(prompt)} aria-label={"Ask AI Buddy: " + prompt} className="rounded-xl disabled:cursor-wait disabled:opacity-50 border border-[#465443] bg-[#202d21] p-3 text-left text-sm leading-5 text-[#e6e7dc] transition hover:border-[#d8bd7b]">{prompt}</button>)}</div>
               </div>
               <div className="rounded-3xl border border-[#5c5137] bg-[#282619] p-5">
                 <p className="text-xs font-semibold uppercase tracking-[.18em] text-[#d8bd7b]">Provider settings</p>
