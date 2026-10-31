@@ -145,7 +145,7 @@ export default function BuddyPage() {
     if (navigator.mediaDevices?.getUserMedia && typeof MediaRecorder !== "undefined") {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const candidates = ["audio/webm;codecs=opus", "audio/webm", "audio/mp4"];
+        const candidates = ["audio/mp4", "audio/webm;codecs=opus", "audio/webm"];
         const mimeType = candidates.find((type) => MediaRecorder.isTypeSupported(type));
         const recorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
         audioChunksRef.current = [];
