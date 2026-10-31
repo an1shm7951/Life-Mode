@@ -68,7 +68,7 @@ export default function BuddyPage() {
         if (saved) setReminders(JSON.parse(saved) as Reminder[]);
       } catch { /* Ignore invalid local reminder data. */ }
       const speechWindow = window as Window & { SpeechRecognition?: unknown; webkitSpeechRecognition?: unknown };
-      setVoiceAvailable(Boolean(navigator.mediaDevices?.getUserMedia && typeof MediaRecorder !== "undefined") || Boolean(speechWindow.SpeechRecognition || speechWindow.webkitSpeechRecognition));
+      setVoiceAvailable(Boolean(navigator.mediaDevices?.getUserMedia && "MediaRecorder" in window) || Boolean(speechWindow.SpeechRecognition || speechWindow.webkitSpeechRecognition));
       setLoading(false);
     }
     init();
@@ -142,7 +142,7 @@ export default function BuddyPage() {
 
   async function startVoiceInput() {
     setNotice("");
-    if (navigator.mediaDevices?.getUserMedia && typeof MediaRecorder !== "undefined") {
+    if (navigator.mediaDevices?.getUserMedia && "MediaRecorder" in window) {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         const candidates = ["audio/mp4", "audio/webm;codecs=opus", "audio/webm"];
