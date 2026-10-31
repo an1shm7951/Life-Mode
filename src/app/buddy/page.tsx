@@ -135,17 +135,50 @@ export default function BuddyPage() {
     );
   }
 
-  function startVoiceInput() {
+  async function startVoiceInput() {
+    setNotice("");
+    if (navigator.mediaDevices?.getUserMedia && window.MediaRecorder) {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const candidates = ["audio/webm;codecs=opus", "audio/webm", "audio/mp4"];
+        const mimeType = candidates.find((type) => MediaRecorder.isTypeSupported(type));
+        const recorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
+        audioChunksRef.current = [];
+        recorder.ondataavailable = (event) => { if (event.data.size) audioChunksRef.current.push(event.data); };
+        recorder.onerror = () => { stream.getTracks().forEach((track) => track.stop()); setRecording(false); setNotice("The microphone recording failed. Please try again."); };
+        recorder.onstop = async () => {
+          stream.getTracks().forEach((track) => track.stop());
+          setRecording(false);
+          const type = recorder.mimeType || "audio/webm";
+          const extension = type.includes("mp4") ? "mp4" : type.includes("ogg") ? "ogg" : "webm";
+          const audio = new File(audioChunksRef.current, "lifemode-voice." + extension, { type });
+          if (!audio.size) { setNotice("No audio was captured. Please try again."); return; }
+          setTranscribing(true);
+          try {
+            const form = new FormData(); form.append("audio", audio);
+            const sessionResult = await supabase.auth.getSession();
+            const session = sessionResult.data.session;
+            if (!session?.access_token) throw new Error("Your session expired. Please sign in again.");
+            const response = await fetch("/api/ai-buddy/transcribe", { method: "POST", headers: { Authorization: "Bearer " + session.access_token }, body: form });
+            const result = await response.json() as { text?: string; error?: string };
+            if (!response.ok || !result.text) throw new Error(result.error || "Voice transcription failed.");
+            setDraft((current) => current ? current + " " + result.text : result.text!);
+            setNotice("Voice added to your message. Review it, then tap Send.");
+          } catch (error) { setNotice(error instanceof Error ? error.message : "Couldn't transcribe that recording."); }
+          finally { setTranscribing(false); }
+        };
+        mediaRecorderRef.current = recorder; recorder.start(); setRecording(true);
+        setNotice("Listening… tap Stop when you've finished speaking."); return;
+      } catch { setNotice("Microphone access was blocked. Allow microphone access for LifeMode in your browser settings, then try again."); return; }
+    }
     const speechWindow = window as Window & { SpeechRecognition?: new () => { lang: string; interimResults: boolean; onresult: (event: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void; onerror: () => void; start: () => void }; webkitSpeechRecognition?: new () => { lang: string; interimResults: boolean; onresult: (event: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void; onerror: () => void; start: () => void } };
     const Recognition = speechWindow.SpeechRecognition || speechWindow.webkitSpeechRecognition;
-    if (!Recognition) { setNotice("Voice input isn't supported in this browser. You can still type to AI Buddy."); return; }
-    const recognition = new Recognition();
-    recognition.lang = "en-IN";
-    recognition.interimResults = false;
-    recognition.onresult = (event) => setDraft(event.results[0][0].transcript);
-    recognition.onerror = () => setNotice("Voice input couldn't start. Check microphone permission.");
-    recognition.start();
+    if (!Recognition) { setNotice("Voice input is not supported in this browser. Please use a browser with microphone recording enabled."); return; }
+    try { const recognition = new Recognition(); recognition.lang = "en-IN"; recognition.interimResults = false; recognition.onresult = (event) => setDraft((current) => current ? current + " " + event.results[0][0].transcript : event.results[0][0].transcript); recognition.onerror = () => setNotice("Voice input couldn't start. Check microphone permission and try again."); recognition.start(); }
+    catch { setNotice("Voice input couldn't start. Check microphone permission and try again."); }
   }
+
+  function stopVoiceInput() { const recorder = mediaRecorderRef.current; if (recorder && recorder.state !== "inactive") recorder.stop(); }
 
   if (loading) return <main className="min-h-screen bg-[#101710] p-8 text-[#f6f0df]">Opening your companion…</main>;
 
