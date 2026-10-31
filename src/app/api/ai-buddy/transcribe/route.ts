@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-goog-api-key": geminiKey! },
-      body: JSON.stringify({ contents: [{ role: "user", parts: [{ text: "Transcribe the spoken audio exactly. Return only the words spoken, without commentary. Preserve the language used by the speaker." }, { inlineData: { mimeType: audio.type || "audio/mp4", data: bytes } }] }], generationConfig: { temperature: 0 } }),
+      body: JSON.stringify({ contents: [{ role: "user", parts: [{ text: "Transcribe the spoken audio exactly. Return only the words spoken, without commentary. Preserve the language used by the speaker." }, { inlineData: { mimeType: audio.type?.split(";")[0] || "audio/mp4", data: bytes } }] }], generationConfig: { temperature: 0 } }),
       signal: AbortSignal.timeout(25_000),
     });
     const result = await response.json() as { candidates?: { content?: { parts?: { text?: string }[] } }[]; error?: { message?: string } };
