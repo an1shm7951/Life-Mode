@@ -97,13 +97,14 @@ export default function BuddyPage() {
       const response = await fetch("/api/ai-buddy", {
         method: "POST",
         headers: { Authorization: `Bearer ${session.access_token}`, "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(45_000),
         body: JSON.stringify({
           mode,
           goal: prompt,
           history: history.map((item) => ({ role: item.role, content: item.content })),
         }),
       });
-      const data = await response.json() as { plan?: AiBuddyResponse; error?: string };
+      const data = await response.json().catch(() => ({})) as { plan?: AiBuddyResponse; error?: string };
       if (!response.ok || !data.plan) throw new Error(data.error || "AI Buddy is temporarily unavailable.");
       const assistantContent = data.plan.message + (data.plan.nextActions.length ? "\n\nNext steps:\n" + data.plan.nextActions.map((item) => "• " + item).join("\n") : "");
       setMessages((current) => [...current, { role: "assistant", content: assistantContent }]);
