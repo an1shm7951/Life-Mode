@@ -68,7 +68,7 @@ export default function BuddyPage() {
         if (saved) setReminders(JSON.parse(saved) as Reminder[]);
       } catch { /* Ignore invalid local reminder data. */ }
       const speechWindow = window as Window & { SpeechRecognition?: unknown; webkitSpeechRecognition?: unknown };
-      setVoiceAvailable(Boolean(navigator.mediaDevices?.getUserMedia && window.MediaRecorder) || Boolean(speechWindow.SpeechRecognition || speechWindow.webkitSpeechRecognition));
+      setVoiceAvailable(Boolean(navigator.mediaDevices?.getUserMedia && typeof MediaRecorder !== "undefined") || Boolean(speechWindow.SpeechRecognition || speechWindow.webkitSpeechRecognition));
       setLoading(false);
     }
     init();
@@ -99,8 +99,13 @@ export default function BuddyPage() {
       });
       const data = await response.json() as { plan?: AiBuddyResponse; error?: string };
       if (!response.ok || !data.plan) throw new Error(data.error || "AI Buddy is temporarily unavailable.");
-      await createAiBuddyHistory({ userId, mode, prompt, plan: data.plan });
-      setMessages((current) => [...current, { role: "assistant", content: data.plan!.message + (data.plan!.nextActions.length ? "\\n\\nNext steps:\\n" + data.plan!.nextActions.map((item) => "• " + item).join("\\n") : "") }]);
+      const assistantContent = data.plan.message + (data.plan.nextActions.length ? "\n\nNext steps:\n" + data.plan.nextActions.map((item) => "• " + item).join("\n") : "");
+      setMessages((current) => [...current, { role: "assistant", content: assistantContent }]);
+      try {
+        await createAiBuddyHistory({ userId, mode, prompt, plan: data.plan });
+      } catch {
+        setNotice("AI Buddy replied, but this message could not be saved to your history.");
+      }
     } catch (error) {
       setNotice(error instanceof Error ? error.message : "Couldn't reach AI Buddy. Please try again.");
     } finally {
@@ -137,7 +142,7 @@ export default function BuddyPage() {
 
   async function startVoiceInput() {
     setNotice("");
-    if (navigator.mediaDevices?.getUserMedia && window.MediaRecorder) {
+    if (navigator.mediaDevices?.getUserMedia && typeof MediaRecorder !== "undefined") {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         const candidates = ["audio/webm;codecs=opus", "audio/webm", "audio/mp4"];
