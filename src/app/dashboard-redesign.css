@@ -400,3 +400,12 @@ body:not(:has(.dashboard-shell)) .mobile-nav-label { overflow: hidden; max-width
   grid-column: 1 !important;
   grid-row: auto !important;
 }
+
+
+/* Keep the header on one compact row, including narrow phones */
+.dashboard-header-inner {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
