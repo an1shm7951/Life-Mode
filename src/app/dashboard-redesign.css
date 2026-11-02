@@ -344,3 +344,48 @@ body:has(.dashboard-shell) > footer { display: none !important; }
 @media (prefers-reduced-motion: reduce) {
   .dashboard-shell *, .dashboard-shell *::before, .dashboard-shell *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+
+/* Shared bottom navigation on the app's main spaces */
+body:not(:has(.dashboard-shell)) .mobile-nav {
+  position: fixed !important;
+  z-index: 100 !important;
+  right: 16px !important;
+  bottom: max(12px, env(safe-area-inset-bottom)) !important;
+  left: 16px !important;
+  display: grid !important;
+  width: min(100% - 32px, 1120px) !important;
+  min-height: 58px;
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  align-items: stretch;
+  margin: 0 auto !important;
+  padding: 5px !important;
+  border: 1px solid #d9dfd6 !important;
+  border-radius: 12px !important;
+  background: rgba(250,251,248,.96) !important;
+  box-shadow: 0 8px 30px rgba(27,35,27,.12) !important;
+  backdrop-filter: blur(20px);
+}
+body:not(:has(.dashboard-shell)) .mobile-nav-item {
+  display: flex !important;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border-radius: 8px;
+  color: #737a71 !important;
+  text-decoration: none !important;
+}
+body:not(:has(.dashboard-shell)) .mobile-nav-item.is-active { color: #344b38 !important; background: #edf2ea !important; }
+body:not(:has(.dashboard-shell)) .mobile-nav-icon { font-size: 16px; line-height: 1.1; }
+body:not(:has(.dashboard-shell)) .mobile-nav-label { overflow: hidden; max-width: 100%; font-size: 8px; font-weight: 550; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 620px) {
+  body:not(:has(.dashboard-shell)) .mobile-nav {
+    right: 9px !important; bottom: max(7px, env(safe-area-inset-bottom)) !important;
+    left: 9px !important; width: calc(100% - 18px) !important;
+    min-height: 55px; border-radius: 11px !important;
+  }
+  body:not(:has(.dashboard-shell)) .mobile-nav-icon { font-size: 15px; }
+  body:not(:has(.dashboard-shell)) .mobile-nav-label { font-size: 7px; }
+}
