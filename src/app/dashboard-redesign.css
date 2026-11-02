@@ -389,3 +389,14 @@ body:not(:has(.dashboard-shell)) .mobile-nav-label { overflow: hidden; max-width
   body:not(:has(.dashboard-shell)) .mobile-nav-icon { font-size: 15px; }
   body:not(:has(.dashboard-shell)) .mobile-nav-label { font-size: 7px; }
 }
+
+
+/* Secondary dashboard views remain intentionally single-column */
+.dashboard-content-grid:not(:has(#goals)) {
+  max-width: 920px !important;
+  grid-template-columns: minmax(0,1fr) !important;
+}
+.dashboard-content-grid:not(:has(#goals)) > * {
+  grid-column: 1 !important;
+  grid-row: auto !important;
+}
