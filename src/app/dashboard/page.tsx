@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import { MobileNav } from "@/components/mobile-nav";
+import "./dashboard-redesign.css";
 import { AmbientScene } from "@/components/ambient-scene";
 import type { AiBuddyResponse, ConnectionIntent, LifeMode, LifeModeId, Opportunity } from "@/lib/lifemode/types";
 import {
@@ -142,12 +143,13 @@ function DashboardContent() {
     () => modes.find((mode) => mode.id === state.activeMode),
     [state.activeMode, modes],
   );
-  const modeGoals = state.goals.filter((goal) => goal.mode === state.activeMode && goal.goal_type === "daily");
-  const shortTermGoals = state.goals.filter((goal) => goal.mode === state.activeMode && goal.goal_type === "short_term");
-  const longTermGoals = state.goals.filter((goal) => goal.mode === state.activeMode && goal.goal_type === "long_term");
-  const completedGoals = modeGoals.filter((goal) => goal.done).length;
-  const dailyProgress = modeGoals.length
-    ? Math.round((completedGoals / modeGoals.length) * 100)
+  const allModeGoals = state.goals.filter((goal) => goal.mode === state.activeMode && goal.goal_type === "daily");
+  const modeGoals = allModeGoals.filter((goal) => !goal.done);
+  const shortTermGoals = state.goals.filter((goal) => goal.mode === state.activeMode && goal.goal_type === "short_term" && !goal.done);
+  const longTermGoals = state.goals.filter((goal) => goal.mode === state.activeMode && goal.goal_type === "long_term" && !goal.done);
+  const completedGoals = allModeGoals.filter((goal) => goal.done).length;
+  const dailyProgress = allModeGoals.length
+    ? Math.round((completedGoals / allModeGoals.length) * 100)
     : 0;
   const savedOpportunityIds = state.opportunityActions
     .filter((action) => action.status === "saved")
@@ -161,7 +163,7 @@ function DashboardContent() {
   const activeProofPosts = state.proofPosts.filter(
     (post) => post.mode === state.activeMode,
   );
-  const nextGoal = modeGoals.find((goal) => !goal.done) ?? modeGoals[0];
+  const nextGoal = modeGoals[0];
 
   useEffect(() => {
     async function loadDashboard() {
@@ -719,6 +721,10 @@ function DashboardContent() {
         </div>
       </section>
 
+      <section className="dashboard-inspiration-strip" aria-label="Daily inspiration and music">
+        <div className="dashboard-quote-copy"><span className="dashboard-strip-kicker">A THOUGHT FOR TODAY</span><p>“Small steps, repeated daily, create remarkable change.”</p></div>
+        <a className="dashboard-music-link" href="https://music.youtube.com/" target="_blank" rel="noreferrer"><span aria-hidden="true">♫</span><span><strong>Music</strong><small>Open your music</small></span><span aria-hidden="true">↗</span></a>
+      </section>
       <section aria-label="LifeMode spaces" className="mx-auto max-w-7xl px-5 pt-6 sm:px-8 sm:pt-8"><div className="mb-4 flex flex-wrap items-end justify-between gap-3"><div><p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#7b4d10]">YOUR LIFE, ONE SPACE</p><h2 className="mt-1 text-2xl font-semibold tracking-tight text-[#20251d] sm:text-3xl">Your LifeMode spaces</h2><p className="mt-1 text-sm text-[#625f54]">Everything works together here. Pick up where you left off.</p></div><span className="rounded-full border border-[#d8c49c] bg-[#fff8e8] px-3 py-1.5 text-xs font-medium text-[#725323]">One account · One home</span></div><div className="lifemode-launchpad grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
         <Link href="/discover" className="lifemode-launch-card discover-card group relative flex min-h-40 flex-col justify-between overflow-hidden rounded-2xl border border-[#2f352d] bg-[#151814] p-5 text-white shadow-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7b3f2a] sm:min-h-48 sm:p-6">
           <span className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.16em] text-[#d6c29d]"><span>01 · Explore</span><span aria-hidden="true" className="text-xl">✳</span></span>
@@ -775,11 +781,11 @@ function DashboardContent() {
                     Today&apos;s progress
                   </p>
                   <p className="mt-1 text-2xl font-semibold">
-                    {modeGoals.length ? `${completedGoals} of ${modeGoals.length} goals` : "Start small"}
+                    {allModeGoals.length ? `${completedGoals} of ${allModeGoals.length} goals` : "Start small"}
                   </p>
                   <p className="mt-1 text-sm text-[#ddd5c4]">
-                    {modeGoals.length
-                      ? completedGoals === modeGoals.length
+                    {allModeGoals.length
+                      ? completedGoals === allModeGoals.length
                         ? "All done for today!"
                         : completedGoals
                           ? "Nice start. Keep going!"
@@ -1034,7 +1040,13 @@ function DashboardContent() {
         </Panel>
         </div>
 
-              
+        <Panel title="AI Buddy" eyebrow="Your personal assistant">
+          <p className="text-sm leading-6 text-[#5f5a50]">Talk through your goals, organise your day, or decide what to focus on next. Your saved LifeMode context stays connected.</p>
+          <div className="mt-4 grid gap-2">
+            <Link href="/buddy" className="dashboard-buddy-open">Open AI Buddy <span aria-hidden="true">↗</span></Link>
+            <p className="text-xs text-[#77756d]">Voice input and conversation history are available in your companion space.</p>
+          </div>
+        </Panel>
 
       </section>
       </div>
