@@ -677,6 +677,7 @@ function DashboardContent() {
             </h1>
           </div>
           <div className="dashboard-actions flex flex-col gap-3 sm:flex-row">
+            <Link href="/settings" className="dashboard-settings-link" aria-label="Settings" title="Settings">⚙</Link>
             <Link href="/profile" className="nav-button">
               Profile
             </Link>
