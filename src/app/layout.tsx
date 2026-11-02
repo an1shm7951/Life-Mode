@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import "./dashboard-redesign.css";
 import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { ThemeRuntime } from "@/components/theme-runtime";
