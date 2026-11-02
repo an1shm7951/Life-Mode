@@ -354,27 +354,6 @@ function DashboardContent() {
     }
   }
 
-  async function clearCompletedGoals() {
-    const completedGoalIds = state.goals
-      .filter((goal) => goal.mode === state.activeMode && goal.done)
-      .map((goal) => goal.id);
-
-    if (!completedGoalIds.length) {
-      return;
-    }
-
-    setStatusMessage("Clearing goals...");
-    try {
-      await Promise.all(completedGoalIds.map((goalId) => deleteGoalRow(goalId)));
-      updateState({
-        goals: state.goals.filter((goal) => !completedGoalIds.includes(goal.id)),
-      });
-      setStatusMessage("Completed goals cleared");
-    } catch (error) {
-      setStatusMessage(`Could not clear completed goals: ${errorMessage(error)}`);
-    }
-  }
-
   async function addProofPost() {
     const text = proofInput.trim();
 
@@ -1031,12 +1010,6 @@ function DashboardContent() {
               <Link href="/goals/long-term" className="mt-3 inline-flex text-sm font-semibold text-[#315260]">Add a long-term goal ↗</Link>
             </section>
           </div>
-<button
-            onClick={clearCompletedGoals}
-            className="mt-3 h-10 rounded-lg border border-[#c8beaa] bg-white px-4 text-sm font-semibold text-[#181713]"
-          >
-            Clear finished goals
-          </button>
         </Panel>
         </div>
 
