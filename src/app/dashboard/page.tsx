@@ -636,74 +636,25 @@ function DashboardContent() {
   return (
       <main className="dashboard-shell min-h-screen bg-[#f3f5f0] pb-24 text-[#181713] lg:pb-0">
       <AmbientScene />
-      <header className="dashboard-header border-b border-[#d8d1c2]/70 bg-[#f8f7f1]/92 backdrop-blur lg:sticky lg:top-0 lg:z-20">
-        <div className="dashboard-header-inner mx-auto flex max-w-7xl flex-col gap-4 px-5 py-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
-          <div>
-            <div className="flex flex-wrap items-center gap-3">
-              <Link
-                href="/"
-                className="dashboard-brand text-sm font-semibold uppercase tracking-[0.18em] text-[#7b3f2a]"
-              >
-                <span className="dashboard-brand-mark" aria-hidden="true">L</span> LifeMode<span className="dashboard-brand-period">.</span>
-              </Link>
-              <span className="dashboard-badge rounded-md border border-[#d8c49c] bg-[#fff3cf] px-2 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-[#7b4d10]">
-                Early access
-              </span>
-            </div>
-            <h1 className="dashboard-welcome mt-2 text-3xl font-semibold tracking-normal">
-              Hi, {displayName}
-            </h1>
-          </div>
-          <div className="dashboard-actions flex flex-col gap-3 sm:flex-row">
+      <header className="dashboard-header">
+        <div className="dashboard-header-inner">
+          <Link href="/" className="dashboard-brand" aria-label="LifeMode home">
+            <span className="dashboard-brand-mark" aria-hidden="true">L</span><span>LifeMode</span><span className="dashboard-brand-period">.</span>
+          </Link>
+          <div className="dashboard-header-right">
+            <span className="dashboard-welcome">Hi, {displayName}</span>
+            <label className="dashboard-mode-control">
+              <span className="sr-only">Choose your mode</span>
+              <select aria-label="Choose your mode" value={state.activeMode} onChange={(event) => switchMode(event.target.value as LifeModeId)} className="dashboard-mode-select">
+                {modes.map((mode) => <option key={mode.id} value={mode.id}>{mode.name}</option>)}
+              </select>
+            </label>
             <Link href="/settings" className="dashboard-settings-link" aria-label="Settings" title="Settings">⚙</Link>
-            <Link href="/profile" className="nav-button">
-              Profile
-            </Link>
-
-            <Link href="/subscription" className="nav-button">Plus</Link>
-
-            <select
-              aria-label="Choose your mode"
-              value={state.activeMode}
-              onChange={(event) => switchMode(event.target.value as LifeModeId)}
-              className="dashboard-mode-select h-11 rounded-lg border border-[#c8beaa] bg-white px-3 text-sm font-semibold outline-none"
-            >
-              {modes.map((mode) => (
-                <option key={mode.id} value={mode.id}>
-                  {mode.name}
-                </option>
-              ))}
-            </select>
-            <div className="dashboard-sync flex h-11 items-center rounded-lg border border-[#c8beaa] bg-white px-3 text-sm font-semibold text-[#5f5a50]" role="status" aria-live="polite">
-              <span className="dashboard-sync-dot" aria-hidden="true" />
-              {statusMessage}
-            </div>
-            <button
-              onClick={logout}
-              className="dashboard-logout h-11 rounded-lg bg-[#181713] px-4 text-sm font-semibold text-white transition hover:bg-[#2a2821]"
-            >
-              Log out
-            </button>
+            <button onClick={logout} className="dashboard-logout" aria-label="Log out" title="Log out">↗</button>
           </div>
         </div>
       </header>
 
-      <section className="dashboard-notice border-b border-[#d8d1c2] bg-[#fff8e6]/90">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-3 text-sm leading-6 text-[#6a4a13] sm:px-8 lg:flex-row lg:items-center lg:justify-between">
-          <p>
-            LifeMode is still in preview. Please use test data and avoid adding
-            private or sensitive details.
-          </p>
-          <Link href="/profile" className="font-semibold text-[#181713]">
-            Review your profile
-          </Link>
-        </div>
-      </section>
-
-      <section className="dashboard-inspiration-strip" aria-label="Daily inspiration and music">
-        <div className="dashboard-quote-copy"><span className="dashboard-strip-kicker">A THOUGHT FOR TODAY</span><p>“Small steps, repeated daily, create remarkable change.”</p></div>
-        <a className="dashboard-music-link" href="https://music.youtube.com/" target="_blank" rel="noreferrer"><span aria-hidden="true">♫</span><span><strong>Music</strong><small>Open your music</small></span><span aria-hidden="true">↗</span></a>
-      </section>
       <section className="dashboard-topline" aria-label="Daily inspiration and music">
         <article className="dashboard-quote-card">
           <span className="dashboard-card-kicker">A THOUGHT TO CARRY WITH YOU</span>
