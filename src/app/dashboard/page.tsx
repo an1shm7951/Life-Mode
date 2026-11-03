@@ -702,7 +702,18 @@ function DashboardContent() {
 
       {dashboardView === "today" ? (
       <div className="dashboard-view-stage" key={dashboardView}>
-      <section className="dashboard-content-grid mx-auto grid max-w-3xl gap-5 px-5 pb-12 sm:px-8">
+      <section className="dashboard-content-grid mx-auto grid gap-5 px-5 pb-12 sm:px-8">
+        <aside className="dashboard-shortcuts" aria-label="LifeMode spaces">
+          <span className="dashboard-card-kicker">YOUR SPACES</span>
+          <nav>
+            <Link href="/discover"><span aria-hidden="true">✳</span><span>Discover</span></Link>
+            <Link href="/planning"><span aria-hidden="true">▦</span><span>Plan</span></Link>
+            <Link href="/stories"><span aria-hidden="true">▤</span><span>Stories</span></Link>
+            <Link href="/play"><span aria-hidden="true">✦</span><span>Play</span></Link>
+            <Link href="/dashboard?view=proof"><span aria-hidden="true">◈</span><span>Proof</span></Link>
+            <Link href="/dashboard?view=connections"><span aria-hidden="true">◎</span><span>Connections</span></Link>
+          </nav>
+        </aside>
         <div className="dashboard-checkin-slot"><Panel title="A moment for you" eyebrow="Daily check-in">
           <p className="mb-4 text-sm leading-6 text-[#5f5a50]">You don't have to be productive every minute. Take a second to notice how you're feeling.</p>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
