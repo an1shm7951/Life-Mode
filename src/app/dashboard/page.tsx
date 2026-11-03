@@ -703,7 +703,7 @@ function DashboardContent() {
       {dashboardView === "today" ? (
       <div className="dashboard-view-stage" key={dashboardView}>
       <section className="dashboard-content-grid mx-auto grid max-w-3xl gap-5 px-5 pb-12 sm:px-8">
-        <Panel title="A moment for you" eyebrow="Daily check-in">
+        <div className="dashboard-checkin-slot"><Panel title="A moment for you" eyebrow="Daily check-in">
           <p className="mb-4 text-sm leading-6 text-[#5f5a50]">You don't have to be productive every minute. Take a second to notice how you're feeling.</p>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
             {[
@@ -732,7 +732,7 @@ function DashboardContent() {
             {checkinSaved ? <p role="status" className="text-sm text-[#315260]">Thanks for checking in with yourself. Take today one step at a time.</p> : null}
           </div>
           <p className="mt-3 text-xs leading-5 text-[#77756d]">Your check-in stays in this browser on this device for now. It isn't shared on your profile.</p>
-        </Panel>
+        </Panel></div>
 
         <div id="goals" className="scroll-mt-24">
         <Panel title="Today's goals" eyebrow="Your plan">
@@ -871,13 +871,13 @@ function DashboardContent() {
         </Panel>
         </div>
 
-        <Panel title="AI Buddy" eyebrow="Your personal assistant">
+        <div className="dashboard-buddy-slot"><Panel title="AI Buddy" eyebrow="Your personal assistant">
           <p className="text-sm leading-6 text-[#5f5a50]">Talk through your goals, organise your day, or decide what to focus on next. Your saved LifeMode context stays connected.</p>
           <div className="mt-4 grid gap-2">
             <Link href="/buddy" className="dashboard-buddy-open">Open AI Buddy <span aria-hidden="true">↗</span></Link>
             <p className="text-xs text-[#77756d]">Voice input and conversation history are available in your companion space.</p>
           </div>
-        </Panel>
+        </Panel></div>
 
       </section>
       </div>
