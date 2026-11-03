@@ -704,121 +704,28 @@ function DashboardContent() {
         <div className="dashboard-quote-copy"><span className="dashboard-strip-kicker">A THOUGHT FOR TODAY</span><p>“Small steps, repeated daily, create remarkable change.”</p></div>
         <a className="dashboard-music-link" href="https://music.youtube.com/" target="_blank" rel="noreferrer"><span aria-hidden="true">♫</span><span><strong>Music</strong><small>Open your music</small></span><span aria-hidden="true">↗</span></a>
       </section>
-      <section aria-label="LifeMode spaces" className="mx-auto max-w-7xl px-5 pt-6 sm:px-8 sm:pt-8"><div className="mb-4 flex flex-wrap items-end justify-between gap-3"><div><p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#7b4d10]">YOUR LIFE, ONE SPACE</p><h2 className="mt-1 text-2xl font-semibold tracking-tight text-[#20251d] sm:text-3xl">Your LifeMode spaces</h2><p className="mt-1 text-sm text-[#625f54]">Everything works together here. Pick up where you left off.</p></div><span className="rounded-full border border-[#d8c49c] bg-[#fff8e8] px-3 py-1.5 text-xs font-medium text-[#725323]">One account · One home</span></div><div className="lifemode-launchpad grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
-        <Link href="/discover" className="lifemode-launch-card discover-card group relative flex min-h-40 flex-col justify-between overflow-hidden rounded-2xl border border-[#2f352d] bg-[#151814] p-5 text-white shadow-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7b3f2a] sm:min-h-48 sm:p-6">
-          <span className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.16em] text-[#d6c29d]"><span>01 · Explore</span><span aria-hidden="true" className="text-xl">✳</span></span>
-          <span><span className="block text-2xl font-semibold sm:text-3xl">Discover</span><span className="mt-2 block max-w-xs text-sm leading-5 text-[#ddd5c4]">Fresh ideas, technology, science, and stories worth thinking about.</span></span>
-          <span className="mt-4 text-sm font-semibold text-[#f1d7a5]">Explore stories <span aria-hidden="true">→</span></span>
-        </Link>
-        <Link href="/dashboard#goals" className="lifemode-launch-card goals-card group flex min-h-40 flex-col justify-between rounded-2xl border border-[#d8c49c] bg-[#fff8e8] p-5 shadow-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7b3f2a] sm:min-h-48 sm:p-6">
-          <span className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.16em] text-[#7b3f2a]"><span>02 · Build</span><span aria-hidden="true" className="text-xl">↗</span></span>
-          <span><span className="block text-2xl font-semibold text-[#25221d] sm:text-3xl">Goals</span><span className="mt-2 block max-w-xs text-sm leading-5 text-[#5f5a50]">Turn what matters to you into small, doable steps.</span></span>
-          <span className="mt-4 text-sm font-semibold text-[#7b3f2a]">Work on your goals <span aria-hidden="true">→</span></span>
-        </Link>
-        <Link href="/planning" className="lifemode-launch-card plan-card group flex min-h-40 flex-col justify-between rounded-2xl border border-[#d8d1c2] bg-white p-5 shadow-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7b3f2a] sm:min-h-48 sm:p-6">
-          <span className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.16em] text-[#315260]"><span>03 · Organize</span><span aria-hidden="true" className="text-xl">◷</span></span>
-          <span><span className="block text-2xl font-semibold text-[#25221d] sm:text-3xl">Plan</span><span className="mt-2 block max-w-xs text-sm leading-5 text-[#5f5a50]">Shape your day around routines, time, and priorities.</span></span>
-          <span className="mt-4 text-sm font-semibold text-[#315260]">Open your plan <span aria-hidden="true">→</span></span>
-        </Link>
-        <Link href="/buddy" className="lifemode-launch-card group relative flex min-h-40 flex-col justify-between overflow-hidden rounded-2xl border border-[#65704f] bg-[linear-gradient(145deg,#243323,#121a13)] p-5 text-white shadow-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d8bd7b] sm:min-h-48 sm:p-6">
-          <span className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.16em] text-[#e2c783]"><span>04 · Assist</span><span aria-hidden="true" className="text-xl">✧</span></span>
-          <span><span className="block text-2xl font-semibold sm:text-3xl">AI Buddy</span><span className="mt-2 block max-w-xs text-sm leading-5 text-[#d6dfd0]">Your AI companion and LifeMode Pulse reminders, connected to your daily life.</span></span>
-          <span className="mt-4 text-sm font-semibold text-[#e2c783]">Meet your companion <span aria-hidden="true">→</span></span>
-        </Link>
-        <Link href="/play" className="lifemode-launch-card group flex min-h-40 flex-col justify-between rounded-2xl border border-[#d8c49c] bg-[#20251d] p-5 text-white shadow-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d8bd7b] sm:min-h-48 sm:p-6">
-          <span className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.16em] text-[#e2c783]"><span>05 · Play</span><span aria-hidden="true" className="text-xl">✦</span></span>
-          <span><span className="block text-2xl font-semibold sm:text-3xl">Orbit Dash</span><span className="mt-2 block max-w-xs text-sm leading-5 text-[#d6dfd0]">Take a quick break with a game built into your LifeMode space.</span></span>
-          <span className="mt-4 text-sm font-semibold text-[#e2c783]">Play a round <span aria-hidden="true">→</span></span>
-        </Link>
-        <Link href="/stories" className="lifemode-launch-card group flex min-h-40 flex-col justify-between rounded-2xl border border-[#65704f] bg-[linear-gradient(145deg,#29372b,#171f18)] p-5 text-white shadow-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d8bd7b] sm:min-h-48 sm:p-6">
-          <span className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.16em] text-[#e2c783]"><span>06 · Unwind</span><span aria-hidden="true" className="text-xl">✧</span></span>
-          <span><span className="block text-2xl font-semibold sm:text-3xl">Story Room</span><span className="mt-2 block max-w-xs text-sm leading-5 text-[#d6dfd0]">Original stories and small worlds to explore when you need a change of pace.</span></span>
-          <span className="mt-4 text-sm font-semibold text-[#e2c783]">Read a story <span aria-hidden="true">→</span></span>
-        </Link>
-      </div>
-      </section>
-
-      <section className="dashboard-overview mx-auto grid max-w-7xl gap-5 px-5 py-8 sm:px-8 lg:grid-cols-[1.2fr_0.8fr]">
-        <div className="dashboard-command premium-focus rounded-lg border border-[#2f352d] bg-[#151814] p-5 text-white sm:p-7">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-            <div>
-              <p className="dashboard-eyebrow text-xs font-semibold uppercase tracking-[0.18em] text-[#d6c29d]">
-                <span className="dashboard-eyebrow-pulse" /> {activeModeData?.name ?? "YOUR MODE"}
-              </p>
-              <h2 className="dashboard-command-title mt-2 text-3xl font-semibold tracking-normal">
-                A little progress goes a long way.
-              </h2>
-              <p className="dashboard-description mt-3 max-w-2xl text-sm leading-6 text-[#ddd5c4]">
-                Choose one small goal. When you finish, save what you did as proof.
-              </p>
-            </div>
-            <div className="dashboard-momentum daily-momentum rounded-lg border border-[#5b554a] bg-[#25231d] p-4">
-              <div className="flex items-center gap-4">
-                <ProgressRing progress={dailyProgress} />
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#d6c29d]">
-                    Today&apos;s progress
-                  </p>
-                  <p className="mt-1 text-2xl font-semibold">
-                    {allModeGoals.length ? `${completedGoals} of ${allModeGoals.length} goals` : "Start small"}
-                  </p>
-                  <p className="mt-1 text-sm text-[#ddd5c4]">
-                    {allModeGoals.length
-                      ? completedGoals === allModeGoals.length
-                        ? "All done for today!"
-                        : completedGoals
-                          ? "Nice start. Keep going!"
-                          : "One small step at a time."
-                      : "One goal is enough to begin."}
-                  </p>
-                </div>
-              </div>
-              <div className="mt-4 border-t border-white/10 pt-3">
-                <div className="flex items-center justify-between gap-3 text-xs">
-                  <span className="text-[#ddd5c4]">Proof saved</span>
-                  <span className="font-semibold text-white">
-                    {activeProofPosts.length} {activeProofPosts.length === 1 ? "item" : "items"}
-                  </span>
-                </div>
-              </div>
-            </div>
+      <section className="dashboard-topline" aria-label="Daily inspiration and music">
+        <article className="dashboard-quote-card">
+          <span className="dashboard-card-kicker">A THOUGHT TO CARRY WITH YOU</span>
+          <p className="dashboard-quote-text">“Small steps, repeated daily, create remarkable change.”</p>
+          <span className="dashboard-quote-caption">A little progress, every day.</span>
+        </article>
+        <section className="dashboard-music-card" aria-label="Music shortcuts">
+          <div className="dashboard-music-heading"><span className="dashboard-music-symbol" aria-hidden="true">♫</span><div><span className="dashboard-card-kicker">YOUR SOUNDTRACK</span><h2>Music</h2></div></div>
+          <p>Pick up your music where you like to listen.</p>
+          <div className="dashboard-music-services">
+            <a href="https://music.youtube.com/" target="_blank" rel="noreferrer">YouTube Music ↗</a>
+            <a href="https://open.spotify.com/" target="_blank" rel="noreferrer">Spotify ↗</a>
+            <a href="https://music.apple.com/" target="_blank" rel="noreferrer">Apple Music ↗</a>
           </div>
-          <figure className="dashboard-inspiration-quote">
-            <span aria-hidden="true">“</span>
-            <blockquote>Sometimes you gotta run before you can walk.</blockquote>
-            <figcaption>Tony Stark <i /> Iron Man</figcaption>
-          </figure>
-        </div>
-
-        <div className="dashboard-mission premium-panel rounded-lg p-5 sm:p-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#7b3f2a]">
-            Today&apos;s focus
-          </p>
-          <h2 className="mt-2 text-2xl font-semibold">
-            {nextGoal ? nextGoal.title : "Choose your first goal"}
-          </h2>
-          <p className="mt-3 text-sm leading-6 text-[#5f5a50]">
-            One small step is enough. Add a note, photo, or file to show what you did.
-          </p>
-          {nextGoal ? (
-            <button
-              onClick={() => startGoalProof(nextGoal)}
-              disabled={isSavingGoalProof || proofingGoalId !== null}
-              className="mt-5 h-11 w-full rounded-lg bg-[#181713] px-4 text-sm font-semibold text-white"
-            >
-              {nextGoal.done ? "Add proof" : "Finish & add proof"}
-            </button>
-          ) : (
-            <button
-              onClick={beginFirstGoal}
-              className="mt-5 h-11 w-full rounded-lg bg-[#181713] px-4 text-sm font-semibold text-white"
-            >
-              Add your first goal
-            </button>
-          )}
-        </div>
+        </section>
       </section>
-
+      <section className="dashboard-progress-strip" aria-label="Daily progress">
+        <div><span className="dashboard-card-kicker">YOUR MODE</span><strong>{activeModeData?.name ?? "LifeMode"}</strong></div>
+        <div className="dashboard-progress-copy"><span className="dashboard-card-kicker">TODAY'S PROGRESS</span><strong>{completedGoals} / {allModeGoals.length} goals complete</strong></div>
+        <ProgressRing progress={dailyProgress} />
+        <span className="dashboard-progress-message">Keep moving at your own pace.</span>
+      </section>
       <section className="dashboard-workspace-nav mx-auto max-w-7xl px-5 pt-2 sm:px-8" aria-label="Dashboard workspace">
         <div className="dashboard-view-switcher" role="group" aria-label="Choose a dashboard view">
           {dashboardViews.map((view) => (
