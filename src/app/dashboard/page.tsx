@@ -683,7 +683,7 @@ function DashboardContent() {
               <textarea value={proofInput} onChange={e=>setProofInput(e.target.value)} placeholder="What did you work on or accomplish?" rows={3} className="lm-proof-input"/>
               <div className="lm-proof-actions"><label className="lm-file-label">＋ Attach file<input type="file" accept="image/*,application/pdf" onChange={e=>setProofFile(e.target.files?.[0]??null)}/></label><button type="button" onClick={()=>void addProofPost()}>Save proof</button></div>
               {proofFile ? <p className="lm-status-message">Selected: {proofFile.name}</p> : null}
-              <div className="lm-proof-list">{activeProofPosts.length ? activeProofPosts.map(post=><article className="lm-proof-item" key={post.id}><p>{post.content}</p><ProofAttachment post={post}/><button type="button" onClick={()=>void deleteProofPost(post.id)}>Remove</button></article>) : <p className="lm-empty">Your proof timeline will appear here as you save your progress.</p>}</div>
+              <div className="lm-proof-list">{activeProofPosts.length ? activeProofPosts.map(post=><article className="lm-proof-item" key={post.id}><p>{post.text}</p><ProofAttachment post={post}/><button type="button" onClick={()=>void deleteProofPost(post.id)}>Remove</button></article>) : <p className="lm-empty">Your proof timeline will appear here as you save your progress.</p>}</div>
             </section>
           ) : dashboardView === "connections" ? (
             <section className="lm-goals-card lm-subpage">
