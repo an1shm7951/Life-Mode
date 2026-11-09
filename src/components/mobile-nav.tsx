@@ -1,20 +1,27 @@
 "use client";
 
 import Link from "next/link";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
-const items = [
-  { href: "/dashboard", label: "Today" },
-  { href: "/dashboard?view=proof", label: "Proof" },
+const primaryItems = [
+  { href: "/dashboard", label: "Home" },
+  { href: "/goals/daily", label: "Goals" },
   { href: "/planning", label: "Plan" },
+  { href: "/buddy", label: "AI" },
+];
+
+const moreItems = [
+  { href: "/dashboard?view=proof", label: "Proof" },
+  { href: "/discover", label: "Discover" },
   { href: "/dashboard?view=connections", label: "Connections" },
-  { href: "/subscription", label: "Plus" },
+  { href: "/profile", label: "Profile" },
+  { href: "/settings", label: "Settings" },
 ];
 
 export function MobileNav() {
   return (
-    <Suspense fallback={<nav aria-label="Primary navigation" className="mobile-nav lg:hidden">{items.map(item => <Link key={item.label} href={item.href} className="mobile-nav-item">{item.label}</Link>)}</nav>}>
+    <Suspense fallback={<nav aria-label="Primary navigation" className="mobile-nav lg:hidden" />}>
       <MobileNavContent />
     </Suspense>
   );
@@ -24,21 +31,63 @@ function MobileNavContent() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const view = searchParams.get("view") ?? "";
+  const [moreOpen, setMoreOpen] = useState(false);
+  const isMoreActive = pathname === "/discover" || pathname === "/profile" || pathname === "/settings" || view === "proof" || view === "connections";
+
+  function isActive(href: string) {
+    if (href === "/dashboard") return pathname === "/dashboard" && !view;
+    if (href === "/goals/daily") return pathname.startsWith("/goals");
+    if (href === "/planning") return pathname === "/planning";
+    if (href === "/buddy") return pathname === "/buddy";
+    return false;
+  }
 
   return (
-    <nav aria-label="Primary navigation" className="mobile-nav lg:hidden">
-      {items.map((item) => {
-        const active = item.href === "/dashboard"
-          ? pathname === "/dashboard" && !view
-          : item.href.startsWith("/dashboard?")
-            ? pathname === "/dashboard" && view === new URLSearchParams(item.href.split("?")[1]).get("view")
-            : pathname === item.href;
-        return (
-          <Link key={item.label} href={item.href} aria-current={active ? "page" : undefined} className={active ? "mobile-nav-item is-active" : "mobile-nav-item"}>
+    <>
+      {moreOpen ? (
+        <button
+          type="button"
+          aria-label="Close more navigation"
+          className="mobile-more-backdrop"
+          onClick={() => setMoreOpen(false)}
+        />
+      ) : null}
+      {moreOpen ? (
+        <div className="mobile-more-menu" role="menu" aria-label="More LifeMode pages">
+          {moreItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              role="menuitem"
+              onClick={() => setMoreOpen(false)}
+              className="mobile-more-link"
+            >
+              <span>{item.label}</span><span aria-hidden="true">↗</span>
+            </Link>
+          ))}
+        </div>
+      ) : null}
+      <nav aria-label="Primary navigation" className="mobile-nav lg:hidden">
+        {primaryItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            aria-current={isActive(item.href) ? "page" : undefined}
+            className={isActive(item.href) ? "mobile-nav-item is-active" : "mobile-nav-item"}
+          >
             {item.label}
           </Link>
-        );
-      })}
-    </nav>
+        ))}
+        <button
+          type="button"
+          aria-expanded={moreOpen}
+          aria-haspopup="menu"
+          onClick={() => setMoreOpen((open) => !open)}
+          className={moreOpen || isMoreActive ? "mobile-nav-item is-active" : "mobile-nav-item"}
+        >
+          More <span aria-hidden="true">{moreOpen ? "×" : "＋"}</span>
+        </button>
+      </nav>
+    </>
   );
 }
