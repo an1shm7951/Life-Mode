@@ -107,7 +107,7 @@ export default function DiscoverStoryPage() {
                 </div>
                 <span className="text-sm text-[#6b665c]">{story.commentsCount} comments total</span>
               </div>
-              <p className="mt-2 text-sm leading-6 text-[#6b665c]">A selection of public comments from the source discussion, shown here so you can explore without leaving LifeMode.</p>
+              <p className="mt-2 text-sm leading-6 text-[#6b665c]">Public discussion comments are not embedded here because LifeMode does not moderate that external conversation. You can still use the story’s source details to research the topic independently.</p>
               <div className="mt-4 space-y-3">
                 {comments.map((comment) => (
                   <article key={comment.id} className="premium-panel rounded-2xl p-5">
@@ -118,9 +118,9 @@ export default function DiscoverStoryPage() {
                     <p className="mt-3 whitespace-pre-wrap break-words text-sm leading-6 text-[#39372f]">{comment.text}</p>
                   </article>
                 ))}
-                {!comments.length ? <p className="rounded-2xl border border-[#d8d1c2] bg-white/70 p-5 text-sm text-[#5f5a50]">No public comments are available for this story yet.</p> : null}
+                {!comments.length ? <p className="rounded-2xl border border-[#d8d1c2] bg-white/70 p-5 text-sm text-[#5f5a50]">External discussion is not displayed in LifeMode.</p> : null}
               </div>
-              <p className="mt-4 text-xs leading-5 text-[#77756d]">Comments are fetched from the public Hacker News discussion. They are not written or moderated by LifeMode.</p>
+              <p className="mt-4 text-xs leading-5 text-[#77756d]">LifeMode does not publish unmoderated third-party comments.</p>
             </section>
           </>
         )}
