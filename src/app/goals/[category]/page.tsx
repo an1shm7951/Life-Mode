@@ -145,7 +145,7 @@ export default function GoalsPage() {
 
   if (!meta) return null;
   if (loading) return (
-    <main className="min-h-screen bg-[#101a16] px-5 py-12 text-[#f5f0df]">
+    <main className="lifemode-goals-loading min-h-screen bg-[#f5f2eb] px-5 py-12 text-[#24221e]">
       <div className="mx-auto max-w-4xl rounded-3xl border border-white/10 bg-white/[0.04] p-8">
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#c9aa65]">LIFEMODE / GOALS</p>
         <p className="mt-4 text-2xl">Getting your next chapter ready…</p>
@@ -155,7 +155,7 @@ export default function GoalsPage() {
   );
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#101a16] pb-28 text-[#f5f0df] lg:pb-10">
+    <main className="lifemode-goals-shell min-h-screen overflow-hidden bg-[#f5f2eb] pb-28 text-[#24221e] lg:pb-10">
       <div aria-hidden="true" className="pointer-events-none fixed inset-0 overflow-hidden">
         <div className="absolute -right-40 -top-40 h-[30rem] w-[30rem] rounded-full bg-[#c9aa65]/[0.08] blur-3xl" />
         <div className="absolute -left-48 top-[35rem] h-[28rem] w-[28rem] rounded-full bg-[#497c5d]/[0.13] blur-3xl" />
