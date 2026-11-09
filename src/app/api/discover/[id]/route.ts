@@ -54,23 +54,8 @@ export async function GET(_request: Request, context: { params: Promise<{ id: st
       return NextResponse.json({ error: "This story is no longer available." }, { status: 404 });
     }
 
-    const commentIds = (story.kids ?? []).slice(0, 12);
-    const comments = (await Promise.all(commentIds.map(async (commentId) => {
-      try {
-        const comment = await getItem(commentId);
-        if (!comment || comment.type !== "comment" || comment.deleted || comment.dead) return null;
-        const text = plainText(comment.text);
-        if (!text) return null;
-        return {
-          id: comment.id,
-          by: comment.by ?? "Community member",
-          time: comment.time ?? 0,
-          text,
-        };
-      } catch {
-        return null;
-      }
-    }))).filter((comment): comment is NonNullable<typeof comment> => Boolean(comment));
+    // Public discussion comments are unmoderated user-generated content; do not republish them in the teen-facing app.
+    const comments: Array<{ id: number; by: string; time: number; text: string }> = [];
 
     return NextResponse.json({
       story: {
