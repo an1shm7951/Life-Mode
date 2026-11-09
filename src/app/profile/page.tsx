@@ -147,7 +147,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f3f5f0] pb-24 text-[#181713] lg:pb-0">
+    <main className="lifemode-profile-shell min-h-screen bg-[#f5f2eb] pb-28 text-[#24221e] lg:pb-0">
       <AppHeader title="Proof Profile" subtitle="Show proof, not just claims." />
 
       <section className="mx-auto max-w-7xl px-5 pt-6 sm:px-8">
