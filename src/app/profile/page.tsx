@@ -324,9 +324,6 @@ function AppHeader({ title, subtitle }: { title: string; subtitle: string }) {
           <Link className="nav-button" href="/dashboard">
             Dashboard
           </Link>
-          <Link className="nav-button-dark" href="/opportunities">
-            Opportunities
-          </Link>
           <Link className="nav-button" href="/subscription">
             Plus
           </Link>
