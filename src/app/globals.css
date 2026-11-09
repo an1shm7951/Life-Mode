@@ -4756,3 +4756,47 @@ button[class*="bg-[#181713]"]:hover:not(:disabled) { background: #39352e !import
   .lifemode-buddy-shell > div > section:first-of-type h1 { font-size: 43px !important; }
   .lifemode-plan-shell > section, .lifemode-profile-shell > section { padding-left: 16px !important; padding-right: 16px !important; }
 }
+
+
+.lifemode-goals-shell {
+  background:
+    radial-gradient(ellipse at 88% 0%,rgba(225,215,197,.35),transparent 34rem),
+    #f5f2eb !important;
+  color: #24221e !important;
+}
+.lifemode-goals-shell > header {
+  border-color: #e3ddd3 !important; background: rgba(248,246,240,.9) !important;
+  backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+}
+.lifemode-goals-shell > header a { color: #24221e !important; }
+.lifemode-goals-shell > section:first-of-type > div:nth-child(3) {
+  border-color: rgba(72,63,50,.12) !important;
+  background: linear-gradient(135deg,#34312b,#24221e 75%) !important;
+  box-shadow: 0 22px 54px rgba(36,34,30,.13) !important;
+}
+.lifemode-goals-shell > section:first-of-type > div:nth-child(3) h1 {
+  color: #fffdf8 !important; font-family: Georgia,"Times New Roman",serif;
+  font-weight: 400 !important; letter-spacing: -.055em !important;
+}
+.lifemode-goals-shell > section:first-of-type > div:nth-child(3) p { color: #e2dbcf !important; }
+.lifemode-goals-shell > section:first-of-type > div:nth-child(3) p:first-child,
+.lifemode-goals-shell > section:first-of-type > div:nth-child(3) .text-\[\#e2c77f\] { color: #d5bd99 !important; }
+.lifemode-goals-shell .premium-panel, .lifemode-goals-shell .glass-card {
+  border: 1px solid rgba(72,63,50,.1) !important; border-radius: 21px !important;
+  background: rgba(255,254,250,.91) !important; color: #302c25 !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,.85) inset, 0 13px 35px rgba(45,38,27,.05) !important;
+}
+.lifemode-goals-shell h2, .lifemode-goals-shell h3 { color: #302c25 !important; font-family: Georgia,"Times New Roman",serif; font-weight: 400 !important; }
+.lifemode-goals-shell p, .lifemode-goals-shell label { color: #777166; }
+.lifemode-goals-shell input:not([type="checkbox"]), .lifemode-goals-shell textarea, .lifemode-goals-shell select {
+  min-height: 48px; border-radius: 12px !important; background: #fffefa !important; color: #24221e !important;
+}
+.lifemode-goals-shell button[class*="bg-[#181713]"], .lifemode-goals-shell button[class*="bg-[#24221e]"] {
+  background: #24221e !important; color: #fffdf8 !important; box-shadow: none !important;
+}
+.lifemode-goals-shell a { color: #806746; }
+.lifemode-goals-shell .mobile-nav { z-index: 40; }
+@media(max-width:760px) {
+  .lifemode-goals-shell > section:first-of-type > div:nth-child(3) { border-radius: 22px !important; padding: 23px !important; }
+  .lifemode-goals-shell > section:first-of-type > div:nth-child(3) h1 { font-size: 42px !important; }
+}
