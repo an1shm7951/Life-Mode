@@ -4284,3 +4284,78 @@ html[data-theme="light"] .mobile-nav-item.is-active { background: #355239 !impor
 .lm-orbit-mission p{font-size:11px;line-height:1.8;color:#aeb7a8}.lm-orbit-mission strong{color:#e7d4a0;font-weight:500}
 @keyframes lm-shield-pulse{from{filter:brightness(.9);transform:translate(-50%,-50%) scale(.9)}to{filter:brightness(1.4);transform:translate(-50%,-50%) scale(1.12)}}
 @media(max-width:480px){.lm-orbit-mission{padding:15px;gap:10px}.lm-orbit-mission p{font-size:10px}}
+
+
+/* LifeMode luxury editorial redesign — preview branch */
+:root {
+  --background: #f5f2ec;
+  --foreground: #201e1a;
+  --glass-line: rgba(255,255,255,.72);
+  --glass-border: rgba(54,47,37,.12);
+  --glass-shadow: 0 18px 48px rgba(42,35,26,.07);
+  --accent: #9a8058;
+  --accent-deep: #6e593b;
+}
+html, body { background: #f5f2ec !important; color: #201e1a; }
+body {
+  background: radial-gradient(ellipse at 50% -20%, #fffdf8 0%, transparent 55%), #f5f2ec !important;
+  background-attachment: fixed;
+}
+body::before, body::after { display:none !important; animation:none !important; }
+main > header {
+  background: rgba(248,246,240,.84) !important;
+  border-color: rgba(55,47,36,.10) !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,.8) inset !important;
+  backdrop-filter: blur(24px) saturate(130%);
+}
+[class*="bg-[#181713]"] { background: #24221e !important; }
+button[class*="bg-[#181713]"] {
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(32,30,26,.12), 0 1px 0 rgba(255,255,255,.15) inset;
+}
+button:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 9px 22px rgba(32,30,26,.10); }
+input:not([type="checkbox"]):not([type="radio"]), textarea, select {
+  background: rgba(255,255,255,.72);
+  border-color: rgba(54,47,37,.16);
+  border-radius: 12px;
+}
+input:focus, textarea:focus, select:focus { border-color: rgba(154,128,88,.7) !important; box-shadow: 0 0 0 3px rgba(154,128,88,.13) !important; }
+:focus-visible { outline-color: rgba(154,128,88,.65); }
+.premium-panel, .glass-card, .premium-surface {
+  border: 1px solid rgba(67,57,43,.10) !important;
+  border-radius: 18px !important;
+  background: rgba(255,253,248,.78) !important;
+  box-shadow: 0 12px 34px rgba(42,35,26,.045), 0 1px 0 rgba(255,255,255,.9) inset !important;
+  backdrop-filter: blur(18px) saturate(115%);
+}
+.premium-panel:hover, .glass-card:hover { transform: translateY(-1px); box-shadow: 0 16px 38px rgba(42,35,26,.07) !important; }
+.premium-focus {
+  background: linear-gradient(145deg,#292721,#171612) !important;
+  border: 1px solid rgba(154,128,88,.28);
+  box-shadow: 0 20px 48px rgba(30,27,21,.13);
+  animation:none;
+}
+.premium-focus::after { background: radial-gradient(circle at 80% 10%,rgba(190,164,117,.16),transparent 50%); }
+.goal-row.is-complete { background: rgba(225,231,218,.72) !important; border-color: rgba(110,132,96,.35) !important; }
+.goal-complete-mark { background: #78896b; color:white; box-shadow:none; }
+.mobile-nav {
+  background: rgba(250,248,243,.86);
+  border: 1px solid rgba(70,60,45,.12);
+  box-shadow: 0 10px 35px rgba(35,30,22,.12), 0 1px 0 rgba(255,255,255,.9) inset;
+  backdrop-filter: blur(28px) saturate(140%);
+  -webkit-backdrop-filter: blur(28px) saturate(140%);
+}
+.mobile-nav-item { color:#70695e; font-weight:600; }
+.mobile-nav-item.is-active {
+  background: #24221e;
+  border-color: #24221e;
+  color:#faf8f3;
+  box-shadow:none;
+}
+.nav-button { color:#39352e; border-color:rgba(70,60,45,.12); background:rgba(255,253,248,.76); box-shadow:0 3px 12px rgba(35,30,22,.05); }
+.nav-button-dark { background:#24221e; color:#faf8f3; box-shadow:none; }
+.premium-panel::after, .glass-card::after, .theme-choice::after { display:none; }
+.theme-choice, .theme-choice.is-selected { border-color:rgba(70,60,45,.15); background:rgba(255,253,248,.8); box-shadow:none; }
+.theme-choice-symbol { border-color:rgba(70,60,45,.13); background:#eee9df; color:#514838; box-shadow:none; }
+.theme-choice.is-selected .theme-choice-indicator { background:#24221e; }
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
