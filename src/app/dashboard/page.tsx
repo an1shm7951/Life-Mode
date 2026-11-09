@@ -65,7 +65,6 @@ const connectionIntents: { label: string; value: ConnectionIntent }[] = [
   { label: "Mentor", value: "mentor" },
   { label: "Collaborator", value: "collaborator" },
   { label: "Professional network", value: "professional_network" },
-  { label: "Dating", value: "dating" },
 ];
 
 function DashboardContent() {
