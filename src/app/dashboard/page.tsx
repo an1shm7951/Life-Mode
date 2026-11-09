@@ -677,6 +677,23 @@ function DashboardContent() {
         </div>
 
         <main className="lm-main">
+          {dashboardView === "proof" ? (
+            <section className="lm-goals-card lm-subpage">
+              <div className="lm-goals-head"><h2><span>♧</span> Your Proof</h2><span className="lm-subtitle">Small wins, saved over time</span></div>
+              <textarea value={proofInput} onChange={e=>setProofInput(e.target.value)} placeholder="What did you work on or accomplish?" rows={3} className="lm-proof-input"/>
+              <div className="lm-proof-actions"><label className="lm-file-label">＋ Attach file<input type="file" accept="image/*,application/pdf" onChange={e=>setProofFile(e.target.files?.[0]??null)}/></label><button type="button" onClick={()=>void addProofPost()}>Save proof</button></div>
+              {proofFile ? <p className="lm-status-message">Selected: {proofFile.name}</p> : null}
+              <div className="lm-proof-list">{activeProofPosts.length ? activeProofPosts.map(post=><article className="lm-proof-item" key={post.id}><p>{post.content}</p><ProofAttachment post={post}/><button type="button" onClick={()=>void deleteProofPost(post.id)}>Remove</button></article>) : <p className="lm-empty">Your proof timeline will appear here as you save your progress.</p>}</div>
+            </section>
+          ) : dashboardView === "connections" ? (
+            <section className="lm-goals-card lm-subpage">
+              <div className="lm-goals-head"><h2><span>♙</span> Connections</h2></div>
+              <p className="lm-subtitle">Choose the kinds of supportive, interest-based connections you are comfortable with.</p>
+              <div className="lm-connection-grid">{connectionIntents.map(intent=><button type="button" key={intent.value} className={enabledIntents.includes(intent.value)?"is-enabled":""} onClick={()=>void toggleIntent(intent.value)}><span>{enabledIntents.includes(intent.value)?"✓":"＋"}</span>{intent.label}</button>)}</div>
+              <p className="lm-status-message">{connectMessage || "Your preferences stay under your control. Connections are for shared interests, learning and collaboration."}</p>
+            </section>
+          ) : (
+          <>
           <section className="lm-checkin">
             <div className="lm-section-top">
               <div><span className="lm-green-dot">✓</span><div><h2>Daily Check-In</h2><p>How are you feeling today?</p></div></div>
@@ -745,6 +762,7 @@ function DashboardContent() {
             <article className="lm-mini-card"><span className="lm-card-kicker">YOUR JOURNEY</span><h3>{shortTermGoals.length} short-term · {longTermGoals.length} long-term</h3><p>Keep daily actions connected to the bigger picture.</p><Link href="/goals/daily">Explore your goals →</Link></article>
           </section>
           <p className="lm-status-message" role="status">{statusMessage}</p>
+          </>)}
         </main>
       </div>
 
