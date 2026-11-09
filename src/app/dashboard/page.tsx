@@ -674,6 +674,7 @@ function DashboardContent() {
             </h1>
           </div>
           <div className="dashboard-actions flex flex-col gap-3 sm:flex-row">
+            <Link href="/discover" className="nav-button">Discover</Link>
             <Link href="/profile" className="nav-button">
               Profile
             </Link>
