@@ -5025,7 +5025,7 @@ button[class*="bg-[#181713]"],button[class*="bg-[#24221e]"],.nav-button-dark {
   font-size:clamp(38px,4.7vw,58px) !important;font-weight:400 !important;
   letter-spacing:-.055em !important;line-height:1.04 !important;
 }
-.dashboard-eyebrow,.dashboard-command .text-[#d6c29d] { color:#d4bd91 !important; }
+.dashboard-eyebrow { color:#d4bd91 !important; }
 .dashboard-momentum { border-color:rgba(225,210,180,.22) !important;background:rgba(255,255,255,.07) !important;border-radius:18px !important; }
 .dashboard-mission { border-radius:26px !important;padding:28px !important; }
 .dashboard-mission h2,.dashboard-panel h2 {
