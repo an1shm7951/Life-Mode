@@ -201,7 +201,7 @@ export default function BuddyPage() {
   if (loading) return <main className="min-h-screen bg-[#101710] p-8 text-[#f6f0df]">Opening your companion…</main>;
 
   return (
-    <main className="min-h-screen bg-[#101710] px-4 pb-12 pt-5 text-[#f6f0df] sm:px-7">
+    <main className="lifemode-buddy-shell min-h-screen bg-[#f5f2eb] px-4 pb-28 pt-5 text-[#24221e] sm:px-7">
       <div className="mx-auto max-w-6xl">
         <header className="flex flex-wrap items-center justify-between gap-3">
           <Link href="/dashboard" className="text-sm font-semibold uppercase tracking-[0.2em] text-[#e5c783]">← LifeMode</Link>
