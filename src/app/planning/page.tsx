@@ -124,7 +124,7 @@ export default function PlanningPage() {
   } catch(e) { setStatus("Could not delete routine: " + errorMessage(e)); } finally { setSaving(false); }
  }
  if(loading) return <main className="min-h-screen px-5 py-12"><div className="mx-auto max-w-5xl premium-panel rounded-2xl p-8">Loading your plan…</div></main>;
- return <main className="min-h-screen pb-24 text-[#181713] lg:pb-8">
+ return <main className="lifemode-plan-shell min-h-screen pb-24 text-[#24221e] lg:pb-8">
   <header className="sticky top-0 z-20 border-b px-5 py-4 sm:px-8"><div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
    <Link href="/dashboard" className="text-lg font-semibold tracking-tight">LifeMode</Link><div className="flex items-center gap-2"><Link href="/dashboard" className="nav-button">Today</Link><Link href="/settings" aria-label="Settings" title="Settings" className="nav-button"><SettingsIcon /></Link></div>
   </div></header>
