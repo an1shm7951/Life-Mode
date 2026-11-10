@@ -6448,3 +6448,132 @@ html[data-theme="light"] .nav-button-dark {
   .lifemode-buddy-shell .lm-ai-hero { min-height: 360px !important; }
   .lifemode-buddy-shell > div:first-of-type > section:nth-child(2) { max-width: none !important; }
 }
+
+
+/* November polish: restrained motion, clear navigation, and calmer interactions */
+html { scroll-behavior: smooth !important; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+.scroll-reveal {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  filter: none;
+  transition: opacity 480ms cubic-bezier(.2,.7,.2,1),
+              transform 560ms cubic-bezier(.2,.7,.2,1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.scroll-reveal.is-in-view {
+  opacity: 1;
+  transform: translate3d(0,0,0);
+  filter: none;
+}
+.scroll-reveal.is-in-view:hover { transform: translate3d(0,-2px,0); }
+main { animation: lm-page-arrive 360ms ease-out both; }
+@keyframes lm-page-arrive {
+  from { opacity: .72; }
+  to { opacity: 1; }
+}
+button, a, input, textarea, select {
+  -webkit-tap-highlight-color: transparent;
+}
+button:focus-visible, a:focus-visible {
+  outline: 2px solid rgba(211,183,127,.82) !important;
+  outline-offset: 3px !important;
+}
+.lm-desktop-links a[aria-current="page"] {
+  color: #e4ca9b !important;
+}
+.lm-desktop-links a[aria-current="page"]::after {
+  content: "";
+  display: block;
+  height: 2px;
+  margin-top: 7px;
+  border-radius: 2px;
+  background: linear-gradient(90deg,#e4ca9b,#a88950);
+}
+.lm-more-trigger, .lm-mobile-more-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid rgba(220,194,145,.24);
+  border-radius: 999px;
+  background: rgba(255,255,255,.035);
+  color: #d8c8a7;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+.lm-more-trigger:hover, .lm-mobile-more-trigger:hover {
+  border-color: rgba(220,194,145,.5);
+  background: rgba(220,194,145,.09);
+}
+.lm-more-trigger.is-active, .lm-mobile-more-trigger.is-active { color: #f0dfb9; }
+@media (min-width: 960px) {
+  .lm-desktop-nav { gap: clamp(18px,2.4vw,42px) !important; }
+  .lm-desktop-links { gap: clamp(10px,1.35vw,22px) !important; }
+  .lm-desktop-links a { font-size: 11px !important; }
+  .lm-desktop-actions { margin-left: auto; }
+  .lm-mobile-more-trigger { display: none !important; }
+  .lm-more-menu {
+    position: fixed !important;
+    z-index: 120 !important;
+    top: 68px !important;
+    right: clamp(24px,5vw,84px) !important;
+    bottom: auto !important;
+    width: 220px !important;
+    padding: 8px !important;
+    border: 1px solid rgba(220,194,145,.2) !important;
+    border-radius: 17px !important;
+    background: rgba(16,15,12,.97) !important;
+    box-shadow: 0 18px 50px rgba(0,0,0,.45) !important;
+    backdrop-filter: blur(22px) !important;
+  }
+}
+@media (max-width: 959px) {
+  .lm-mobile-more-trigger {
+    position: fixed;
+    z-index: 105;
+    top: max(12px, env(safe-area-inset-top));
+    right: 14px;
+  }
+  .lm-more-backdrop { z-index: 101 !important; }
+  .lm-more-menu {
+    position: fixed !important;
+    z-index: 110 !important;
+    top: calc(max(12px, env(safe-area-inset-top)) + 46px) !important;
+    right: 14px !important;
+    bottom: auto !important;
+    width: min(230px, calc(100vw - 28px)) !important;
+    padding: 8px !important;
+    border: 1px solid rgba(220,194,145,.2) !important;
+    border-radius: 17px !important;
+    background: rgba(16,15,12,.97) !important;
+    box-shadow: 0 18px 50px rgba(0,0,0,.45) !important;
+    backdrop-filter: blur(22px) !important;
+  }
+  .lm-floating-nav {
+    padding-bottom: max(7px, env(safe-area-inset-bottom)) !important;
+    padding-left: max(9px, env(safe-area-inset-left)) !important;
+    padding-right: max(9px, env(safe-area-inset-right)) !important;
+  }
+  .lm-floating-nav-item { min-width: 0 !important; }
+  .lm-floating-nav-item > span:last-child { font-size: 9px !important; }
+}
+@media (max-width: 380px) {
+  .lm-floating-nav-item > span:last-child { font-size: 8px !important; }
+  .lm-floating-nav-icon { font-size: 17px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal, .scroll-reveal.is-in-view, main { animation: none !important; opacity: 1 !important; transform: none !important; transition: none !important; }
+}
