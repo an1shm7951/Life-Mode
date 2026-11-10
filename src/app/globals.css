@@ -6630,3 +6630,63 @@ button:focus-visible, a:focus-visible {
     bottom: calc(132px + env(safe-area-inset-bottom)) !important;
   }
 }
+
+
+/* Device-specific layouts: compact phone, adaptive tablet, expanded laptop. */
+@media (min-width: 700px) and (max-width: 1023px) {
+  .lm-signature { width: 100% !important; max-width: 1100px !important; margin-inline: auto !important; padding: 30px 28px 110px !important; }
+  .lm-shell { width: 100% !important; max-width: 100% !important; }
+  .lm-main { display: grid !important; grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 22px !important; width: 100% !important; }
+  .lm-home-hero,.lm-checkin,.lm-spaces-section,.lm-goals-card,.lm-proof-screen { grid-column: 1 / -1 !important; }
+  .lm-overview-grid,.lm-lower-grid { grid-column: 1 / -1 !important; display: grid !important; grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 18px !important; }
+  .lm-home-hero { min-height: 260px !important; }
+  .lm-checkin { min-height: 290px !important; }
+  .lifemode-plan-shell > section.mx-auto.max-w-7xl { width: min(100% - 56px,1100px) !important; }
+  .lifemode-plan-shell .lm-plan-workspace { grid-template-columns: minmax(260px,.78fr) minmax(0,1.22fr) !important; gap: 18px !important; }
+  .lm-weekly-board { display: none !important; }
+}
+@media (min-width: 1024px) {
+  .lm-signature { width: 100% !important; max-width: 1680px !important; margin-inline: auto !important; padding: 36px clamp(34px,4.5vw,78px) 76px !important; }
+  .lm-shell { width: 100% !important; max-width: 100% !important; margin-inline: auto !important; }
+  .lm-header { max-width: 1480px !important; margin-inline: auto !important; padding-inline: 0 !important; }
+  .lm-main { width: 100% !important; max-width: 1480px !important; margin: 30px auto 0 !important; display: grid !important; grid-template-columns: repeat(12,minmax(0,1fr)) !important; align-items: start !important; gap: 24px !important; }
+  .lm-home-hero { grid-column: span 8 !important; min-height: 320px !important; }
+  .lm-checkin { grid-column: span 4 !important; min-height: 320px !important; padding: 26px !important; }
+  .lm-spaces-section { grid-column: 1 / -1 !important; }
+  .lm-overview-grid { grid-column: span 6 !important; display: grid !important; grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 18px !important; }
+  .lm-goals-card { grid-column: span 6 !important; align-self: stretch !important; }
+  .lm-lower-grid { grid-column: 1 / -1 !important; display: grid !important; grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 22px !important; }
+  .lm-proof-screen { grid-column: 1 / -1 !important; }
+  .lm-checkin-body { width: 100% !important; max-width: none !important; margin: 26px 0 0 !important; }
+  .lm-signature .lm-spaces { grid-template-columns: repeat(4,minmax(0,1fr)) !important; }
+  .lifemode-plan-shell { padding-bottom: 64px !important; }
+  .lifemode-plan-shell > section.mx-auto.max-w-7xl { width: min(100% - 104px,1480px) !important; max-width: 1480px !important; padding-left: 0 !important; padding-right: 0 !important; }
+  .lifemode-plan-shell .lm-plan-workspace { display: grid !important; grid-template-columns: minmax(290px,.72fr) minmax(0,1.28fr) !important; gap: 28px !important; align-items: start !important; }
+  .lifemode-plan-shell .lm-weekly-plan-panel { min-width: 0 !important; padding: 28px !important; }
+  .lifemode-plan-shell .lm-weekly-day-picker { display: none !important; }
+  .lifemode-plan-shell .lm-weekly-board { display: grid !important; grid-template-columns: repeat(7,minmax(0,1fr)) !important; gap: 8px !important; margin-top: 24px !important; }
+  .lm-week-column { display: flex !important; min-width: 0 !important; min-height: 220px !important; flex-direction: column !important; align-items: stretch !important; gap: 12px !important; padding: 12px 9px !important; border: 1px solid #e8e1d6 !important; border-radius: 15px !important; background: #fffdf8 !important; color: #292720 !important; text-align: left !important; box-shadow: none !important; }
+  .lm-week-column.is-selected { border-color: #b99b66 !important; background: #f4eee2 !important; box-shadow: 0 0 0 2px rgba(185,155,102,.13) !important; }
+  .lm-week-column-head { display: flex !important; flex-direction: column !important; gap: 4px !important; }
+  .lm-week-column-head strong { font-size: 13px !important; }
+  .lm-week-column-head small,.lm-week-column-date { color: #82796c !important; font-size: 10px !important; }
+  .lm-week-column-items { display: grid !important; align-content: start !important; gap: 7px !important; }
+  .lm-week-task { display: grid !important; grid-template-columns: 12px minmax(0,1fr) !important; gap: 4px !important; padding: 7px 6px !important; border-radius: 8px !important; background: #f5f1e9 !important; font-size: 10px !important; line-height: 1.35 !important; overflow-wrap: anywhere !important; }
+  .lm-week-task i { color: #987a49 !important; font-style: normal !important; }
+  .lm-week-task small { grid-column: 2 !important; color: #887c6a !important; font-size: 9px !important; }
+  .lm-week-task.is-done { opacity: .58 !important; text-decoration: line-through !important; }
+  .lm-week-empty,.lm-week-more { color: #8b8173 !important; font-size: 10px !important; line-height: 1.45 !important; }
+  .lm-selected-day-tasks { margin-top: 22px !important; }
+}
+@media (min-width: 1440px) {
+  .lm-main { gap: 28px !important; }
+  .lm-week-column { min-height: 250px !important; padding: 14px 11px !important; }
+  .lm-week-task { font-size: 11px !important; }
+}
+@media (max-width: 699px) {
+  .lm-signature { width: 100% !important; max-width: 100% !important; padding-inline: 16px !important; }
+  .lm-shell { width: 100% !important; max-width: 470px !important; }
+  .lm-main { display: grid !important; grid-template-columns: minmax(0,1fr) !important; }
+  .lm-weekly-board { display: none !important; }
+  .lm-weekly-day-picker { display: grid !important; }
+}
