@@ -120,14 +120,14 @@ function DashboardContent() {
     }
   }, [userId]);
 
-  function saveDailyCheckin() {
+  function saveDailyCheckin(selectedMood?: string) {
     if (!userId) {
       setCheckinMessage("Your account is still loading. Please try again in a moment.");
       return;
     }
     const now = new Date();
     const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
-    const mood = checkinMood || (checkinNote.trim() ? "Okay" : "");
+    const mood = selectedMood || checkinMood || (checkinNote.trim() ? "Okay" : "");
     if (!mood) {
       setCheckinMessage("Choose a feeling or write a short note first.");
       return;
@@ -716,10 +716,10 @@ function DashboardContent() {
               <span className={checkinSaved ? "lm-status is-done" : "lm-status"}>{checkinSaved ? "✓ Completed" : "○ Not completed"}</span>
             </div>
             <form className="lm-checkin-body" onSubmit={(event) => { event.preventDefault(); saveDailyCheckin(); }}>
-              <fieldset className="lm-moods" aria-label="Choose how you feel" disabled={!userId}>
+              <fieldset className="lm-moods" aria-label="Choose how you feel">
                 {[
                   ["Happy","😃"],["Good","😌"],["Okay","😐"],["Low","😟"],["Excited","🤩"]
-                ].map(([mood,emoji]) => <button type="button" key={mood} aria-pressed={checkinMood===mood} onClick={() => {setCheckinMood(mood);setCheckinSaved(false);setCheckinMessage(mood + " selected — save to finish your check-in.");}} className={checkinMood===mood?"is-selected":""}><span>{emoji}</span>{mood}</button>)}
+                ].map(([mood,emoji]) => <button type="button" key={mood} aria-pressed={checkinMood===mood} onClick={() => {setCheckinMood(mood);saveDailyCheckin(mood);}} className={checkinMood===mood?"is-selected":""}><span>{emoji}</span>{mood}</button>)}
               </fieldset>
               <div className="lm-feeling-input">
                 <input value={checkinNote} onChange={e=>{setCheckinNote(e.target.value);setCheckinSaved(false);setCheckinMessage("");}} placeholder="Or write a note about today…" aria-label="How are you feeling?" maxLength={240}/>
