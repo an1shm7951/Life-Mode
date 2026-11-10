@@ -6846,3 +6846,37 @@ button:focus-visible, a:focus-visible {
     grid-template-columns: minmax(0, 1fr) !important;
   }
 }
+
+
+/* More menu finishing details: visible and usable on every navigation layout. */
+@media (min-width: 960px) {
+  .lm-desktop-actions { display: flex !important; visibility: visible !important; }
+  .lm-desktop-actions .lm-more-trigger {
+    display: inline-flex !important;
+    min-width: 82px !important;
+    min-height: 40px !important;
+    color: #e4d3ae !important;
+  }
+  .lm-more-backdrop { display: block !important; }
+  .lm-more-menu { display: block !important; top: 88px !important; }
+}
+.lm-more-link[aria-current="page"] {
+  background: rgba(220,194,145,.13) !important;
+  color: #e4ca98 !important;
+}
+.lm-more-trigger:focus-visible,
+.lm-mobile-more-trigger:focus-visible,
+.lm-more-link:focus-visible {
+  outline: 2px solid #d8bd88 !important;
+  outline-offset: 3px !important;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .lm-more-menu {
+    animation: lm-more-arrive 160ms ease-out both;
+    transform-origin: top right;
+  }
+  @keyframes lm-more-arrive {
+    from { opacity: 0; transform: translateY(-5px) scale(.985); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+}
