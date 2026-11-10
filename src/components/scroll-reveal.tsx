@@ -22,17 +22,22 @@ export function ScrollReveal() {
     );
 
     let revealIndex = 0;
+    function observeTarget(target: Element) {
+      if (target.classList.contains("scroll-reveal")) return;
+      target.classList.add("scroll-reveal");
+      (target as HTMLElement).style.setProperty(
+        "--reveal-delay",
+        `${Math.min(revealIndex % 4, 3) * 55}ms`,
+      );
+      revealIndex += 1;
+      observer.observe(target);
+    }
+
     function observeWithin(root: ParentNode) {
-      root.querySelectorAll(revealSelector).forEach((target) => {
-        if (target.classList.contains("scroll-reveal")) return;
-        target.classList.add("scroll-reveal");
-        (target as HTMLElement).style.setProperty(
-          "--reveal-delay",
-          `${Math.min(revealIndex % 4, 3) * 55}ms`,
-        );
-        revealIndex += 1;
-        observer.observe(target);
-      });
+      if (root instanceof Element && root.matches(revealSelector)) {
+        observeTarget(root);
+      }
+      root.querySelectorAll(revealSelector).forEach(observeTarget);
     }
 
     observeWithin(document);
