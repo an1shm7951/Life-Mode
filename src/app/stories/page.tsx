@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { MobileNav } from "@/components/mobile-nav";
-import { originalStories } from "@/lib/lifemode/original-stories";
 
 const featuredStories = [
   { slug: "the-girl-who-collected-mornings", number: "01", category: "Wonder", title: "The Girl Who Collected Mornings", excerpt: "Mira began saving the quiet minutes before the city woke up. She didn't know they would lead her to the thing she'd been too afraid to begin.", time: "4 min", symbol: "☼", tone: "morning" },
@@ -11,10 +10,7 @@ const featuredStories = [
   { slug: "a-map-made-of-mistakes", number: "03", category: "Coming of age", title: "A Map Made of Mistakes", excerpt: "Every wrong turn in Dev's notebook looked like proof that he was lost. Then he met someone who saw a map where he saw a mess.", time: "4 min", symbol: "⌁", tone: "map" },
   { slug: "the-smallest-planet", number: "04", category: "Science fiction", title: "The Smallest Planet", excerpt: "A young engineer found a planet no bigger than a house, orbiting a star no telescope had ever recorded. It had one unusual request.", time: "6 min", symbol: "✧", tone: "planet" },
 ];
-const stories = [
-  ...featuredStories,
-  ...originalStories.map((story, index) => ({ slug: story.slug, number: String(index + 5).padStart(2, "0"), category: story.category.toLowerCase().replace(/\\b\\w/g, (c) => c.toUpperCase()), title: story.title, excerpt: story.subtitle, time: "3 min", symbol: story.symbol, tone: story.tone })),
-];
+const stories = featuredStories;
 const filters = ["All stories", "Mystery", "Wonder", "Adventure", "Science fiction", "Coming of age", "Magical realism"];
 
 export default function StoriesPage() {
