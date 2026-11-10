@@ -7255,3 +7255,66 @@ html[data-theme="dark"] :is(button,a,[role="button"]) { --tw-ring-color: rgba(19
 html[data-theme="light"] :is(button,a,[role="button"]) { --tw-ring-color: rgba(178,141,80,.28); }
 html[data-theme="dark"] :is(.lm-more-link,.lm-desktop-links a,.lm-tablet-links a) { color: #d8d2c7 !important; }
 html[data-theme="light"] :is(.lm-more-link,.lm-desktop-links a,.lm-tablet-links a) { color: #39352f !important; }
+
+
+/* Hard theme contract: dark mode is true black across every route. */
+html[data-theme="dark"], html[data-theme="dark"] body {
+  background: #000 !important;
+  background-color: #000 !important;
+  background-image: none !important;
+  color: #f5f2eb !important;
+}
+html[data-theme="dark"] body > * { background-color: transparent; }
+html[data-theme="dark"] main,
+html[data-theme="dark"] .lm-signature,
+html[data-theme="dark"] .lm-shell,
+html[data-theme="dark"] .dashboard-shell,
+html[data-theme="dark"] .lifemode-goals-shell,
+html[data-theme="dark"] .lifemode-plan-shell,
+html[data-theme="dark"] .lifemode-profile-shell,
+html[data-theme="dark"] .lm-settings-shell,
+html[data-theme="dark"] .auth-experience,
+html[data-theme="dark"] .discover-universe,
+html[data-theme="dark"] .lm-stories-v2,
+html[data-theme="dark"] .lm-reader-v2,
+html[data-theme="dark"] .lm-game {
+  background-color: #000 !important;
+  background-image: none !important;
+  color: #f5f2eb !important;
+}
+html[data-theme="dark"] [class*="bg-[#497c5d]"],
+html[data-theme="dark"] [class*="bg-[#83a981]"],
+html[data-theme="dark"] [class*="bg-[#b8d7b4]"],
+html[data-theme="dark"] [class*="bg-[#c5dfbd]"],
+html[data-theme="dark"] [class*="bg-[#33452d]"],
+html[data-theme="dark"] [class*="bg-[#172219]"],
+html[data-theme="dark"] [class*="bg-[#263f37]"],
+html[data-theme="dark"] [class*="bg-[#17201b]"],
+html[data-theme="dark"] [class*="bg-[#41412d]"],
+html[data-theme="dark"] [class*="bg-[#1d241c]"],
+html[data-theme="dark"] [class*="bg-[#202820]"],
+html[data-theme="dark"] [class*="bg-[#151814]"],
+html[data-theme="dark"] [class*="bg-[#eef1ec]"],
+html[data-theme="dark"] [class*="bg-[#f3f5f0]"],
+html[data-theme="dark"] [class*="bg-[#f5f2eb]"] {
+  background: #000 !important;
+  background-color: #000 !important;
+  background-image: none !important;
+}
+html[data-theme="dark"] [class*="text-[#315260]"],
+html[data-theme="dark"] [class*="text-[#cfe0ca]"],
+html[data-theme="dark"] [class*="text-[#b8d7b4]"],
+html[data-theme="dark"] [class*="text-[#c5dfbd]"],
+html[data-theme="dark"] [class*="text-[#9eaa98]"] { color: #d8d2c7 !important; }
+html[data-theme="dark"] [class*="border-[#465443]"],
+html[data-theme="dark"] [class*="border-[#506052]"],
+html[data-theme="dark"] [class*="border-[#303b31]"] { border-color: rgba(197,164,106,.28) !important; }
+
+/* Light mode must never inherit pink status, alert, or form colours. */
+html[data-theme="light"] [class*="bg-[#fff7f5]"],
+html[data-theme="light"] [class*="border-[#d8a7a0]"],
+html[data-theme="light"] [class*="text-[#8c3027]"] {
+  background-color: #f8f7f4 !important;
+  border-color: rgba(178,141,80,.3) !important;
+  color: #80643a !important;
+}
