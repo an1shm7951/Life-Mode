@@ -56,11 +56,11 @@ const stories: Record<string, { category: string; title: string; subtitle: strin
 export default function StoryReaderPage() {
   const params = useParams<{ slug: string }>();
   const story = stories[params.slug] ?? originalStories.find((item) => item.slug === params.slug);
-  return <main className="lm-reader min-h-screen pb-28 text-[#f7f1e8] lg:pb-8">
-    <header className="lm-story-nav"><Link href="/stories" className="lm-story-brand"><span>L</span> STORY ROOM.</Link><Link href="/play" className="lm-story-nav-link">Take a break · Play ↗</Link></header>
+  return <main className="lm-reader-v2 min-h-screen pb-32 text-[#eee9e1]">
+    <header className="lm-stories-nav"><Link href="/stories" className="lm-stories-wordmark">lifemode<span>.</span></Link><Link href="/stories" className="lm-stories-back">← All stories</Link></header>
     {!story ? <section className="lm-reader-error"><h1>This story has drifted away.</h1><Link href="/stories">Choose another story ↗</Link></section> : <>
-      <section className="lm-reader-hero"><div className="lm-reader-art" aria-hidden="true"><i/><i/><i/><span>{story.symbol}</span></div><p className="lm-story-eyebrow">{story.category}</p><h1>{story.title}</h1><p>{story.subtitle}</p><span className="lm-reader-scroll">SCROLL TO ENTER ↓</span></section>
-      <article className="lm-reader-body"><div className="lm-reader-chapter">A LIFEMODE ORIGINAL <span>✦</span></div>{story.paragraphs.map((paragraph, index) => <p key={index} className="lm-reader-paragraph" style={{ animationDelay: (index * 90) + "ms" }}>{paragraph}</p>)}<section className="lm-reader-reflection"><span>✧ A THOUGHT TO KEEP</span><h2>{story.reflection}</h2><p>No need to have the perfect answer. Let the question travel with you.</p></section><div className="lm-reader-end"><span>THE END · FOR NOW</span><h2>Every ending<br/><em>opens a door.</em></h2><div><Link href="/stories">Read another ↗</Link><Link href="/play">Play a little ↗</Link><Link href="/discover">Back to Discover ↗</Link></div></div></article>
+      <section className="lm-reader-hero"><div className="lm-reader-cover" aria-hidden="true"><span>{story.symbol}</span><i/><i/></div><div className="lm-reader-heading"><p className="lm-stories-eyebrow">{story.category}</p><h1>{story.title}</h1><p>{story.subtitle}</p><span>AN ORIGINAL LIFE­MODE STORY · 4 MIN READ</span></div></section>
+      <article className="lm-reader-body"><div className="lm-reader-chapter"><span>THE STORY</span><i/> <span>READ AT YOUR OWN PACE</span></div>{story.paragraphs.map((paragraph, index) => <p key={index} className="lm-reader-paragraph" style={{ animationDelay: (index * 90) + "ms" }}>{paragraph}</p>)}<section className="lm-reader-reflection"><span>✧ A THOUGHT TO KEEP</span><h2>{story.reflection}</h2><p>No need to have the perfect answer. Let the question travel with you.</p></section><div className="lm-reader-end"><span>THE END · FOR NOW</span><h2>Leave a little room<br/><em>for wonder.</em></h2><div><Link href="/stories">Find another story ↗</Link><Link href="/discover">Back to Discover ↗</Link></div></div></article>
     </>}
     <MobileNav/>
   </main>;
