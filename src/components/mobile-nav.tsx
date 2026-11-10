@@ -17,11 +17,12 @@ const moreItems = [
   { href: "/dashboard?view=connections", label: "Connections" },
   { href: "/profile", label: "Profile" },
   { href: "/settings", label: "Settings" },
+  { href: "/subscription", label: "Plus" },
 ];
 
 export function MobileNav() {
   return (
-    <Suspense fallback={<nav aria-label="Primary navigation" className="mobile-nav lg:hidden" />}>
+    <Suspense fallback={<nav aria-label="Primary navigation" className="mobile-nav lm-floating-nav" />}>
       <MobileNavContent />
     </Suspense>
   );
@@ -48,19 +49,19 @@ function MobileNavContent() {
         <button
           type="button"
           aria-label="Close more navigation"
-          className="mobile-more-backdrop"
+          className="mobile-more-backdrop lm-more-backdrop"
           onClick={() => setMoreOpen(false)}
         />
       ) : null}
       {moreOpen ? (
-        <div className="mobile-more-menu" role="menu" aria-label="More LifeMode pages">
+        <div className="mobile-more-menu lm-more-menu" role="menu" aria-label="More LifeMode pages">
           {moreItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               role="menuitem"
               onClick={() => setMoreOpen(false)}
-              className="mobile-more-link"
+              className="mobile-more-link lm-more-link"
             >
               <span>{item.label}</span><span aria-hidden="true">↗</span>
             </Link>
@@ -73,9 +74,9 @@ function MobileNavContent() {
             key={item.href}
             href={item.href}
             aria-current={isActive(item.href) ? "page" : undefined}
-            className={isActive(item.href) ? "mobile-nav-item is-active" : "mobile-nav-item"}
+            className={isActive(item.href) ? "mobile-nav-item lm-floating-nav-item is-active" : "mobile-nav-item lm-floating-nav-item"}
           >
-            <span className="mobile-nav-icon" aria-hidden="true">{item.icon}</span><span>{item.label}</span>
+            <span className="mobile-nav-icon lm-floating-nav-icon" aria-hidden="true">{item.icon}</span><span>{item.label}</span>
           </Link>
         ))}
         <button
@@ -83,7 +84,7 @@ function MobileNavContent() {
           aria-expanded={moreOpen}
           aria-haspopup="menu"
           onClick={() => setMoreOpen((open) => !open)}
-          className={moreOpen || isMoreActive ? "mobile-nav-item is-active" : "mobile-nav-item"}
+          className={moreOpen || isMoreActive ? "mobile-nav-item lm-floating-nav-item is-active" : "mobile-nav-item lm-floating-nav-item"}
         >
           <span className="mobile-nav-icon" aria-hidden="true">{moreOpen ? "×" : "＋"}</span><span>More</span>
         </button>
