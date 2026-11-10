@@ -1,9 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
-import { ScrollReveal } from "@/components/scroll-reveal";
 import { ThemeRuntime } from "@/components/theme-runtime";
-import { MotionField } from "@/components/motion-field";
 import { SiteFooter } from "@/components/site-footer";
 import Script from "next/script";
 
@@ -55,10 +53,7 @@ export default function RootLayout({
         </Script>
         {children}
         <SiteFooter />
-        <ThemeRuntime />
-        <MotionField />
-        <ScrollReveal />
-        <ServiceWorkerRegistration />
+        <ThemeRuntime />        <ServiceWorkerRegistration />
       </body>
     </html>
   );
