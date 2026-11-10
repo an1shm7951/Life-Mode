@@ -170,7 +170,7 @@ export default function GoalsPage() {
     <main className="lifemode-goals-shell min-h-screen bg-[#080808] pb-28 text-[#eee9e1] lg:pb-10">
       <div aria-hidden="true" className="pointer-events-none fixed inset-0 overflow-hidden">
         <div className="absolute -right-40 -top-40 h-[30rem] w-[30rem] rounded-full bg-[#c9aa65]/[0.08] blur-3xl" />
-        <div className="absolute -left-48 top-[35rem] h-[28rem] w-[28rem] rounded-full bg-[#497c5d]/[0.13] blur-3xl" />
+        <div className="absolute -left-48 top-[35rem] h-[28rem] w-[28rem] rounded-full bg-[#c9aa65]/[0.045] blur-3xl" />
         <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: "radial-gradient(#f5f0df 0.7px, transparent 0.7px)", backgroundSize: "22px 22px" }} />
       </div>
 
@@ -213,7 +213,7 @@ export default function GoalsPage() {
                 <span className="pb-1 text-sm text-white/50">of {goals.length} complete</span>
               </div>
               <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-white/10">
-                <div className="h-full rounded-full bg-gradient-to-r from-[#7eaa7c] to-[#e2c77f] transition-all duration-700" style={{ width: `${progress}%` }} />
+                <div className="h-full rounded-full bg-gradient-to-r from-[#c9aa65] to-[#e2c77f] transition-all duration-700" style={{ width: `${progress}%` }} />
               </div>
               <div className="mt-3 flex items-center justify-between text-xs text-white/45">
                 <span>{goals.length ? `${progress}% of the way` : "Every journey starts somewhere"}</span>
@@ -223,7 +223,7 @@ export default function GoalsPage() {
           </div>
         </div>
 
-        <nav aria-label="Goal horizons" className="mt-6 grid grid-cols-3 gap-2 rounded-2xl border border-white/10 bg-white/[0.035] p-2">
+        <nav aria-label="Goal horizons" className="lm-goals-tabs mt-6 grid grid-cols-3 gap-2 rounded-2xl border border-white/10 bg-white/[0.035] p-2">
           {categories.map(item => (
             <Link key={item.value} href={`/goals/${item.value}`} aria-current={category === item.value ? "page" : undefined}
               className={category === item.value
@@ -237,19 +237,19 @@ export default function GoalsPage() {
 
         {status && <p role="status" aria-live="polite" className="mt-5 rounded-xl border border-[#c9aa65]/25 bg-[#c9aa65]/[0.08] px-4 py-3 text-sm leading-6 text-[#f1e7c8]">{status}</p>}
 
-        <div className="mt-8 grid gap-7 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
-          <section className="rounded-[1.75rem] border border-white/10 bg-white/[0.045] p-5 sm:p-7 lg:sticky lg:top-6">
+        <div className="lm-goals-workspace mt-8 grid gap-7 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
+          <section className="lm-goal-entry-panel rounded-[1.75rem] border border-white/10 bg-white/[0.045] p-5 sm:p-7 lg:sticky lg:top-6">
             <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#e2c77f]">01 / Set an intention</p>
             <h2 className="mt-4 text-2xl font-medium tracking-tight sm:text-3xl">{meta.prompt}</h2>
             <p className="mt-3 text-sm leading-6 text-white/50">Make it yours. It doesn't have to impress anyone else to matter.</p>
             <form onSubmit={addGoal} className="mt-6">
               <label htmlFor="goal-title" className="mb-2 block text-xs font-medium text-white/65">Your next step</label>
               <textarea id="goal-title" value={title} onChange={event => setTitle(event.target.value)} placeholder={meta.placeholder} maxLength={180} required rows={3}
-                className="w-full resize-y rounded-2xl border border-white/12 bg-[#0c1410]/70 px-4 py-4 text-base leading-6 text-[#f5f0df] outline-none transition placeholder:text-white/30 focus:border-[#c9aa65]/65 focus:ring-2 focus:ring-[#c9aa65]/10" />
+                className="w-full resize-y rounded-2xl border border-white/12 bg-[#111110] px-4 py-4 text-base leading-6 text-[#f5f0df] outline-none transition placeholder:text-white/30 focus:border-[#c9aa65]/65 focus:ring-2 focus:ring-[#c9aa65]/10" />
               <div className="mt-4">
                 <label htmlFor="goal-mode" className="mb-2 block text-xs font-medium text-white/65">Which part of life is this for?</label>
                 <select id="goal-mode" value={mode} onChange={event => setMode(event.target.value as LifeModeId)}
-                  className="h-12 w-full rounded-xl border border-white/12 bg-[#17231c] px-3 text-sm text-white/85 outline-none focus:border-[#c9aa65]/65">
+                  className="h-12 w-full rounded-xl border border-white/12 bg-[#111110] px-3 text-sm text-white/85 outline-none focus:border-[#c9aa65]/65">
                   {modes.map(item => <option key={item.value} value={item.value}>{item.label}</option>)}
                 </select>
               </div>
@@ -260,8 +260,8 @@ export default function GoalsPage() {
             <p className="mt-4 text-center text-xs leading-5 text-white/35">You can change direction whenever you need to. This is your life.</p>
           </section>
 
-          <section>
-            <div className="flex flex-wrap items-end justify-between gap-3">
+          <section className="lm-goal-list-panel">
+            <div className="lm-goal-list-heading flex flex-wrap items-end justify-between gap-3">
               <div>
                 <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#e2c77f]">02 / Your path</p>
                 <h2 className="mt-2 text-2xl font-medium tracking-tight sm:text-3xl">The things that matter to you.</h2>
@@ -280,22 +280,22 @@ export default function GoalsPage() {
                 </div>
               </div>
             ) : (
-              <div className="mt-5 space-y-3">
+              <div className="lm-goal-list mt-5 space-y-3">
                 {goals.map((goal, index) => (
                   <article key={goal.id} className={goal.done
-                    ? "group rounded-2xl border border-[#83a981]/20 bg-[#83a981]/[0.055] p-4 transition sm:p-5"
-                    : "group rounded-2xl border border-white/10 bg-white/[0.045] p-4 transition hover:border-[#c9aa65]/30 hover:bg-white/[0.065] sm:p-5"}>
+                    ? "lm-goal-card group rounded-2xl border border-[#c9aa65]/20 bg-[#c9aa65]/[0.055] p-4 transition sm:p-5"
+                    : "lm-goal-card group rounded-2xl border border-white/10 bg-white/[0.045] p-4 transition hover:border-[#c9aa65]/30 hover:bg-white/[0.065] sm:p-5"}>
                     <div className="flex items-start gap-3.5">
                       <button type="button" onClick={() => void toggleGoal(goal)} disabled={saving} aria-label={goal.done ? "Mark goal in progress" : "Mark goal complete"}
                         className={goal.done
-                          ? "mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[#83a981]/50 bg-[#83a981]/20 text-sm text-[#b8d7b4] transition"
+                          ? "mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[#c9aa65]/50 bg-[#c9aa65]/20 text-sm text-[#e2c77f] transition"
                           : "mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/25 text-transparent transition hover:border-[#d9bd79] hover:text-[#d9bd79]"}>
                         ✓
                       </button>
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-wrap items-center gap-2">
                           <span className="text-[9px] font-semibold tracking-[0.2em] text-white/30">STEP {String(index + 1).padStart(2, "0")}</span>
-                          {goal.done && <span className="rounded-full bg-[#83a981]/15 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#b8d7b4]">Made real</span>}
+                          {goal.done && <span className="rounded-full bg-[#c9aa65]/15 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#e2c77f]">Made real</span>}
                         </div>
                         <p className={goal.done ? "mt-2 break-words text-base leading-6 text-white/45 line-through decoration-white/25" : "mt-2 break-words text-base leading-6 text-[#f5f0df]"}>{goal.title}</p>
                         <p className="mt-2 text-xs text-white/40">{goal.mode} <span className="mx-1.5 text-white/20">·</span> {goal.done ? "You showed up for this." : "Still possible. Still yours."}</p>
@@ -305,8 +305,8 @@ export default function GoalsPage() {
                   </article>
                 ))}
                 {completed === goals.length && goals.length > 0 && (
-                  <div className="rounded-2xl border border-[#83a981]/25 bg-[#83a981]/[0.08] p-5">
-                    <p className="text-sm font-semibold text-[#c5dfbd]">Look at what you followed through on.</p>
+                  <div className="rounded-2xl border border-[#c9aa65]/25 bg-[#c9aa65]/[0.08] p-5">
+                    <p className="text-sm font-semibold text-[#e2c77f]">Look at what you followed through on.</p>
                     <p className="mt-1 text-sm leading-6 text-white/55">Take the win. When you're ready, choose what comes next—there's no rush.</p>
                   </div>
                 )}
