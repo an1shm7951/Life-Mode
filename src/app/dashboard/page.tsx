@@ -715,17 +715,17 @@ function DashboardContent() {
               <div><span className="lm-green-dot">✓</span><div><h2>Daily Check-In</h2><p>How are you feeling today?</p></div></div>
               <span className={checkinSaved ? "lm-status is-done" : "lm-status"}>{checkinSaved ? "✓ Completed" : "○ Not completed"}</span>
             </div>
-            <div className="lm-checkin-body">
-              <div className="lm-moods">
+            <form className="lm-checkin-body" onSubmit={(event) => { event.preventDefault(); saveDailyCheckin(); }}>
+              <fieldset className="lm-moods" aria-label="Choose how you feel" disabled={!userId}>
                 {[
                   ["Happy","😃"],["Good","😌"],["Okay","😐"],["Low","😟"],["Excited","🤩"]
-                ].map(([mood,emoji]) => <button type="button" key={mood} onClick={() => {setCheckinMood(mood);setCheckinSaved(false);setCheckinMessage(mood + " selected");}} className={checkinMood===mood?"is-selected":""}><span>{emoji}</span>{mood}</button>)}
-              </div>
+                ].map(([mood,emoji]) => <button type="button" key={mood} aria-pressed={checkinMood===mood} onClick={() => {setCheckinMood(mood);setCheckinSaved(false);setCheckinMessage(mood + " selected — save to finish your check-in.");}} className={checkinMood===mood?"is-selected":""}><span>{emoji}</span>{mood}</button>)}
+              </fieldset>
               <div className="lm-feeling-input">
-                <input value={checkinNote} onChange={e=>{setCheckinNote(e.target.value);setCheckinSaved(false);setCheckinMessage("");}} placeholder="✎  Or tell us how you feel..." aria-label="How are you feeling?" maxLength={240}/>
-                <button type="button" aria-label="Save check-in" onClick={saveDailyCheckin}>→</button>
+                <input value={checkinNote} onChange={e=>{setCheckinNote(e.target.value);setCheckinSaved(false);setCheckinMessage("");}} placeholder="Or write a note about today…" aria-label="How are you feeling?" maxLength={240}/>
+                <button type="submit" aria-label="Save check-in" disabled={!userId || (!checkinMood && !checkinNote.trim())}>{checkinSaved ? "✓ Saved" : "Save"}</button>
               </div>
-            </div>
+            </form>
             <div className="lm-checkin-foot"><span>“ A little progress, every day. ”</span><div><i style={{width:checkinSaved?"100%":"38%"}}/></div></div>
             <p className="lm-checkin-feedback" role="status" aria-live="polite">{checkinMessage}</p>
           </section>
