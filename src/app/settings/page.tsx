@@ -136,7 +136,7 @@ export default function SettingsPage() {
 
   if (isLoading) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#f7f5ef] px-5 text-[#181713]">
+      <main className="lm-settings-loading flex min-h-screen items-center justify-center px-5 text-[#eee9e1]">
         <div className="rounded-lg border border-[#d8d1c2] bg-white p-6 shadow-sm" role="status">
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#7b3f2a]">
             LifeMode
@@ -148,7 +148,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f3f5f0] pb-24 text-[#181713] lg:pb-0">
+    <main className="lm-settings-shell min-h-screen pb-28 text-[#eee9e1]">
       <header className="border-b border-[#d8d1c2] bg-[#fbfaf6]">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
           <div>
