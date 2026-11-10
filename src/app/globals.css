@@ -5645,3 +5645,75 @@ html[data-theme="light"] .lifemode-plan-shell p,html[data-theme="light"] .lifemo
 html[data-theme="light"] .lifemode-buddy-shell [class*="bg-[#182219]"],html[data-theme="light"] .lifemode-buddy-shell [class*="bg-[#202d21]"],html[data-theme="light"] .lifemode-buddy-shell [class*="bg-[#282619]"]{background:#f0eeeb!important;border-color:rgba(35,29,24,.1)!important;color:#211e1b!important}
 html[data-theme="light"] .discover-universe .du-entry,html[data-theme="light"] .discover-universe .du-section,html[data-theme="light"] .discover-universe .du-quest,html[data-theme="light"] .discover-universe .du-closing{color:#211e1b!important}
 html[data-theme="light"] .discover-universe .du-story-card,html[data-theme="light"] .discover-universe .du-quest-card,html[data-theme="light"] .discover-universe .du-realm{border-color:rgba(35,29,24,.12)!important;box-shadow:0 16px 40px rgba(38,31,25,.08)!important}
+
+
+/* LifeMode reference finish: restore the full product, keep generous breathing room */
+.lm-spaces-section{display:block!important;margin-top:4px!important}
+.lm-lower-grid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:12px!important}
+.lm-bottom-nav{display:none!important}
+.mobile-nav.lm-floating-nav{display:grid!important}
+.lm-floating-nav{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important}
+.lm-spaces-heading{display:flex!important;align-items:center!important;justify-content:space-between!important;margin-bottom:14px!important}
+.lm-spaces-heading h2{font-family:Georgia,serif!important;font-size:21px!important;font-weight:400!important}
+.lm-spaces{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important}
+.lm-lower-grid .lm-mini-card{min-height:155px!important;padding:17px!important;border-radius:21px!important}
+.lm-mini-card h3{font-family:Georgia,serif!important;font-size:19px!important;font-weight:400!important;line-height:1.2!important}
+.lm-mini-card p{font-size:11px!important;line-height:1.55!important;color:#bcb3aa!important}
+.lm-mini-card button,.lm-mini-card a{font-size:11px!important;color:#d9c7b6!important}
+.lm-status-message{margin-top:4px!important}
+.lm-signature{padding-bottom:125px!important}
+.lm-main{gap:24px!important}
+.lm-checkin{min-height:250px!important}
+.lm-goals-card{margin-top:0!important}
+.mobile-nav.lm-floating-nav{width:min(390px,calc(100% - 38px))!important;min-height:61px!important;padding:5px!important}
+.lm-floating-nav .lm-floating-nav-item{min-height:48px!important;gap:3px!important;font-size:9px!important}
+.lm-floating-nav-icon{font-size:17px!important}
+.lm-more-menu{max-height:min(68vh,520px)!important;overflow:auto!important}
+.lifemode-goals-shell,.lifemode-plan-shell,.lifemode-buddy-shell,.lifemode-profile-shell,.discover-universe{padding-bottom:125px!important}
+.lifemode-goals-shell>section,.lifemode-plan-shell>section,.lifemode-profile-shell>section{max-width:560px!important}
+.lifemode-goals-shell>section:first-of-type .relative.mt-7{min-height:225px!important}
+.lifemode-goals-shell .mt-8.grid{gap:18px!important}
+.lifemode-goals-shell .mt-8.grid>section{border-radius:22px!important;padding:22px!important}
+.lifemode-goals-shell .mt-8.grid>section:first-child{position:static!important}
+.lifemode-plan-shell>section{gap:22px!important}
+.lifemode-plan-shell .grid{row-gap:16px!important}
+.lifemode-buddy-shell>div:first-of-type>section:nth-child(2){padding:20px!important}
+.lifemode-buddy-shell>div:first-of-type>section:nth-child(2) .grid{gap:12px!important}
+.discover-universe .du-entry{min-height:540px!important;display:grid!important;align-items:center!important;grid-template-columns:1fr!important;gap:24px!important}
+.discover-universe .du-entry-copy{max-width:560px!important}
+.discover-universe .du-entry-copy h1{font-size:clamp(42px,11vw,68px)!important}
+.discover-universe .du-portal{min-height:260px!important;max-width:360px!important;margin:0 auto!important}
+.discover-universe .du-realms{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+.discover-universe .du-story-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+@media(max-width:700px){
+ .lm-signature{padding:18px 17px 125px!important}
+ .lm-spaces-section{display:block!important}
+ .lm-lower-grid{display:grid!important;grid-template-columns:1fr 1fr!important}
+ .lm-overview-grid{grid-template-columns:1fr 1fr!important}
+ .mobile-nav.lm-floating-nav{display:grid!important}
+ .discover-universe .du-entry{min-height:unset!important;padding-top:35px!important;padding-bottom:40px!important}
+ .discover-universe .du-realms,.discover-universe .du-story-grid{grid-template-columns:1fr!important}
+ .lifemode-goals-shell>section,.lifemode-plan-shell>section,.lifemode-profile-shell>section{padding-left:18px!important;padding-right:18px!important}
+}
+/* Light theme: preserve layout and photography, invert the neutral surfaces to white */
+html[data-theme="light"] body{background:#f5f4f1!important;color:#25211e!important}
+html[data-theme="light"] .lm-signature{background:#f5f4f1!important;color:#25211e!important}
+html[data-theme="light"] .lm-greeting,html[data-theme="light"] .lm-brand,html[data-theme="light"] .lm-spaces-heading h2,html[data-theme="light"] .lm-progress-card h2,html[data-theme="light"] .lm-ai-card h2,html[data-theme="light"] .lm-goals-head h2,html[data-theme="light"] .lm-mini-card h3,html[data-theme="light"] .lm-goal-title{color:#25211e!important}
+html[data-theme="light"] .lm-section-top p,html[data-theme="light"] .lm-status-message{color:#68615a!important}
+html[data-theme="light"] .lm-checkin{background-image:linear-gradient(0deg,rgba(0,0,0,.7),rgba(0,0,0,.04) 80%),url("https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=85")!important}
+html[data-theme="light"] .lm-progress-card,html[data-theme="light"] .lm-ai-card,html[data-theme="light"] .lm-goals-card,html[data-theme="light"] .lm-mini-card{background:rgba(255,255,255,.82)!important;border:1px solid rgba(45,38,31,.1)!important;box-shadow:0 12px 36px rgba(50,40,30,.055)!important}
+html[data-theme="light"] .lm-spaces a,html[data-theme="light"] .lm-spaces a b{color:#292521!important}
+html[data-theme="light"] .lm-spaces a b{background:#fff!important;border:1px solid rgba(45,38,31,.1)!important}
+html[data-theme="light"] .lm-goal-tag{background:#f0eeeb!important;color:#77716b!important}
+html[data-theme="light"] .lm-goal-row{border-color:rgba(45,38,31,.1)!important}
+html[data-theme="light"] .lm-progress-links a,html[data-theme="light"] .lm-ai-button{background:#f2f0ed!important;border-color:rgba(45,38,31,.1)!important;color:#292521!important}
+html[data-theme="light"] .lm-floating-nav .lm-floating-nav-item{color:#5b554e!important}
+html[data-theme="light"] .lm-floating-nav .lm-floating-nav-item.is-active{background:rgba(45,38,31,.09)!important;color:#211e1b!important}
+html[data-theme="light"] .lifemode-goals-shell,html[data-theme="light"] .lifemode-plan-shell,html[data-theme="light"] .lifemode-buddy-shell,html[data-theme="light"] .lifemode-profile-shell,html[data-theme="light"] .discover-universe{background:#f5f4f1!important;color:#25211e!important}
+html[data-theme="light"] .lifemode-goals-shell h1,html[data-theme="light"] .lifemode-goals-shell h2,html[data-theme="light"] .lifemode-goals-shell h3,html[data-theme="light"] .lifemode-plan-shell h1,html[data-theme="light"] .lifemode-plan-shell h2,html[data-theme="light"] .lifemode-plan-shell h3,html[data-theme="light"] .lifemode-buddy-shell h1,html[data-theme="light"] .lifemode-buddy-shell h2,html[data-theme="light"] .lifemode-profile-shell h1,html[data-theme="light"] .lifemode-profile-shell h2{color:#25211e!important}
+html[data-theme="light"] .lifemode-goals-shell header,html[data-theme="light"] .lifemode-plan-shell header{background:rgba(255,255,255,.88)!important;border-color:rgba(45,38,31,.1)!important}
+html[data-theme="light"] .lifemode-goals-shell .rounded-\[1\.75rem\],html[data-theme="light"] .lifemode-plan-shell .premium-panel,html[data-theme="light"] .lifemode-buddy-shell .premium-panel,html[data-theme="light"] .lifemode-profile-shell .premium-panel,html[data-theme="light"] .lifemode-profile-shell .glass-card{background:rgba(255,255,255,.84)!important;border-color:rgba(45,38,31,.1)!important;color:#25211e!important}
+html[data-theme="light"] .lifemode-goals-shell p,html[data-theme="light"] .lifemode-plan-shell p,html[data-theme="light"] .lifemode-buddy-shell p,html[data-theme="light"] .lifemode-profile-shell p{color:#6c655e!important}
+html[data-theme="light"] .lifemode-goals-shell input,html[data-theme="light"] .lifemode-goals-shell textarea,html[data-theme="light"] .lifemode-goals-shell select,html[data-theme="light"] .lifemode-plan-shell input,html[data-theme="light"] .lifemode-plan-shell textarea,html[data-theme="light"] .lifemode-plan-shell select,html[data-theme="light"] .lifemode-buddy-shell input{background:#fff!important;color:#25211e!important;border-color:rgba(45,38,31,.16)!important}
+html[data-theme="light"] .lifemode-buddy-shell [class*="bg-[#182219]"],html[data-theme="light"] .lifemode-buddy-shell [class*="bg-[#202d21]"],html[data-theme="light"] .lifemode-buddy-shell [class*="bg-[#282619]"]{background:#f0eeeb!important;border-color:rgba(45,38,31,.1)!important;color:#25211e!important}
+html[data-theme="light"] .discover-universe .du-realm,html[data-theme="light"] .discover-universe .du-story-card,html[data-theme="light"] .discover-universe .du-quest-card{border-color:rgba(45,38,31,.13)!important;box-shadow:0 14px 35px rgba(45,38,31,.06)!important}
