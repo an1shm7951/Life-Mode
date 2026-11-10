@@ -96,6 +96,7 @@ function DashboardContent() {
   const [checkinNote, setCheckinNote] = useState("");
   const [checkinSaved, setCheckinSaved] = useState(false);
   const [checkinDate, setCheckinDate] = useState("");
+  const [checkinMessage, setCheckinMessage] = useState("");
 
   useEffect(() => {
     if (!userId) return;
@@ -120,15 +121,30 @@ function DashboardContent() {
   }, [userId]);
 
   function saveDailyCheckin() {
-    if (!userId || !checkinDate || !checkinMood) return;
+    if (!userId) {
+      setCheckinMessage("Your account is still loading. Please try again in a moment.");
+      return;
+    }
+    const now = new Date();
+    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+    const mood = checkinMood || (checkinNote.trim() ? "Okay" : "");
+    if (!mood) {
+      setCheckinMessage("Choose a feeling or write a short note first.");
+      return;
+    }
     try {
-      localStorage.setItem(`lifemode-checkin-${userId}-${checkinDate}`, JSON.stringify({
-        mood: checkinMood,
+      localStorage.setItem(`lifemode-checkin-${userId}-${today}`, JSON.stringify({
+        mood,
         note: checkinNote.trim().slice(0, 240),
+        savedAt: new Date().toISOString(),
       }));
+      setCheckinDate(today);
+      setCheckinMood(mood);
       setCheckinSaved(true);
+      setCheckinMessage("Your check-in is saved for today.");
     } catch {
       setCheckinSaved(false);
+      setCheckinMessage("Could not save on this device. Check your browser storage and try again.");
     }
   }
 
@@ -703,14 +719,15 @@ function DashboardContent() {
               <div className="lm-moods">
                 {[
                   ["Happy","😃"],["Good","😌"],["Okay","😐"],["Low","😟"],["Excited","🤩"]
-                ].map(([mood,emoji]) => <button type="button" key={mood} onClick={() => {setCheckinMood(mood);setCheckinSaved(false);}} className={checkinMood===mood?"is-selected":""}><span>{emoji}</span>{mood}</button>)}
+                ].map(([mood,emoji]) => <button type="button" key={mood} onClick={() => {setCheckinMood(mood);setCheckinSaved(false);setCheckinMessage(mood + " selected");}} className={checkinMood===mood?"is-selected":""}><span>{emoji}</span>{mood}</button>)}
               </div>
               <div className="lm-feeling-input">
-                <input value={checkinNote} onChange={e=>{setCheckinNote(e.target.value);setCheckinSaved(false);}} placeholder="✎  Or tell us how you feel..." aria-label="How are you feeling?" maxLength={240}/>
+                <input value={checkinNote} onChange={e=>{setCheckinNote(e.target.value);setCheckinSaved(false);setCheckinMessage("");}} placeholder="✎  Or tell us how you feel..." aria-label="How are you feeling?" maxLength={240}/>
                 <button type="button" aria-label="Save check-in" onClick={saveDailyCheckin}>→</button>
               </div>
             </div>
             <div className="lm-checkin-foot"><span>“ A little progress, every day. ”</span><div><i style={{width:checkinSaved?"100%":"38%"}}/></div></div>
+            <p className="lm-checkin-feedback" role="status" aria-live="polite">{checkinMessage}</p>
           </section>
 
           <section className="lm-spaces-section">
