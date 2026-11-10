@@ -87,16 +87,16 @@ function MobileNavContent() {
             </Link>
           ))}
         </nav>
-        <button type="button" className={moreOpen || moreActive ? "lm-more-trigger is-active" : "lm-more-trigger"} aria-expanded={moreOpen} aria-haspopup="menu" onClick={() => setMoreOpen((open) => !open)}>Explore <span aria-hidden="true">⌄</span></button>
+        <button type="button" className={moreOpen || moreActive ? "lm-more-trigger is-active" : "lm-more-trigger"} aria-expanded={moreOpen} aria-haspopup="menu" aria-controls="lifemode-more-menu" aria-label="More navigation" onClick={() => setMoreOpen((open) => !open)}>More <span aria-hidden="true">⌄</span></button>
       </header>
 
-      <button type="button" className={moreOpen || moreActive ? "lm-mobile-more-trigger is-active" : "lm-mobile-more-trigger"} aria-expanded={moreOpen} aria-haspopup="menu" onClick={() => setMoreOpen((open) => !open)}>
+      <button type="button" className={moreOpen || moreActive ? "lm-mobile-more-trigger is-active" : "lm-mobile-more-trigger"} aria-expanded={moreOpen} aria-haspopup="menu" aria-controls="lifemode-more-menu" aria-label="More navigation" onClick={() => setMoreOpen((open) => !open)}>
         Explore <span aria-hidden="true">⌄</span>
       </button>
 
       {moreOpen ? (
         <>
-          <button type="button" aria-label="Close Explore menu" className="mobile-more-backdrop lm-more-backdrop" onClick={() => setMoreOpen(false)} />
+          <button type="button" aria-label="Close More menu" className="mobile-more-backdrop lm-more-backdrop" onClick={() => setMoreOpen(false)} />
           <div id="lifemode-more-menu" className="mobile-more-menu lm-more-menu" role="menu" aria-label="More LifeMode pages">
             {moreItems.map((item) => (
               <Link key={item.href} href={item.href} role="menuitem" onClick={() => setMoreOpen(false)} aria-current={(item.href === "/stories" ? pathname.startsWith("/stories") : pathname === item.href) ? "page" : undefined} className="mobile-more-link lm-more-link">
