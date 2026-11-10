@@ -65,6 +65,18 @@ function MobileNavContent() {
         </div>
       </header>
 
+      <header className="lm-tablet-nav">
+        <Link href="/dashboard" className="lm-tablet-brand">life<span>mode</span><i>.</i></Link>
+        <nav aria-label="Tablet navigation" className="lm-tablet-links">
+          {primaryItems.map((item) => (
+            <Link key={item.key} href={item.href} aria-current={isActive(item.key) ? "page" : undefined} className={isActive(item.key) ? "is-active" : ""}>
+              <span aria-hidden="true">{item.icon}</span><small>{item.label}</small>
+            </Link>
+          ))}
+        </nav>
+        <button type="button" className={moreOpen || moreActive ? "lm-more-trigger is-active" : "lm-more-trigger"} aria-expanded={moreOpen} aria-haspopup="menu" onClick={() => setMoreOpen((open) => !open)}>Explore <span aria-hidden="true">⌄</span></button>
+      </header>
+
       <button type="button" className={moreOpen || moreActive ? "lm-mobile-more-trigger is-active" : "lm-mobile-more-trigger"} aria-expanded={moreOpen} aria-haspopup="menu" onClick={() => setMoreOpen((open) => !open)}>
         Explore <span aria-hidden="true">⌄</span>
       </button>
