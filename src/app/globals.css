@@ -6727,3 +6727,13 @@ button:focus-visible, a:focus-visible {
 @media (max-width: 699px), (min-width: 960px) {
   .lm-tablet-nav { display: none !important; }
 }
+
+
+/* Keep the tablet navigation aligned with the tablet content breakpoint. */
+@media (min-width: 960px) and (max-width: 1023px) {
+  body:has(.lm-tablet-nav) { padding-top: 68px !important; }
+  .lm-desktop-nav { display: none !important; }
+  .lm-tablet-nav { display: flex !important; }
+  .lm-mobile-more-trigger,.mobile-nav.lm-floating-nav { display: none !important; }
+  .lm-more-menu { top: 76px !important; right: 18px !important; bottom: auto !important; }
+}
