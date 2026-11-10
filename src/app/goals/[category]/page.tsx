@@ -223,7 +223,7 @@ export default function GoalsPage() {
           </div>
         </div>
 
-        <nav aria-label="Goal horizons" className="mt-6 grid grid-cols-3 gap-2 rounded-2xl border border-white/10 bg-white/[0.035] p-2">
+        <nav aria-label="Goal horizons" className="lm-goals-tabs mt-6 grid grid-cols-3 gap-2 rounded-2xl border border-white/10 bg-white/[0.035] p-2">
           {categories.map(item => (
             <Link key={item.value} href={`/goals/${item.value}`} aria-current={category === item.value ? "page" : undefined}
               className={category === item.value
@@ -237,8 +237,8 @@ export default function GoalsPage() {
 
         {status && <p role="status" aria-live="polite" className="mt-5 rounded-xl border border-[#c9aa65]/25 bg-[#c9aa65]/[0.08] px-4 py-3 text-sm leading-6 text-[#f1e7c8]">{status}</p>}
 
-        <div className="mt-8 grid gap-7 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
-          <section className="rounded-[1.75rem] border border-white/10 bg-white/[0.045] p-5 sm:p-7 lg:sticky lg:top-6">
+        <div className="lm-goals-workspace mt-8 grid gap-7 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
+          <section className="lm-goal-entry-panel rounded-[1.75rem] border border-white/10 bg-white/[0.045] p-5 sm:p-7 lg:sticky lg:top-6">
             <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#e2c77f]">01 / Set an intention</p>
             <h2 className="mt-4 text-2xl font-medium tracking-tight sm:text-3xl">{meta.prompt}</h2>
             <p className="mt-3 text-sm leading-6 text-white/50">Make it yours. It doesn't have to impress anyone else to matter.</p>
@@ -260,8 +260,8 @@ export default function GoalsPage() {
             <p className="mt-4 text-center text-xs leading-5 text-white/35">You can change direction whenever you need to. This is your life.</p>
           </section>
 
-          <section>
-            <div className="flex flex-wrap items-end justify-between gap-3">
+          <section className="lm-goal-list-panel">
+            <div className="lm-goal-list-heading flex flex-wrap items-end justify-between gap-3">
               <div>
                 <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#e2c77f]">02 / Your path</p>
                 <h2 className="mt-2 text-2xl font-medium tracking-tight sm:text-3xl">The things that matter to you.</h2>
@@ -280,11 +280,11 @@ export default function GoalsPage() {
                 </div>
               </div>
             ) : (
-              <div className="mt-5 space-y-3">
+              <div className="lm-goal-list mt-5 space-y-3">
                 {goals.map((goal, index) => (
                   <article key={goal.id} className={goal.done
-                    ? "group rounded-2xl border border-[#83a981]/20 bg-[#83a981]/[0.055] p-4 transition sm:p-5"
-                    : "group rounded-2xl border border-white/10 bg-white/[0.045] p-4 transition hover:border-[#c9aa65]/30 hover:bg-white/[0.065] sm:p-5"}>
+                    ? "lm-goal-card group rounded-2xl border border-[#83a981]/20 bg-[#83a981]/[0.055] p-4 transition sm:p-5"
+                    : "lm-goal-card group rounded-2xl border border-white/10 bg-white/[0.045] p-4 transition hover:border-[#c9aa65]/30 hover:bg-white/[0.065] sm:p-5"}>
                     <div className="flex items-start gap-3.5">
                       <button type="button" onClick={() => void toggleGoal(goal)} disabled={saving} aria-label={goal.done ? "Mark goal in progress" : "Mark goal complete"}
                         className={goal.done
