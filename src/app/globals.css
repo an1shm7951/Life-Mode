@@ -6113,3 +6113,8 @@ main,main>header{background-color:transparent!important;color:#eee9e1!important}
  .lm-date-label{margin-top:14px!important}
  .lm-greeting{font-size:36px!important}
 }
+
+/* Ensure the photo card lays out its controls instead of covering them */
+.lm-checkin{display:flex!important;flex-direction:column!important;justify-content:flex-start!important}
+.lm-checkin-body{flex:1 1 auto!important}
+.lm-moods{appearance:none!important;-webkit-appearance:none!important}
