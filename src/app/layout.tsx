@@ -10,13 +10,13 @@ import Script from "next/script";
 const themeBootstrap = `(() => {
   try {
     const stored = localStorage.getItem("lifemode-theme");
-    const preference = stored === "light" || stored === "dark" ? stored : "system";
+    const preference = stored === "light" || stored === "dark" ? stored : "dark";
     const isDark = preference === "dark" || (preference === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
     document.documentElement.dataset.themePreference = preference;
     document.documentElement.dataset.theme = isDark ? "dark" : "light";
   } catch {
     document.documentElement.dataset.themePreference = "system";
-    document.documentElement.dataset.theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    document.documentElement.dataset.theme = "dark";
   }
 })();`;
 
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#181713",
+  themeColor: "#080808",
 };
 
 export default function RootLayout({
