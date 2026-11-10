@@ -5574,3 +5574,74 @@ html[data-theme="light"] .lifemode-plan-shell>section:first-of-type:before{backg
 @media(min-width:701px){.mobile-nav.lm-floating-nav{display:grid!important}.lm-signature{padding-bottom:125px!important}}
 @media(max-width:700px){.lm-signature{padding:18px 16px 125px!important}.lm-shell{max-width:470px!important}.lm-main{gap:23px!important}.lm-checkin{min-height:250px!important}.lm-checkin-body{margin-top:88px!important}.lm-spaces{grid-template-columns:repeat(4,minmax(0,1fr))!important}.lm-overview-grid{grid-template-columns:1fr 1fr!important}.lm-lower-grid{grid-template-columns:1fr 1fr!important}.lifemode-goals-shell,.lifemode-plan-shell,.lifemode-buddy-shell,.lifemode-profile-shell,.discover-universe{padding-bottom:125px!important}}
 @media(max-width:360px){.lm-overview-grid,.lm-lower-grid{grid-template-columns:1fr!important}.lm-spaces a b{width:48px!important;height:48px!important}}
+
+
+/* LifeMode reference finish: complete navigation, breathing room, paired themes */
+html,body{background:var(--lm-page)!important;color:var(--lm-ink)!important}
+.lm-signature{background:radial-gradient(ellipse at 70% 5%,rgba(160,133,110,.16),transparent 34rem),var(--lm-page)!important;color:var(--lm-ink)!important}
+.lm-shell{max-width:470px!important}
+.lm-header{padding:10px 3px 0!important}
+.lm-brand{font-family:Georgia,"Times New Roman",serif!important;font-weight:400!important;letter-spacing:-.06em!important}
+.lm-greeting{font-family:Georgia,"Times New Roman",serif!important;font-size:36px!important;font-weight:400!important;letter-spacing:-.055em!important;line-height:1.08!important}
+.lm-main{display:grid!important;gap:27px!important;margin-top:24px!important}
+.lm-checkin{min-height:270px!important;padding:20px!important;border-radius:23px!important}
+.lm-checkin-body{margin-top:90px!important}
+.lm-spaces-section{padding:0 3px!important}
+.lm-spaces{gap:14px!important}
+.lm-spaces a{gap:10px!important}
+.lm-spaces a b{width:58px!important;height:58px!important;border-radius:20px!important}
+.lm-overview-grid,.lm-lower-grid{gap:13px!important}
+.lm-progress-card,.lm-ai-card{min-height:205px!important;padding:18px!important}
+.lm-goals-card{padding:21px!important}
+.lm-goal-row{padding:15px 0!important}
+.lm-lower-grid{display:grid!important}
+.lm-status-message{margin:0 2px!important}
+.mobile-nav.lm-floating-nav{display:grid!important;position:fixed!important;left:50%!important;right:auto!important;bottom:max(13px,env(safe-area-inset-bottom))!important;z-index:130!important;transform:translateX(-50%)!important;width:min(420px,calc(100% - 32px))!important;min-height:65px!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;padding:6px!important;border-radius:25px!important;background:rgba(37,34,32,.82)!important;border:1px solid rgba(255,255,255,.2)!important;box-shadow:0 18px 55px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.16)!important;backdrop-filter:blur(32px) saturate(155%)!important}
+.lm-floating-nav .lm-floating-nav-item{min-height:50px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;gap:4px!important;color:#e9e2da!important;border-radius:18px!important;font-size:10px!important}
+.lm-floating-nav .lm-floating-nav-item.is-active{background:rgba(255,255,255,.16)!important;color:#fff!important}
+.lm-floating-nav-icon{font-size:18px!important}
+.lm-more-backdrop{position:fixed!important;inset:0!important;z-index:128!important;background:rgba(0,0,0,.38)!important;backdrop-filter:blur(3px)!important}
+.lm-more-menu{position:fixed!important;z-index:131!important;left:50%!important;bottom:91px!important;transform:translateX(-50%)!important;width:min(420px,calc(100% - 32px))!important;padding:12px!important;border-radius:25px!important;background:rgba(40,37,34,.94)!important;border:1px solid rgba(255,255,255,.18)!important;backdrop-filter:blur(30px)!important;box-shadow:0 20px 60px #0008!important}
+.lm-more-link{min-height:48px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;padding:0 15px!important;color:#f0eae3!important;border-bottom:1px solid #ffffff15!important;font-size:13px!important}
+.lm-more-link:last-child{border-bottom:0!important}
+.lifemode-goals-shell,.lifemode-plan-shell,.lifemode-buddy-shell,.lifemode-profile-shell,.discover-universe{padding-bottom:135px!important}
+.lifemode-goals-shell>section,.lifemode-plan-shell>section,.lifemode-profile-shell>section{max-width:650px!important}
+.lifemode-goals-shell>section:first-of-type .relative.mt-7{min-height:245px!important}
+.lifemode-plan-shell>section:first-of-type:before{height:205px!important}
+.lifemode-buddy-shell>div:first-of-type{max-width:470px!important}
+.lifemode-buddy-shell>div:first-of-type>section:first-child{min-height:235px!important;padding:26px!important}
+.discover-universe .du-entry{padding-top:45px!important;padding-bottom:60px!important}
+.discover-universe .du-section,.discover-universe .du-quest{padding-top:45px!important;padding-bottom:45px!important}
+.discover-universe .du-realms,.discover-universe .du-story-grid{gap:18px!important}
+@media(min-width:701px){.mobile-nav.lm-floating-nav{display:grid!important}.lm-shell{max-width:500px!important}.lm-signature{padding-bottom:140px!important}}
+@media(max-width:700px){.lm-signature{padding:19px 17px 145px!important}.lm-shell{max-width:470px!important}.lm-main{gap:27px!important}.lm-checkin{min-height:260px!important}.lm-checkin-body{margin-top:82px!important}.lm-spaces{grid-template-columns:repeat(4,minmax(0,1fr))!important}.lm-overview-grid,.lm-lower-grid{grid-template-columns:1fr 1fr!important}.lifemode-goals-shell,.lifemode-plan-shell,.lifemode-buddy-shell,.lifemode-profile-shell,.discover-universe{padding-bottom:145px!important}.lifemode-goals-shell>section,.lifemode-plan-shell>section,.lifemode-profile-shell>section{padding-left:18px!important;padding-right:18px!important}}
+/* Light is the same design language, not a different layout: replace black with soft white */
+html[data-theme="light"]{--lm-page:#f5f4f2;--lm-ink:#211e1b;--lm-muted:#77716b;--lm-surface:rgba(255,255,255,.72);--lm-surface-strong:rgba(255,255,255,.9);--lm-stroke:rgba(35,29,24,.12);--lm-accent:#a18b77;--lm-shadow:0 20px 55px rgba(38,31,25,.09)}
+html[data-theme="light"],html[data-theme="light"] body{background:#f5f4f2!important;color:#211e1b!important}
+html[data-theme="light"] .lm-signature{background:radial-gradient(ellipse at 70% 0%,rgba(196,175,155,.2),transparent 34rem),#f5f4f2!important;color:#211e1b!important}
+html[data-theme="light"] .lm-brand,html[data-theme="light"] .lm-greeting,html[data-theme="light"] .lm-spaces-heading h2,html[data-theme="light"] .lm-progress-card h2,html[data-theme="light"] .lm-ai-card h2,html[data-theme="light"] .lm-goals-head h2,html[data-theme="light"] .lm-goal-title,html[data-theme="light"] .lm-mini-card h3{color:#211e1b!important}
+html[data-theme="light"] .lm-avatar,html[data-theme="light"] .lm-settings{background:rgba(255,255,255,.72)!important;border-color:rgba(35,29,24,.13)!important;color:#211e1b!important}
+html[data-theme="light"] .lm-checkin{background-image:linear-gradient(0deg,rgba(0,0,0,.62),rgba(0,0,0,.03) 80%),url("https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=85")!important}
+html[data-theme="light"] .lm-moods button,html[data-theme="light"] .lm-feeling-input input{color:#fff!important}
+html[data-theme="light"] .lm-progress-card,html[data-theme="light"] .lm-ai-card,html[data-theme="light"] .lm-goals-card,html[data-theme="light"] .lm-mini-card{background:rgba(255,255,255,.76)!important;border-color:rgba(35,29,24,.1)!important;box-shadow:0 14px 40px rgba(38,31,25,.055)!important}
+html[data-theme="light"] .lm-spaces a,html[data-theme="light"] .lm-spaces a b,html[data-theme="light"] .lm-status-message{color:#211e1b!important}
+html[data-theme="light"] .lm-spaces a b{background:rgba(255,255,255,.75)!important;border-color:rgba(35,29,24,.11)!important}
+html[data-theme="light"] .lm-goal-tag{background:#f0eeeb!important;color:#77716b!important}
+html[data-theme="light"] .lm-progress-links a,html[data-theme="light"] .lm-ai-button{background:#f2f0ed!important;border-color:rgba(35,29,24,.1)!important;color:#211e1b!important}
+html[data-theme="light"] .lm-ai-orb{background:radial-gradient(circle at 32% 25%,#fff,#c9c5c0 52%,#77716b 76%)!important;box-shadow:inset -8px -8px 18px #7774,0 0 25px #0000000c!important}
+html[data-theme="light"] .lm-add-goal input,html[data-theme="light"] .lm-proof-input{background:#fff!important;color:#211e1b!important;border-color:rgba(35,29,24,.16)!important}
+html[data-theme="light"] .mobile-nav.lm-floating-nav{background:rgba(255,255,255,.84)!important;border-color:rgba(35,29,24,.13)!important;box-shadow:0 18px 48px rgba(38,31,25,.12)!important}
+html[data-theme="light"] .lm-floating-nav .lm-floating-nav-item{color:#514b45!important}
+html[data-theme="light"] .lm-floating-nav .lm-floating-nav-item.is-active{background:rgba(35,29,24,.08)!important;color:#211e1b!important}
+html[data-theme="light"] .lm-more-menu{background:rgba(255,255,255,.96)!important;border-color:rgba(35,29,24,.12)!important}
+html[data-theme="light"] .lm-more-link{color:#211e1b!important;border-color:rgba(35,29,24,.08)!important}
+html[data-theme="light"] .lifemode-goals-shell,html[data-theme="light"] .lifemode-plan-shell,html[data-theme="light"] .lifemode-buddy-shell,html[data-theme="light"] .lifemode-profile-shell,html[data-theme="light"] .discover-universe{background:#f5f4f2!important;color:#211e1b!important}
+html[data-theme="light"] .lifemode-goals-shell header,html[data-theme="light"] .lifemode-plan-shell header{background:rgba(255,255,255,.82)!important;border-color:rgba(35,29,24,.1)!important}
+html[data-theme="light"] .lifemode-goals-shell h1,html[data-theme="light"] .lifemode-goals-shell h2,html[data-theme="light"] .lifemode-goals-shell h3,html[data-theme="light"] .lifemode-plan-shell h1,html[data-theme="light"] .lifemode-plan-shell h2,html[data-theme="light"] .lifemode-plan-shell h3,html[data-theme="light"] .lifemode-profile-shell h1,html[data-theme="light"] .lifemode-profile-shell h2{color:#211e1b!important}
+html[data-theme="light"] .lifemode-goals-shell>section:first-of-type .relative.mt-7{background-image:linear-gradient(0deg,rgba(0,0,0,.58),rgba(0,0,0,.02) 85%),url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1400&q=85")!important}
+html[data-theme="light"] .lifemode-plan-shell>section:first-of-type:before{background-image:url("https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1400&q=85")!important}
+html[data-theme="light"] .lifemode-plan-shell .premium-panel,html[data-theme="light"] .lifemode-buddy-shell .premium-panel,html[data-theme="light"] .lifemode-profile-shell .premium-panel,html[data-theme="light"] .lifemode-profile-shell .glass-card{background:rgba(255,255,255,.8)!important;border-color:rgba(35,29,24,.1)!important;color:#211e1b!important}
+html[data-theme="light"] .lifemode-plan-shell p,html[data-theme="light"] .lifemode-buddy-shell p,html[data-theme="light"] .lifemode-profile-shell p{color:#6f6963!important}
+html[data-theme="light"] .lifemode-buddy-shell [class*="bg-[#182219]"],html[data-theme="light"] .lifemode-buddy-shell [class*="bg-[#202d21]"],html[data-theme="light"] .lifemode-buddy-shell [class*="bg-[#282619]"]{background:#f0eeeb!important;border-color:rgba(35,29,24,.1)!important;color:#211e1b!important}
+html[data-theme="light"] .discover-universe .du-entry,html[data-theme="light"] .discover-universe .du-section,html[data-theme="light"] .discover-universe .du-quest,html[data-theme="light"] .discover-universe .du-closing{color:#211e1b!important}
+html[data-theme="light"] .discover-universe .du-story-card,html[data-theme="light"] .discover-universe .du-quest-card,html[data-theme="light"] .discover-universe .du-realm{border-color:rgba(35,29,24,.12)!important;box-shadow:0 16px 40px rgba(38,31,25,.08)!important}
