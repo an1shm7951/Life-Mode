@@ -3817,7 +3817,7 @@ html[data-theme="dark"] .dashboard-view-kicker,
 html[data-theme="dark"] .dashboard-mission > p:first-child,
 html[data-theme="dark"] .dashboard-panel > div:first-child p,
 html[data-theme="dark"] .dashboard-metric > p:first-child,
-html[data-theme="dark"] .dashboard-momentum .text-\\[\\#d6c29d\\] {
+html[data-theme="dark"] .dashboard-momentum [class~="text-[#d6c29d]"] {
   color: #d7ad54 !important;
 }
 html[data-theme="dark"] .dashboard-description,
