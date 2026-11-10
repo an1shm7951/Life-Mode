@@ -6118,3 +6118,26 @@ main,main>header{background-color:transparent!important;color:#eee9e1!important}
 .lm-checkin{display:flex!important;flex-direction:column!important;justify-content:flex-start!important}
 .lm-checkin-body{flex:1 1 auto!important}
 .lm-moods{appearance:none!important;-webkit-appearance:none!important}
+
+
+/* Home + Proof now follow the same card hierarchy as the reference */
+.lm-home-hero{position:relative!important;display:flex!important;align-items:flex-end!important;justify-content:space-between!important;min-height:235px!important;margin:10px 0 2px!important;padding:22px!important;overflow:hidden!important;border:1px solid #ffffff26!important;border-radius:24px!important;background:linear-gradient(0deg,rgba(7,7,7,.82),rgba(7,7,7,.08) 78%),url("https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=85") center 52%/cover!important;box-shadow:0 22px 55px #0008!important}
+.lm-home-hero>div>span{font-size:9px!important;letter-spacing:.18em!important;color:#f1dfbd!important;font-weight:600!important}
+.lm-home-hero>div>p{margin-top:9px!important;color:#fff!important;font-family:Georgia,serif!important;font-size:20px!important}
+.lm-home-hero>a{display:grid!important;place-items:center!important;width:42px!important;height:42px!important;border:1px solid #ffffff55!important;border-radius:50%!important;background:#ffffff20!important;color:#fff!important;font-size:22px!important;backdrop-filter:blur(12px)!important}
+.lm-checkin{min-height:0!important;background:linear-gradient(145deg,#1a1712,#0c0b09)!important;border-color:#ffffff1b!important;padding:22px!important}
+.lm-checkin-body{padding-top:0!important;margin-top:24px!important}
+.lm-proof-screen{display:grid!important;gap:18px!important}
+.lm-proof-hero{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:20px!important;min-height:235px!important;padding:26px!important;border:1px solid #ffffff22!important;border-radius:25px!important;background:linear-gradient(90deg,rgba(7,7,7,.84),rgba(7,7,7,.25)),url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=85") center/cover!important}
+.lm-proof-eyebrow{color:#e0c58e!important;font-size:9px!important;letter-spacing:.19em!important;font-weight:700!important}
+.lm-proof-hero h1{margin-top:13px!important;color:#f3ede4!important;font:400 clamp(30px,6vw,42px)/1.08 Georgia,serif!important;letter-spacing:-.04em!important}
+.lm-proof-hero p{margin-top:8px!important;color:#ded5c8!important;font-size:12px!important}
+.lm-proof-score{display:grid!important;place-items:center!important;flex:none!important;width:116px!important;height:116px!important;border-radius:50%!important;background:conic-gradient(#d7bd8b var(--proof-score),rgba(255,255,255,.17) 0)!important;position:relative!important}
+.lm-proof-score:before{content:"";position:absolute;inset:8px;border-radius:50%;background:#171411!important;border:1px solid #ffffff16!important}
+.lm-proof-score strong{position:relative!important;z-index:1!important;color:#f4ead8!important;font:400 24px Georgia,serif!important}
+.lm-proof-metrics{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important}
+.lm-proof-metrics article{display:grid!important;gap:5px!important;min-height:82px!important;align-content:center!important;text-align:center!important;border:1px solid #ffffff17!important;border-radius:18px!important;background:linear-gradient(145deg,#191713,#0d0c0a)!important}
+.lm-proof-metrics strong{font:400 25px Georgia,serif!important;color:#f0e8dc!important}
+.lm-proof-metrics span{font-size:10px!important;color:#a9a095!important}
+.lm-proof-screen .lm-goals-card{margin-top:0!important}
+@media(max-width:700px){.lm-home-hero{min-height:220px!important;padding:18px!important}.lm-checkin{padding:19px 16px!important}.lm-checkin-body{margin-top:20px!important;padding-top:0!important}.lm-proof-hero{min-height:210px!important;padding:19px!important}.lm-proof-score{width:92px!important;height:92px!important}.lm-proof-score strong{font-size:20px!important}.lm-proof-metrics{gap:7px!important}.lm-proof-metrics article{min-height:74px!important}}
