@@ -198,38 +198,32 @@ export default function BuddyPage() {
 
   function stopVoiceInput() { const recorder = mediaRecorderRef.current; if (recorder && recorder.state !== "inactive") recorder.stop(); }
 
-  if (loading) return <main className="min-h-screen bg-[#101710] p-8 text-[#f6f0df]">Opening your companion…</main>;
+  if (loading) return <main className="lm-ai-loading min-h-screen p-8">Opening your companion…</main>;
 
   return (
-    <main className="lifemode-buddy-shell min-h-screen bg-[#f5f2eb] px-4 pb-28 pt-5 text-[#24221e] sm:px-7">
+    <main className="lifemode-buddy-shell lm-ai-page min-h-screen px-4 pb-28 pt-5 sm:px-7">
       <div className="mx-auto max-w-6xl">
         <header className="flex flex-wrap items-center justify-between gap-3">
           <Link href="/dashboard" className="text-sm font-semibold uppercase tracking-[0.2em] text-[#e5c783]">← LifeMode</Link>
-          <span className="rounded-full border border-[#59684e] px-3 py-1 text-xs text-[#d5d0bd]">Personal companion · Preview</span>
+          <span className="rounded-full border border-white/15 px-3 py-1 text-xs text-[#d5d0bd]">Personal companion · Preview</span>
         </header>
-        <section className="relative mt-7 overflow-hidden rounded-[30px] border border-[#58634c] bg-[radial-gradient(circle_at_75%_10%,rgba(197,160,83,.23),transparent_35%),linear-gradient(135deg,#1d2b1d,#111711_70%)] p-6 sm:p-9">
-          <div className="pointer-events-none absolute -right-10 -top-16 h-64 w-64 rounded-full border border-[#d2b36d]/30 shadow-[0_0_80px_rgba(198,161,84,.12)]" />
-          <div className="relative max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[.24em] text-[#d8bd7b]">Your day, with a little more clarity</p>
-            <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">AI Buddy<span className="text-[#d9b96d]">.</span></h1>
-            <p className="mt-3 max-w-2xl text-sm leading-7 text-[#d6d8ca]">Welcome back, {name}. Your goals, plans and reminders should work together. Start with a question, and we'll build from there.</p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              <button onClick={() => setTab("buddy")} className={tab === "buddy" ? "rounded-full bg-[#d8bd7b] px-5 py-2 text-sm font-semibold text-[#172016]" : "rounded-full border border-[#65715c] px-5 py-2 text-sm"}>AI Buddy</button>
-              <button onClick={() => setTab("pulse")} className={tab === "pulse" ? "rounded-full bg-[#d8bd7b] px-5 py-2 text-sm font-semibold text-[#172016]" : "rounded-full border border-[#65715c] px-5 py-2 text-sm"}>LifeMode Pulse</button>
-            </div>
-          </div>
+        <section className="lm-ai-hero">
+          <div className="lm-ai-topline"><Link href="/dashboard" aria-label="Back to Home">‹</Link><span>AI</span><span className="lm-ai-status">●</span></div>
+          <div className="lm-ai-intro"><h1>Hey {name === "there" ? "there" : name}.</h1><p>How can I help you today?</p></div>
+          <div className="lm-ai-orb-scene" aria-hidden="true"><div className="lm-ai-orb-halo" /><div className="lm-ai-orb"><span className="lm-ai-orb-reflection" /><span className="lm-ai-orb-shadow" /></div></div>
+          <div className="lm-ai-tabs"><button onClick={() => setTab("buddy")} className={tab === "buddy" ? "active" : ""}>AI Buddy</button><button onClick={() => setTab("pulse")} className={tab === "pulse" ? "active" : ""}>LifeMode Pulse</button></div>
         </section>
 
         {tab === "buddy" ? (
           <section className="mt-5 grid gap-5 lg:grid-cols-[1.4fr_.8fr]">
-            <div className="rounded-3xl border border-[#3d4b3a] bg-[#182219] p-4 sm:p-6">
+            <div className="rounded-3xl border border-white/10 bg-white/[0.045] p-4 sm:p-6">
               <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                <div><p className="text-sm font-semibold">Your AI companion</p><p className="mt-1 text-xs text-[#aeb9a5]">Connected to your LifeMode account</p></div>
-                <span className="rounded-full bg-[#29432d] px-3 py-1 text-xs text-[#c9e0bf]">Ready</span>
+                <div><p className="text-sm font-semibold">Your AI companion</p><p className="mt-1 text-xs text-[#aaa]">Connected to your LifeMode account</p></div>
+                <span className="rounded-full bg-[#c9ad78]/15 px-3 py-1 text-xs text-[#e0c58e]">Ready</span>
               </div>
               <div className="my-5 grid max-h-[440px] gap-3 overflow-y-auto pr-1" aria-live="polite">
                 {messages.map((message, index) => (
-                  <article key={index} className={message.role === "user" ? "ml-auto max-w-[88%] whitespace-pre-wrap rounded-2xl rounded-br-sm bg-[#d8bd7b] px-4 py-3 text-sm leading-6 text-[#1c2418]" : "max-w-[92%] whitespace-pre-wrap rounded-2xl rounded-bl-sm border border-[#465443] bg-[#202d21] px-4 py-3 text-sm leading-6 text-[#f0eddf]"}>
+                  <article key={index} className={message.role === "user" ? "ml-auto max-w-[88%] whitespace-pre-wrap rounded-2xl rounded-br-sm bg-[#c9ad78] px-4 py-3 text-sm leading-6 text-[#17130d]" : "max-w-[92%] whitespace-pre-wrap rounded-2xl rounded-bl-sm border border-white/10 bg-white/[0.055] px-4 py-3 text-sm leading-6 text-[#f0eddf]"}>
                     <p className="mb-1 text-[10px] font-semibold uppercase tracking-[.15em] opacity-65">{message.role === "user" ? "You" : "AI Buddy"}</p>{message.content}
                   </article>
                 ))}
@@ -238,46 +232,46 @@ export default function BuddyPage() {
               </div>
               {notice && <p role="status" className="mb-3 rounded-xl border border-[#7d6940] bg-[#332d1d] p-3 text-xs leading-5 text-[#f0dfb5]">{notice}</p>}
               <form onSubmit={(event) => { event.preventDefault(); void sendMessage(); }} className="flex flex-col gap-2 sm:flex-row">
-                <input value={draft} onChange={(event) => setDraft(event.target.value)} placeholder="Ask about your goals, plans or next step…" className="h-12 min-w-0 flex-1 rounded-xl border border-[#53624e] bg-[#101810] px-4 text-sm text-white outline-none placeholder:text-[#87917f] focus:border-[#d8bd7b]" />
-                <button type="button" onClick={recording ? stopVoiceInput : voiceAvailable ? startVoiceInput : () => setNotice("This browser does not expose microphone recording here. On iPhone, tap the microphone on the keyboard to dictate, or open LifeMode in Safari and allow microphone access.")} disabled={transcribing} aria-pressed={recording} aria-label={recording ? "Stop voice recording" : "Start voice input"} className="h-12 rounded-xl border border-[#65715c] px-4 text-sm disabled:opacity-50">{recording ? "Stop" : transcribing ? "Transcribing…" : "🎙 Voice"}</button>
-                <button disabled={sending || !draft.trim()} className="h-12 rounded-xl bg-[#d8bd7b] px-6 text-sm font-semibold text-[#172016] disabled:opacity-50">Send</button>
+                <input value={draft} onChange={(event) => setDraft(event.target.value)} placeholder="Ask about your goals, plans or next step…" className="h-12 min-w-0 flex-1 rounded-xl border border-white/15 bg-[#111] px-4 text-sm text-white outline-none placeholder:text-[#87917f] focus:border-[#d8bd7b]" />
+                <button type="button" onClick={recording ? stopVoiceInput : voiceAvailable ? startVoiceInput : () => setNotice("This browser does not expose microphone recording here. On iPhone, tap the microphone on the keyboard to dictate, or open LifeMode in Safari and allow microphone access.")} disabled={transcribing} aria-pressed={recording} aria-label={recording ? "Stop voice recording" : "Start voice input"} className="h-12 rounded-xl border border-white/15 px-4 text-sm disabled:opacity-50">{recording ? "Stop" : transcribing ? "Transcribing…" : "🎙 Voice"}</button>
+                <button disabled={sending || !draft.trim()} className="h-12 rounded-xl bg-[#c9ad78] px-6 text-sm font-semibold text-[#17130d] disabled:opacity-50">Send</button>
               </form>
               <p className="mt-2 text-[11px] text-[#9eaa98]">Tap Voice, speak, then Stop. Review the transcription before sending. Spoken AI replies are not enabled yet.</p>
             </div>
             <aside className="grid content-start gap-4">
-              <div className="rounded-3xl border border-[#3d4b3a] bg-[#182219] p-5">
+              <div className="rounded-3xl border border-white/10 bg-white/[0.045] p-5">
                 <p className="text-xs font-semibold uppercase tracking-[.18em] text-[#d8bd7b]">Try asking</p>
-                <div className="mt-3 grid gap-2">{prompts.map((prompt) => <button type="button" key={prompt} disabled={sending || !userId} onClick={() => void sendMessage(prompt)} aria-label={"Ask AI Buddy: " + prompt} className="rounded-xl disabled:cursor-wait disabled:opacity-50 border border-[#465443] bg-[#202d21] p-3 text-left text-sm leading-5 text-[#e6e7dc] transition hover:border-[#d8bd7b]">{prompt}</button>)}</div>
+                <div className="mt-3 grid gap-2">{prompts.map((prompt) => <button type="button" key={prompt} disabled={sending || !userId} onClick={() => void sendMessage(prompt)} aria-label={"Ask AI Buddy: " + prompt} className="rounded-xl disabled:cursor-wait disabled:opacity-50 border border-white/10 bg-white/[0.055] p-3 text-left text-sm leading-5 text-[#e9e3d9] transition hover:border-[#d8bd7b]">{prompt}</button>)}</div>
               </div>
-              <div className="rounded-3xl border border-[#5c5137] bg-[#282619] p-5">
+              <div className="rounded-3xl border border-[#c9ad78]/25 bg-[#c9ad78]/[0.07] p-5">
                 <p className="text-xs font-semibold uppercase tracking-[.18em] text-[#d8bd7b]">Provider settings</p>
                 <h2 className="mt-2 text-xl font-semibold">Your AI, your choice.</h2>
-                <p className="mt-2 text-sm leading-6 text-[#d6d1be]">The preview uses the AI provider configured by LifeMode. Bring-your-own API keys and model switching are planned, with server-side secret storage so keys never appear in the browser.</p>
+                <p className="mt-2 text-sm leading-6 text-[#c7c1b7]">The preview uses the AI provider configured by LifeMode. Bring-your-own API keys and model switching are planned, with server-side secret storage so keys never appear in the browser.</p>
                 <span className="mt-4 inline-flex rounded-full border border-[#8a784e] px-3 py-1 text-xs text-[#e7d6a7]">Provider controls · Coming next</span>
               </div>
             </aside>
           </section>
         ) : (
           <section className="mt-5 grid gap-5 lg:grid-cols-[1fr_.8fr]">
-            <div className="rounded-3xl border border-[#3d4b3a] bg-[#182219] p-5 sm:p-7">
+            <div className="rounded-3xl border border-white/10 bg-white/[0.045] p-5 sm:p-7">
               <p className="text-xs font-semibold uppercase tracking-[.18em] text-[#d8bd7b]">LifeMode Pulse</p>
               <h2 className="mt-2 text-3xl font-semibold">Remember at the right moment.</h2>
-              <p className="mt-3 max-w-xl text-sm leading-6 text-[#c6cebf]">Create a reminder tied to a time and an optional place. This preview saves reminders on this device; it does not yet run background geofencing or send reliable notifications when the app is closed.</p>
+              <p className="mt-3 max-w-xl text-sm leading-6 text-[#aaa]">Create a reminder tied to a time and an optional place. This preview saves reminders on this device; it does not yet run background geofencing or send reliable notifications when the app is closed.</p>
               <form onSubmit={saveReminder} className="mt-6 grid gap-3">
-                <label className="grid gap-2 text-xs font-semibold uppercase tracking-wider text-[#c6cebf]">What should LifeMode remind you?<input required value={reminderTitle} onChange={(e) => setReminderTitle(e.target.value)} placeholder="e.g. Check today's workout plan" className="h-12 rounded-xl border border-[#53624e] bg-[#101810] px-4 text-sm font-normal normal-case tracking-normal text-white" /></label>
-                <label className="grid gap-2 text-xs font-semibold uppercase tracking-wider text-[#c6cebf]">When?<input required type="datetime-local" value={reminderWhen} onChange={(e) => setReminderWhen(e.target.value)} className="h-12 rounded-xl border border-[#53624e] bg-[#101810] px-4 text-sm font-normal normal-case tracking-normal text-white" /></label>
-                <label className="grid gap-2 text-xs font-semibold uppercase tracking-wider text-[#c6cebf]">Place (optional)<input value={reminderPlace} onChange={(e) => setReminderPlace(e.target.value)} placeholder="e.g. Gym, college, library" className="h-12 rounded-xl border border-[#53624e] bg-[#101810] px-4 text-sm font-normal normal-case tracking-normal text-white" /></label>
-                <button className="h-12 rounded-xl bg-[#d8bd7b] px-5 text-sm font-semibold text-[#172016]">Save reminder</button>
+                <label className="grid gap-2 text-xs font-semibold uppercase tracking-wider text-[#aaa]">What should LifeMode remind you?<input required value={reminderTitle} onChange={(e) => setReminderTitle(e.target.value)} placeholder="e.g. Check today's workout plan" className="h-12 rounded-xl border border-white/15 bg-[#111] px-4 text-sm font-normal normal-case tracking-normal text-white" /></label>
+                <label className="grid gap-2 text-xs font-semibold uppercase tracking-wider text-[#aaa]">When?<input required type="datetime-local" value={reminderWhen} onChange={(e) => setReminderWhen(e.target.value)} className="h-12 rounded-xl border border-white/15 bg-[#111] px-4 text-sm font-normal normal-case tracking-normal text-white" /></label>
+                <label className="grid gap-2 text-xs font-semibold uppercase tracking-wider text-[#aaa]">Place (optional)<input value={reminderPlace} onChange={(e) => setReminderPlace(e.target.value)} placeholder="e.g. Gym, college, library" className="h-12 rounded-xl border border-white/15 bg-[#111] px-4 text-sm font-normal normal-case tracking-normal text-white" /></label>
+                <button className="h-12 rounded-xl bg-[#c9ad78] px-5 text-sm font-semibold text-[#17130d]">Save reminder</button>
               </form>
-              <button onClick={() => void requestLocationPreview()} className="mt-3 rounded-xl border border-[#65715c] px-4 py-3 text-left text-sm text-[#e4e5d9]">Check one-time location permission ↗</button>
+              <button onClick={() => void requestLocationPreview()} className="mt-3 rounded-xl border border-white/15 px-4 py-3 text-left text-sm text-[#e4e5d9]">Check one-time location permission ↗</button>
               {notice && <p role="status" className="mt-3 rounded-xl border border-[#7d6940] bg-[#332d1d] p-3 text-xs leading-5 text-[#f0dfb5]">{notice}</p>}
             </div>
-            <div className="rounded-3xl border border-[#3d4b3a] bg-[#182219] p-5">
+            <div className="rounded-3xl border border-white/10 bg-white/[0.045] p-5">
               <p className="text-xs font-semibold uppercase tracking-[.18em] text-[#d8bd7b]">Your reminders</p>
               <div className="mt-4 grid gap-3">
-                {reminders.length ? reminders.map((item) => <article key={item.id} className="rounded-2xl border border-[#465443] bg-[#202d21] p-4"><div className="flex items-start justify-between gap-3"><div><h3 className="font-semibold">{item.title}</h3><p className="mt-1 text-xs text-[#b9c2b1]">{new Date(item.when).toLocaleString()}</p>{item.place && <p className="mt-2 text-xs text-[#d8bd7b]">⌖ {item.place}</p>}</div><button onClick={() => removeReminder(item.id)} className="text-xs text-[#d9b6a3] underline">Remove</button></div></article>) : <p className="rounded-2xl border border-dashed border-[#53624e] p-5 text-sm leading-6 text-[#b9c2b1]">No reminders yet. Add one and it will appear here on this device.</p>}
+                {reminders.length ? reminders.map((item) => <article key={item.id} className="rounded-2xl border border-white/10 bg-white/[0.055] p-4"><div className="flex items-start justify-between gap-3"><div><h3 className="font-semibold">{item.title}</h3><p className="mt-1 text-xs text-[#aaa]">{new Date(item.when).toLocaleString()}</p>{item.place && <p className="mt-2 text-xs text-[#d8bd7b]">⌖ {item.place}</p>}</div><button onClick={() => removeReminder(item.id)} className="text-xs text-[#d9b6a3] underline">Remove</button></div></article>) : <p className="rounded-2xl border border-dashed border-[#53624e] p-5 text-sm leading-6 text-[#aaa]">No reminders yet. Add one and it will appear here on this device.</p>}
               </div>
-              <div className="mt-5 rounded-2xl border border-[#5c5137] bg-[#282619] p-4 text-xs leading-5 text-[#d6d1be]"><strong className="text-[#e7d6a7]">Privacy by design</strong><br/>Location is optional. This preview only asks for a one-time location check when you tap the button; it does not continuously track you.</div>
+              <div className="mt-5 rounded-2xl border border-[#c9ad78]/25 bg-[#c9ad78]/[0.07] p-4 text-xs leading-5 text-[#c7c1b7]"><strong className="text-[#e7d6a7]">Privacy by design</strong><br/>Location is optional. This preview only asks for a one-time location check when you tap the button; it does not continuously track you.</div>
             </div>
           </section>
         )}
