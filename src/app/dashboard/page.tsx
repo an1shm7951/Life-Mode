@@ -97,6 +97,15 @@ function DashboardContent() {
   const [checkinSaved, setCheckinSaved] = useState(false);
   const [checkinDate, setCheckinDate] = useState("");
   const [checkinMessage, setCheckinMessage] = useState("");
+  const [homeGreeting, setHomeGreeting] = useState("Good day.");
+  const [homeDate, setHomeDate] = useState("");
+
+  useEffect(() => {
+    const now = new Date();
+    const hour = now.getHours();
+    setHomeGreeting(hour < 12 ? "Good morning." : hour < 17 ? "Good afternoon." : "Good evening.");
+    setHomeDate(now.toLocaleDateString(undefined, { weekday: "long", month: "long", day: "2-digit" }).toUpperCase());
+  }, []);
 
   useEffect(() => {
     if (!userId) return;
@@ -674,7 +683,7 @@ function DashboardContent() {
         <header className="lm-header">
           <div>
             <div className="lm-brand"><span className="lm-brand-mark">✧</span><span>LIFE<span>MODE</span></span></div>
-            <div className="lm-greeting">Hi, {displayName || "there"} <span>✦</span></div>
+            <div className="lm-date-label">{homeDate}</div><div className="lm-greeting">{homeGreeting}</div><p className="lm-home-subtitle">Make room for what matters.</p>
           </div>
           <div className="lm-header-actions">
             <button type="button" className="lm-avatar" aria-label="Open profile" onClick={() => router.push("/profile")}>◉</button>
