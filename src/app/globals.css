@@ -7318,3 +7318,87 @@ html[data-theme="light"] [class*="text-[#8c3027]"] {
   border-color: rgba(178,141,80,.3) !important;
   color: #80643a !important;
 }
+
+
+/* Route-specific palette cleanup: Discover, Story Room, AI Buddy and Profile. */
+html[data-theme="dark"] .discover-universe,
+html[data-theme="dark"] .lm-stories-v2,
+html[data-theme="dark"] .lm-reader-v2,
+html[data-theme="dark"] .lifemode-profile-shell,
+html[data-theme="dark"] .buddy-shell,
+html[data-theme="dark"] .lm-buddy-shell {
+  background: #000 !important;
+  background-color: #000 !important;
+  background-image: none !important;
+  color: #f5f2eb !important;
+}
+
+/* The Discover page uses its own du-* palette rather than Tailwind colour utilities. */
+html[data-theme="dark"] .discover-universe [class*="du-"] {
+  border-color: rgba(197,164,106,.22) !important;
+  color: #e8e2d6;
+}
+html[data-theme="dark"] .discover-universe :is(.du-topbar,.du-entry,.du-section,.du-quest,.du-quest-card,.du-story-card,.du-realm,.du-empty,.du-skeleton) {
+  background-color: #090909 !important;
+  background-image: none !important;
+}
+html[data-theme="dark"] .discover-universe :is(.du-live span,.du-eyebrow i,.du-progress-fill,.du-progress-done) {
+  background-color: #c5a46a !important;
+  color: #c5a46a !important;
+}
+html[data-theme="dark"] .discover-universe :is(.du-primary,.du-done-button,.du-journal) {
+  background: #c5a46a !important;
+  color: #080808 !important;
+  border-color: rgba(197,164,106,.4) !important;
+}
+
+/* Story Room has a separate editorial stylesheet; neutralise its legacy colour washes. */
+html[data-theme="dark"] .lm-stories-v2 :is(.lm-stories-nav,.lm-stories-intro,.lm-stories-feature,.lm-stories-library,.lm-stories-card,.lm-stories-footer),
+html[data-theme="dark"] .lm-reader-v2 :is(.lm-stories-nav,.lm-reader-hero,.lm-reader-body,.lm-reader-reflection,.lm-reader-end) {
+  background-color: #080808 !important;
+  background-image: none !important;
+  border-color: rgba(197,164,106,.2) !important;
+}
+html[data-theme="dark"] .lm-stories-v2 :is(.lm-stories-eyebrow,.lm-stories-read,.lm-stories-back,.lm-reader-v2 .lm-stories-eyebrow) {
+  color: #c5a46a !important;
+}
+
+/* Profile and AI Buddy: no green, teal, rose or pink status treatments in dark mode. */
+html[data-theme="dark"] :is(.lifemode-profile-shell,.buddy-shell,.lm-buddy-shell) [class*="bg-[#"],
+html[data-theme="dark"] :is(.lifemode-profile-shell,.buddy-shell,.lm-buddy-shell) [class*="bg-green"],
+html[data-theme="dark"] :is(.lifemode-profile-shell,.buddy-shell,.lm-buddy-shell) [class*="bg-emerald"],
+html[data-theme="dark"] :is(.lifemode-profile-shell,.buddy-shell,.lm-buddy-shell) [class*="bg-teal"],
+html[data-theme="dark"] :is(.lifemode-profile-shell,.buddy-shell,.lm-buddy-shell) [class*="bg-pink"],
+html[data-theme="dark"] :is(.lifemode-profile-shell,.buddy-shell,.lm-buddy-shell) [class*="bg-rose"] {
+  background-color: #10100f !important;
+  background-image: none !important;
+  border-color: rgba(197,164,106,.22) !important;
+}
+html[data-theme="dark"] :is(.lifemode-profile-shell,.buddy-shell,.lm-buddy-shell) [class*="text-green"],
+html[data-theme="dark"] :is(.lifemode-profile-shell,.buddy-shell,.lm-buddy-shell) [class*="text-emerald"],
+html[data-theme="dark"] :is(.lifemode-profile-shell,.buddy-shell,.lm-buddy-shell) [class*="text-teal"] {
+  color: #ded8cc !important;
+}
+
+/* Light surfaces always use readable ink, never gold text on white. */
+html[data-theme="light"] main :is(
+  [class*="text-[#d6c29d]"],
+  [class*="text-[#c5a46a]"],
+  [class*="text-[#b28d50]"],
+  [class*="text-[#d7ad54]"],
+  [class*="text-[#6a4a13]"],
+  [class*="text-[#7b4d10]"]
+) {
+  color: #171614 !important;
+}
+html[data-theme="light"] :is(.lifemode-profile-shell,.buddy-shell,.lm-buddy-shell,.discover-universe,.lm-stories-v2,.lm-reader-v2) {
+  color: #171614;
+}
+html[data-theme="light"] :is(.lifemode-profile-shell,.buddy-shell,.lm-buddy-shell) :is([class*="bg-pink"],[class*="bg-rose"],[class*="bg-fuchsia"],[class*="bg-[#fff7f5]"],[class*="bg-[#fce"]) {
+  background: #f8f7f4 !important;
+  border-color: rgba(23,22,20,.12) !important;
+  color: #171614 !important;
+}
+html[data-theme="light"] :is(.lifemode-profile-shell,.buddy-shell,.lm-buddy-shell) :is([class*="text-pink"],[class*="text-rose"],[class*="text-fuchsia"],[class*="text-[#8c3027]"]) {
+  color: #171614 !important;
+}
