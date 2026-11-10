@@ -33,7 +33,7 @@ function MobileNavContent() {
   const searchParams = useSearchParams();
   const view = searchParams.get("view") ?? "";
   const [moreOpen, setMoreOpen] = useState(false);
-  const isMoreActive = pathname === "/discover" || pathname === "/profile" || pathname === "/settings" || view === "proof" || view === "connections";
+  const isMoreActive = pathname === "/discover" || pathname === "/profile" || pathname === "/settings" || pathname === "/subscription" || view === "proof" || view === "connections";
 
   function isActive(href: string) {
     if (href === "/dashboard") return pathname === "/dashboard" && !view;
@@ -68,7 +68,7 @@ function MobileNavContent() {
           ))}
         </div>
       ) : null}
-      <nav aria-label="Primary navigation" className="mobile-nav lg:hidden">
+      <nav aria-label="Primary navigation" className="mobile-nav lm-floating-nav">
         {primaryItems.map((item) => (
           <Link
             key={item.href}
@@ -86,7 +86,7 @@ function MobileNavContent() {
           onClick={() => setMoreOpen((open) => !open)}
           className={moreOpen || isMoreActive ? "mobile-nav-item lm-floating-nav-item is-active" : "mobile-nav-item lm-floating-nav-item"}
         >
-          <span className="mobile-nav-icon" aria-hidden="true">{moreOpen ? "×" : "＋"}</span><span>More</span>
+          <span className="mobile-nav-icon lm-floating-nav-icon" aria-hidden="true">{moreOpen ? "×" : "＋"}</span><span>More</span>
         </button>
       </nav>
     </>
