@@ -5,10 +5,10 @@ import { Suspense, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
 const primaryItems = [
-  { href: "/dashboard", label: "Home" },
-  { href: "/goals/daily", label: "Goals" },
-  { href: "/planning", label: "Plan" },
-  { href: "/buddy", label: "AI" },
+  { href: "/dashboard", label: "Home", icon: "⌂" },
+  { href: "/goals/daily", label: "Goals", icon: "◎" },
+  { href: "/planning", label: "Plan", icon: "▦" },
+  { href: "/buddy", label: "AI", icon: "✧" },
 ];
 
 const moreItems = [
@@ -75,7 +75,7 @@ function MobileNavContent() {
             aria-current={isActive(item.href) ? "page" : undefined}
             className={isActive(item.href) ? "mobile-nav-item is-active" : "mobile-nav-item"}
           >
-            {item.label}
+            <span className="mobile-nav-icon" aria-hidden="true">{item.icon}</span><span>{item.label}</span>
           </Link>
         ))}
         <button
@@ -85,7 +85,7 @@ function MobileNavContent() {
           onClick={() => setMoreOpen((open) => !open)}
           className={moreOpen || isMoreActive ? "mobile-nav-item is-active" : "mobile-nav-item"}
         >
-          More <span aria-hidden="true">{moreOpen ? "×" : "＋"}</span>
+          <span className="mobile-nav-icon" aria-hidden="true">{moreOpen ? "×" : "＋"}</span><span>More</span>
         </button>
       </nav>
     </>
