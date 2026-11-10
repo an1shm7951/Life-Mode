@@ -6882,46 +6882,33 @@ button:focus-visible, a:focus-visible {
 }
 
 
-/* Larger, easier-to-tap phone bottom navigation. */
-@media (max-width: 699px) {
+/* Keep the established phone navigation unchanged. Expand the laptop dock instead. */
+@media (min-width: 1024px) {
   .mobile-nav.lm-floating-nav {
-    left: 12px !important;
-    right: 12px !important;
-    bottom: max(10px, env(safe-area-inset-bottom)) !important;
-    min-height: 76px !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: 24px !important;
+    transform: translateX(-50%) !important;
+    width: min(1120px, calc(100% - 96px)) !important;
+    min-height: 78px !important;
     grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
-    gap: 5px !important;
-    padding: 8px 7px max(8px, env(safe-area-inset-bottom)) !important;
-    border-radius: 24px !important;
+    gap: 12px !important;
+    padding: 10px 18px !important;
+    border-radius: 26px !important;
   }
-  .lm-floating-nav-item {
-    min-height: 58px !important;
-    flex-direction: column !important;
+  .lm-floating-nav .lm-floating-nav-item {
+    min-height: 56px !important;
+    flex-direction: row !important;
     justify-content: center !important;
-    gap: 5px !important;
-    padding: 5px 2px !important;
-    border-radius: 16px !important;
+    gap: 12px !important;
+    padding: 10px 18px !important;
+    border-radius: 18px !important;
+    font-size: 13px !important;
+    white-space: nowrap !important;
   }
-  .lm-floating-nav-icon {
-    display: block !important;
+  .lm-floating-nav .lm-floating-nav-icon {
+    display: inline-block !important;
     font-size: 22px !important;
     line-height: 1 !important;
   }
-  .lm-floating-nav-item > span:last-child {
-    display: block !important;
-    font-size: 10px !important;
-    line-height: 1.15 !important;
-    font-weight: 650 !important;
-    white-space: nowrap !important;
-  }
-}
-@media (max-width: 380px) {
-  .mobile-nav.lm-floating-nav {
-    left: 8px !important;
-    right: 8px !important;
-    gap: 2px !important;
-    padding-inline: 5px !important;
-  }
-  .lm-floating-nav-item > span:last-child { font-size: 9px !important; }
-  .lm-floating-nav-icon { font-size: 20px !important; }
 }
