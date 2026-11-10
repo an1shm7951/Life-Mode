@@ -6603,3 +6603,30 @@ button:focus-visible, a:focus-visible {
   text-decoration: none !important;
 }
 .lm-more-link:hover { background: rgba(220,194,145,.1) !important; color: #e4ca98 !important; }
+
+/* Motion overrides intentionally win over the legacy instant-render reset above. */
+.scroll-reveal {
+  opacity: 0 !important;
+  transform: translate3d(0,16px,0) !important;
+  filter: none !important;
+  transition: opacity 480ms cubic-bezier(.2,.7,.2,1), transform 560ms cubic-bezier(.2,.7,.2,1) !important;
+  transition-delay: var(--reveal-delay,0ms) !important;
+  will-change: opacity, transform !important;
+}
+.scroll-reveal.is-in-view {
+  opacity: 1 !important;
+  transform: translate3d(0,0,0) !important;
+  filter: none !important;
+}
+@media (max-width: 959px) {
+  .lm-mobile-more-trigger {
+    top: auto !important;
+    right: 16px !important;
+    bottom: calc(88px + env(safe-area-inset-bottom)) !important;
+  }
+  .lm-more-menu {
+    top: auto !important;
+    right: 14px !important;
+    bottom: calc(132px + env(safe-area-inset-bottom)) !important;
+  }
+}
