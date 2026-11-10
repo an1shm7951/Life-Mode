@@ -703,12 +703,23 @@ function DashboardContent() {
 
         <main className="lm-main">
           {dashboardView === "proof" ? (
-            <section className="lm-goals-card lm-subpage">
+            <section className="lm-proof-screen">
+              <div className="lm-proof-hero">
+                <div><span className="lm-proof-eyebrow">PROOF / YOUR PROGRESS</span><h1>See your progress.</h1><p>Small steps. Big changes.</p></div>
+                <div className="lm-proof-score" style={{"--proof-score":Math.min(100,activeProofPosts.length*12+completedGoals*8)+"%"} as React.CSSProperties}><strong>{Math.min(100,activeProofPosts.length*12+completedGoals*8)}%</strong></div>
+              </div>
+              <div className="lm-proof-metrics">
+                <article><strong>{activeProofPosts.length}</strong><span>Proof posts</span></article>
+                <article><strong>{completedGoals}</strong><span>Goals done</span></article>
+                <article><strong>{modeGoals.length}</strong><span>Daily goals</span></article>
+              </div>
+              <section className="lm-goals-card lm-subpage">
               <div className="lm-goals-head"><h2><span>♧</span> Your Proof</h2><span className="lm-subtitle">Small wins, saved over time</span></div>
               <textarea value={proofInput} onChange={e=>setProofInput(e.target.value)} placeholder="What did you work on or accomplish?" rows={3} className="lm-proof-input"/>
               <div className="lm-proof-actions"><label className="lm-file-label">＋ Attach file<input type="file" accept="image/*,application/pdf" onChange={e=>setProofFile(e.target.files?.[0]??null)}/></label><button type="button" onClick={()=>void addProofPost()}>Save proof</button></div>
               {proofFile ? <p className="lm-status-message">Selected: {proofFile.name}</p> : null}
               <div className="lm-proof-list">{activeProofPosts.length ? activeProofPosts.map(post=><article className="lm-proof-item" key={post.id}><p>{post.text}</p><ProofAttachment post={post}/><button type="button" onClick={()=>void deleteProofPost(post.id)}>Remove</button></article>) : <p className="lm-empty">Your proof timeline will appear here as you save your progress.</p>}</div>
+              </section>
             </section>
           ) : dashboardView === "connections" ? (
             <section className="lm-goals-card lm-subpage">
@@ -719,6 +730,10 @@ function DashboardContent() {
             </section>
           ) : (
           <>
+          <section className="lm-home-hero" aria-label="Your day at your pace">
+            <div><span>YOUR DAY, AT YOUR PACE</span><p>Make space for what matters.</p></div>
+            <Link href="/planning" aria-label="Open your plan">↗</Link>
+          </section>
           <section className="lm-checkin">
             <div className="lm-section-top">
               <div><span className="lm-green-dot">✓</span><div><h2>Daily Check-In</h2><p>How are you feeling today?</p></div></div>
