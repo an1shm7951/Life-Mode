@@ -5251,3 +5251,34 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 .discover-universe{background:#090909!important}
 @media(min-width:701px){.mobile-nav{display:none!important}}
 @media(max-width:700px){main:not(.discover-universe){padding-bottom:112px!important}.lm-signature{padding:17px 14px 112px!important}}
+
+/* 2026 Signature Glass: route-wide replacement layer */
+:root{color-scheme:dark;--lm-ink:#090a0b;--lm-panel:rgba(255,255,255,.075);--lm-stroke:rgba(255,255,255,.14);--lm-muted:#aaa7a2;--lm-cream:#eee8df;--lm-champagne:#cbb79f}
+html,body{background:#090a0b!important;color:var(--lm-cream)!important}
+body{background:radial-gradient(ellipse at 50% -15%,#34302d 0%,#151414 36%,#090a0b 78%) fixed!important}
+.lm-signature,.lifemode-plan-shell,.lifemode-buddy-shell,.lifemode-goals-shell,.lifemode-profile-shell,.discover-universe{background:transparent!important;color:var(--lm-cream)!important}
+.lm-signature{background:radial-gradient(ellipse at 50% 0%,rgba(164,139,115,.2),transparent 42rem),transparent!important}
+.lifemode-plan-shell,.lifemode-buddy-shell,.lifemode-goals-shell,.lifemode-profile-shell{position:relative;isolation:isolate}
+.lifemode-plan-shell:before,.lifemode-buddy-shell:before,.lifemode-goals-shell:before,.lifemode-profile-shell:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 85% 5%,rgba(184,157,130,.14),transparent 32rem),linear-gradient(180deg,#171615,#090a0b 70%)}
+.lifemode-plan-shell [class*="rounded-"],.lifemode-buddy-shell [class*="rounded-"],.lifemode-goals-shell [class*="rounded-"],.lifemode-profile-shell [class*="rounded-"],.lm-signature [class*="rounded-"]{border-color:var(--lm-stroke)!important}
+.lifemode-plan-shell .premium-panel,.lifemode-buddy-shell .premium-panel,.lifemode-goals-shell .premium-panel,.lifemode-profile-shell .premium-panel,.glass-card,.premium-surface{background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.035))!important;border:1px solid var(--lm-stroke)!important;border-radius:26px!important;color:var(--lm-cream)!important;box-shadow:inset 0 1px rgba(255,255,255,.13),0 22px 60px rgba(0,0,0,.38)!important;backdrop-filter:blur(28px) saturate(155%)!important;-webkit-backdrop-filter:blur(28px) saturate(155%)!important}
+.lifemode-plan-shell h1,.lifemode-plan-shell h2,.lifemode-buddy-shell h1,.lifemode-buddy-shell h2,.lifemode-goals-shell h1,.lifemode-goals-shell h2,.lifemode-profile-shell h1,.lifemode-profile-shell h2,.lm-signature h1,.lm-signature h2{font-family:Georgia,"Times New Roman",serif!important;font-weight:400!important;letter-spacing:-.035em!important;color:#f1eae1!important}
+.lifemode-plan-shell p,.lifemode-buddy-shell p,.lifemode-goals-shell p,.lifemode-profile-shell p{color:#c4bdb5}
+.lifemode-plan-shell [class*="text-[#5f5a50]"],.lifemode-plan-shell [class*="text-[#24221e]"],.lifemode-profile-shell [class*="text-[#5f5a50]"],.lifemode-profile-shell [class*="text-[#24221e]"]{color:#c4bdb5!important}
+.lifemode-plan-shell [class*="bg-white"],.lifemode-plan-shell [class*="bg-[#fff"],.lifemode-profile-shell [class*="bg-white"],.lifemode-profile-shell [class*="bg-[#fff"]{background:rgba(255,255,255,.07)!important;color:#eee8df!important}
+.lifemode-goals-shell [class*="bg-gradient-to-br"]{background:linear-gradient(135deg,rgba(132,115,99,.42),rgba(31,29,28,.84))!important;backdrop-filter:blur(24px)}
+.lifemode-buddy-shell [class*="bg-[#f5f2eb]"]{background:transparent!important}
+.lifemode-buddy-shell [class*="bg-[#182219]"],.lifemode-buddy-shell [class*="bg-[#202d21]"],.lifemode-buddy-shell [class*="bg-[#282619]"]{background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.035))!important;border-color:var(--lm-stroke)!important;backdrop-filter:blur(26px)!important}
+.lifemode-buddy-shell [class*="text-[#d8bd7b]"],.lifemode-goals-shell [class*="text-[#e2c77f]"],.lifemode-profile-shell [class*="text-[#7b3f2a]"]{color:#d4c1ad!important}
+.lifemode-plan-shell input,.lifemode-plan-shell textarea,.lifemode-plan-shell select,.lifemode-buddy-shell input,.lifemode-goals-shell input,.lifemode-goals-shell textarea,.lifemode-profile-shell input,.lifemode-profile-shell textarea,.lifemode-profile-shell select{background:rgba(255,255,255,.07)!important;border:1px solid rgba(255,255,255,.16)!important;color:#f1eae1!important;border-radius:14px!important}
+.lifemode-plan-shell button,.lifemode-profile-shell button{border-radius:14px}
+.lifemode-plan-shell button[class*="bg-[#181713]"],.lifemode-profile-shell button[class*="bg-[#181713]"]{background:linear-gradient(135deg,#d9c7b4,#a9927d)!important;color:#171412!important}
+.lifemode-profile-shell .glass-card{background:rgba(255,255,255,.06)!important}
+.discover-universe{background:radial-gradient(ellipse at 50% 0%,#38302a,transparent 45rem),#090a0b!important}
+.du-entry,.du-realm-art,.du-quest-card,.du-story-card{background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.035))!important;border:1px solid var(--lm-stroke)!important;border-radius:26px!important;backdrop-filter:blur(25px) saturate(150%)}
+.mobile-nav{position:fixed!important;z-index:100!important;left:50%!important;bottom:max(12px,env(safe-area-inset-bottom))!important;transform:translateX(-50%)!important;width:min(460px,calc(100% - 28px))!important;display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:3px!important;padding:8px!important;border:1px solid rgba(255,255,255,.2)!important;border-radius:25px!important;background:rgba(39,36,33,.72)!important;box-shadow:0 20px 60px #000b,inset 0 1px rgba(255,255,255,.2)!important;backdrop-filter:blur(34px) saturate(175%)!important;-webkit-backdrop-filter:blur(34px) saturate(175%)!important}
+.mobile-nav-item{min-width:0!important;min-height:49px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;border:0!important;border-radius:17px!important;background:transparent!important;color:#c2bbb3!important;font-size:10px!important;text-decoration:none!important}
+.mobile-nav-item.is-active{background:rgba(255,255,255,.14)!important;color:#fff!important}
+.mobile-more-menu{z-index:101!important;background:rgba(38,35,32,.92)!important;border:1px solid var(--lm-stroke)!important;border-radius:24px!important;backdrop-filter:blur(32px)!important}
+.mobile-more-link{color:#f0e9e0!important}
+@media(max-width:700px){.lifemode-plan-shell,.lifemode-buddy-shell,.lifemode-goals-shell,.lifemode-profile-shell{padding-bottom:115px!important}.lifemode-plan-shell>header{backdrop-filter:blur(28px)!important}.mobile-nav{display:grid!important}}
