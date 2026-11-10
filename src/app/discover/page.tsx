@@ -10,10 +10,10 @@ type StoryCategory = "AI & Tech" | "Science" | "Ideas";
 type Story = { id: number; title: string; url: string; by: string; score: number; comments: number; time: number; category: StoryCategory; source: string; discussionUrl: string };
 type FeedResponse = { stories?: Story[]; updatedAt?: string; error?: string };
 const realms = [
-  { name: "All", title: "The Commons", symbol: "✳", description: "A little of everything worth your attention.", tint: "from-[#33452d] to-[#172219]" },
-  { name: "AI & Tech", title: "Future Foundry", symbol: "⌘", description: "New tools, bold builders, and technology changing the rules.", tint: "from-[#263f37] to-[#17201b]" },
-  { name: "Science", title: "The Observatory", symbol: "✺", description: "Space, nature, experiments, and the questions that move us forward.", tint: "from-[#41412d] to-[#1d241c]" },
-  { name: "Ideas", title: "Idea Garden", symbol: "❋", description: "Fresh perspectives and surprising ideas to carry into real life.", tint: "from-[#423a29] to-[#1d2119]" },
+  { name: "All", title: "The Commons", symbol: "✳", description: "A little of everything worth your attention.", tint: "from-[#24211b] to-[#080808]" },
+  { name: "AI & Tech", title: "Future Foundry", symbol: "⌘", description: "New tools, bold builders, and technology changing the rules.", tint: "from-[#24211b] to-[#080808]" },
+  { name: "Science", title: "The Observatory", symbol: "✺", description: "Space, nature, experiments, and the questions that move us forward.", tint: "from-[#24211b] to-[#080808]" },
+  { name: "Ideas", title: "Idea Garden", symbol: "❋", description: "Fresh perspectives and surprising ideas to carry into real life.", tint: "from-[#24211b] to-[#080808]" },
 ] as const;
 type RealmName = (typeof realms)[number]["name"];
 const quests = [
