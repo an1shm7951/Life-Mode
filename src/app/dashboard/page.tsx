@@ -766,14 +766,7 @@ function DashboardContent() {
         </main>
       </div>
 
-      <nav className="lm-bottom-nav" aria-label="LifeMode navigation">
-        <Link href="/dashboard" className="active"><b>⌂</b><span>Today</span></Link>
-        <Link href="/dashboard?view=proof"><b>♧</b><span>Proof</span></Link>
-        <Link href="/planning"><b>▦</b><span>Plan</span></Link>
-        <Link href="/buddy"><b>✧</b><span>AI</span></Link>
-        <Link href="/dashboard?view=connections"><b>♙</b><span>Connect</span></Link>
-        <Link href="/subscription" className="lm-plus"><b>＋</b><span>Plus</span></Link>
-      </nav>
+      <MobileNav />
     </div>
   );
 }
