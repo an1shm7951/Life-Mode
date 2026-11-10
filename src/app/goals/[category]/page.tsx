@@ -60,7 +60,9 @@ export default function GoalsPage() {
 
   const loadGoals = useCallback(async (uid: string) => {
     const all = await fetchGoals(uid);
-    setGoals(all.filter(goal => goal.goal_type === category));
+    const filtered = all.filter(goal => goal.goal_type === category);
+    setGoals(filtered);
+    try { sessionStorage.setItem(`lm-goals:${uid}:${category}`, JSON.stringify(filtered)); } catch {}
   }, [category]);
 
   useEffect(() => {
@@ -81,7 +83,17 @@ export default function GoalsPage() {
         setUserId(user.id);
         const first = String(user.user_metadata?.first_mode ?? "student").toLowerCase() as LifeModeId;
         if (modes.some(item => item.value === first)) setMode(first);
+        let hasWarmCache = false;
+        try {
+          const cached = sessionStorage.getItem(`lm-goals:${user.id}:${category}`);
+          if (cached) {
+            const parsed = JSON.parse(cached) as GoalRow[];
+            if (Array.isArray(parsed)) { setGoals(parsed); setLoading(false); hasWarmCache = true; }
+          }
+        } catch {}
         await loadGoals(user.id);
+        if (!active) return;
+        if (!hasWarmCache) setLoading(false);
       } catch {
         if (active) setStatus("Your goals couldn't load just now. Your next step can wait while you try again.");
       } finally {
@@ -155,7 +167,7 @@ export default function GoalsPage() {
   );
 
   return (
-    <main className="lifemode-goals-shell min-h-screen overflow-hidden bg-[#f5f2eb] pb-28 text-[#24221e] lg:pb-10">
+    <main className="lifemode-goals-shell min-h-screen bg-[#080808] pb-28 text-[#eee9e1] lg:pb-10">
       <div aria-hidden="true" className="pointer-events-none fixed inset-0 overflow-hidden">
         <div className="absolute -right-40 -top-40 h-[30rem] w-[30rem] rounded-full bg-[#c9aa65]/[0.08] blur-3xl" />
         <div className="absolute -left-48 top-[35rem] h-[28rem] w-[28rem] rounded-full bg-[#497c5d]/[0.13] blur-3xl" />
@@ -180,7 +192,7 @@ export default function GoalsPage() {
           <span className="rounded-full border border-[#c9aa65]/25 bg-[#c9aa65]/[0.08] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#e2c77f]">Your life, in motion</span>
         </div>
 
-        <div className="relative mt-7 overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#24392d] via-[#17251e] to-[#131b17] px-6 py-8 shadow-[0_30px_100px_rgba(0,0,0,0.22)] sm:px-10 sm:py-11 lg:px-14 lg:py-14">
+        <div className="lm-goals-hero relative mt-7 overflow-hidden rounded-[2rem] border border-white/10 px-6 py-8 shadow-[0_30px_100px_rgba(0,0,0,0.22)] sm:px-10 sm:py-11 lg:px-14 lg:py-14">
           <div aria-hidden="true" className="absolute -right-12 -top-20 h-72 w-72 rounded-full border border-[#d9bd79]/15 sm:h-96 sm:w-96" />
           <div aria-hidden="true" className="absolute -right-2 -top-10 h-56 w-56 rounded-full border border-[#d9bd79]/10 sm:h-80 sm:w-80" />
           <div aria-hidden="true" className="absolute right-14 top-14 h-28 w-28 rounded-full bg-[#d9bd79]/[0.08] blur-2xl sm:right-28 sm:top-20 sm:h-40 sm:w-40" />
