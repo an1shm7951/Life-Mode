@@ -152,11 +152,11 @@ export default function SubscriptionPage() {
   const authenticated = billing?.subscription?.status === "authenticated";
 
   return (
-    <main className="min-h-screen bg-[#eef1ec] pb-24 text-[#151814] lg:pb-0">
-      <header className="border-b border-[#d6dbd2] bg-white/90 backdrop-blur">
+    <main className="min-h-screen bg-[#f8f7f4] pb-24 text-[#111110] lg:pb-0">
+      <header className="border-b border-[#dedbd3] bg-white/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-5 sm:px-8">
           <div>
-            <Link href="/dashboard" className="text-sm font-semibold uppercase tracking-[0.18em] text-[#315260]">LifeMode</Link>
+            <Link href="/dashboard" className="text-sm font-semibold uppercase tracking-[0.18em] text-[#80643a]">LifeMode</Link>
             <h1 className="mt-1 text-2xl font-semibold">Membership</h1>
           </div>
           <div className="flex gap-3">
@@ -168,48 +168,48 @@ export default function SubscriptionPage() {
 
       <section className="mx-auto max-w-6xl px-5 py-8 sm:px-8 sm:py-12">
         <div className="max-w-2xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#315260]">Simple pricing</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#80643a]">Simple pricing</p>
           <h2 className="mt-3 text-4xl font-semibold sm:text-5xl">Start free. Upgrade when LifeMode earns its place.</h2>
-          <p className="mt-4 text-base leading-7 text-[#5b6259]">No payment is collected until checkout, signature verification, and webhook activation all succeed.</p>
+          <p className="mt-4 text-base leading-7 text-[#777168]">No payment is collected until checkout, signature verification, and webhook activation all succeed.</p>
         </div>
 
         <div className="mt-8 grid gap-5 lg:grid-cols-2">
           <article className="premium-panel rounded-lg p-6">
-            <p className="text-sm font-semibold text-[#5b6259]">Free</p>
+            <p className="text-sm font-semibold text-[#777168]">Free</p>
             <p className="mt-3 text-4xl font-semibold">₹0</p>
-            <p className="mt-2 text-sm text-[#5b6259]">Core LifeMode access</p>
-            <ul className="mt-6 grid gap-3 text-sm leading-6 text-[#30352f]">
+            <p className="mt-2 text-sm text-[#777168]">Core LifeMode access</p>
+            <ul className="mt-6 grid gap-3 text-sm leading-6 text-[#39352f]">
               <li>Goals and proof timeline</li>
               <li>Opportunity tracking</li>
               <li>AI Buddy access during early access</li>
               <li>Private profile controls</li>
             </ul>
-            <Link href="/dashboard" className="mt-8 flex h-12 items-center justify-center rounded-lg border border-[#aeb8ad] bg-white px-4 text-sm font-semibold">Continue free</Link>
+            <Link href="/dashboard" className="mt-8 flex h-12 items-center justify-center rounded-lg border border-[#dedbd3] bg-white px-4 text-sm font-semibold">Continue free</Link>
           </article>
 
-          <article className="rounded-lg border border-[#303b31] bg-[#151814] p-6 text-white shadow-[0_24px_60px_rgba(19,28,20,0.22)]">
+          <article className="rounded-lg border border-[#c5a46a] bg-[#111110] p-6 text-white shadow-[0_24px_60px_rgba(23,22,20,0.12)]">
             <div className="flex items-center justify-between gap-3">
-              <p className="text-sm font-semibold text-[#cfe0ca]">LifeMode Plus</p>
-              {active ? <span className="rounded-md bg-[#d8f0cf] px-2 py-1 text-xs font-bold text-[#214628]">Active</span> : null}
+              <p className="text-sm font-semibold text-[#e0c58e]">LifeMode Plus</p>
+              {active ? <span className="rounded-md bg-[#f0e5cd] px-2 py-1 text-xs font-bold text-[#5f4b29]">Active</span> : null}
             </div>
             <div className="mt-3 flex items-end gap-2">
               <p className="text-5xl font-semibold">₹79</p>
-              <p className="pb-1 text-sm text-[#bbc4b9]">per month</p>
+              <p className="pb-1 text-sm text-[#d0cbc1]">per month</p>
             </div>
-            <p className="mt-4 text-sm leading-6 text-[#c8d0c5]">An early supporter membership. Paid benefits remain gated until payment testing and activation are complete.</p>
+            <p className="mt-4 text-sm leading-6 text-[#d8d2c7]">An early supporter membership. Paid benefits remain gated until payment testing and activation are complete.</p>
 
             <div className="mt-8">
               {isLoading ? (
                 <div className="h-12 animate-pulse rounded-lg bg-white/10" />
               ) : active ? (
-                <div className="rounded-lg border border-[#506052] bg-[#202820] p-4 text-sm">Your membership is active.</div>
+                <div className="rounded-lg border border-[#9c8356] bg-[#1a1916] p-4 text-sm">Your membership is active.</div>
               ) : authenticated ? (
-                <div className="rounded-lg border border-[#506052] bg-[#202820] p-4 text-sm">Payment verified. Waiting for provider activation.</div>
+                <div className="rounded-lg border border-[#9c8356] bg-[#1a1916] p-4 text-sm">Payment verified. Waiting for provider activation.</div>
               ) : (
                 <button
                   onClick={startSubscription}
                   disabled={!billing?.configured || isStarting}
-                  className="h-12 w-full rounded-lg bg-white px-4 text-sm font-semibold text-[#151814] disabled:cursor-not-allowed disabled:bg-[#6d756b] disabled:text-[#d9ddd7]"
+                  className="h-12 w-full rounded-lg bg-white px-4 text-sm font-semibold text-[#111110] disabled:cursor-not-allowed disabled:bg-[#6b655b] disabled:text-[#eee9e1]"
                 >
                   {isStarting
                     ? "Opening checkout..."
@@ -219,11 +219,11 @@ export default function SubscriptionPage() {
                 </button>
               )}
             </div>
-            <p className="mt-4 text-xs leading-5 text-[#9ea89c]">Recurring monthly payment. Cancel before renewal from the provider until in-app cancellation is verified.</p>
+            <p className="mt-4 text-xs leading-5 text-[#aaa49a]">Recurring monthly payment. Cancel before renewal from the provider until in-app cancellation is verified.</p>
           </article>
         </div>
 
-        {message ? <p className="mt-5 rounded-lg border border-[#cad1c7] bg-white p-4 text-sm text-[#4e554c]">{message}</p> : null}
+        {message ? <p className="mt-5 rounded-lg border border-[#d8d2c7] bg-white p-4 text-sm text-[#39352f]">{message}</p> : null}
       </section>
       <MobileNav />
     </main>
