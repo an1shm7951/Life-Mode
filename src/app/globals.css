@@ -6577,3 +6577,29 @@ button:focus-visible, a:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .scroll-reveal, .scroll-reveal.is-in-view, main { animation: none !important; opacity: 1 !important; transform: none !important; transition: none !important; }
 }
+
+.lm-more-menu { display: block !important; }
+.lm-more-backdrop {
+  position: fixed !important;
+  z-index: 100 !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100dvh !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.lm-more-link {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 14px !important;
+  min-height: 42px !important;
+  padding: 0 12px !important;
+  border-radius: 10px !important;
+  color: #eee9e1 !important;
+  font-size: 12px !important;
+  text-decoration: none !important;
+}
+.lm-more-link:hover { background: rgba(220,194,145,.1) !important; color: #e4ca98 !important; }
