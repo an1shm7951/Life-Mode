@@ -6412,3 +6412,39 @@ html[data-theme="light"] .nav-button-dark {
 @media (max-width: 959px) {
   .lm-desktop-nav { display: none !important; }
 }
+
+@media (min-width: 960px) {
+  .lm-signature {
+    width: 100% !important;
+    max-width: 1680px !important;
+    margin-inline: auto !important;
+    padding: 34px clamp(36px,5vw,88px) 72px !important;
+  }
+  .lm-main {
+    width: 100% !important;
+    max-width: 1480px !important;
+    margin: 26px auto 0 !important;
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr) !important;
+    align-items: start !important;
+    gap: 26px !important;
+  }
+  .lm-home-hero,.lm-checkin,.lm-spaces-section,.lm-overview-grid,
+  .lm-goals-card,.lm-lower-grid,.lm-proof-screen {
+    grid-column: 1 / -1 !important;
+  }
+  .lm-overview-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
+  .lm-spaces { grid-template-columns: repeat(4,minmax(0,1fr)) !important; gap: 16px !important; }
+  .lm-home-hero { min-height: 300px !important; padding: 34px !important; }
+  .lm-checkin { min-height: 390px !important; padding: 30px 36px !important; }
+  .lm-checkin-body { max-width: 900px !important; margin-inline: auto !important; width: 100% !important; }
+  .lifemode-goals-shell > section.mx-auto.max-w-6xl,
+  .lifemode-goals-shell > section.mx-auto.max-w-6xl > * { max-width: 100%; }
+  .lifemode-goals-shell > section.mx-auto.max-w-6xl { width: min(100% - 96px,1480px) !important; }
+  .lifemode-goals-shell > header > div { max-width: 1480px !important; }
+  .lifemode-plan-shell > section.mx-auto.max-w-7xl { width: min(100% - 96px,1480px) !important; }
+  .lifemode-plan-shell > header > div { max-width: 1480px !important; }
+  .lifemode-plan-shell .grid.lg\:grid-cols-\[0\.8fr_1\.2fr\] { grid-template-columns: minmax(340px,.72fr) minmax(0,1.28fr) !important; gap: 28px !important; }
+  .lifemode-buddy-shell > div:first-of-type { max-width: 1180px !important; width: 100% !important; margin-inline: auto !important; }
+  .lifemode-buddy-shell .lm-ai-hero { min-height: 360px !important; }
+  .lifemode-buddy-shell > div:first-of-type > section:nth-child(2) { max-width: none !important; }
+}
