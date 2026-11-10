@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
 const primaryItems = [
@@ -34,6 +34,19 @@ function MobileNavContent() {
   const view = searchParams.get("view") ?? "";
   const [moreOpen, setMoreOpen] = useState(false);
 
+  useEffect(() => {
+    setMoreOpen(false);
+  }, [pathname, view]);
+
+  useEffect(() => {
+    if (!moreOpen) return;
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setMoreOpen(false);
+    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [moreOpen]);
+
   function isActive(key: string) {
     if (key === "today") return pathname === "/dashboard" && !view;
     if (key === "proof") return pathname === "/dashboard" && view === "proof";
@@ -61,7 +74,7 @@ function MobileNavContent() {
           ))}
         </nav>
         <div className="lm-desktop-actions">
-          <button type="button" className={moreOpen || moreActive ? "lm-more-trigger is-active" : "lm-more-trigger"} aria-expanded={moreOpen} aria-haspopup="menu" onClick={() => setMoreOpen((open) => !open)}>Explore <span aria-hidden="true">⌄</span></button>
+          <button type="button" className={moreOpen || moreActive ? "lm-more-trigger is-active" : "lm-more-trigger"} aria-expanded={moreOpen} aria-haspopup="menu" aria-controls="lifemode-more-menu" aria-label="More navigation" onClick={() => setMoreOpen((open) => !open)}>More <span aria-hidden="true">⌄</span></button>
         </div>
       </header>
 
@@ -84,9 +97,9 @@ function MobileNavContent() {
       {moreOpen ? (
         <>
           <button type="button" aria-label="Close Explore menu" className="mobile-more-backdrop lm-more-backdrop" onClick={() => setMoreOpen(false)} />
-          <div className="mobile-more-menu lm-more-menu" role="menu" aria-label="More LifeMode pages">
+          <div id="lifemode-more-menu" className="mobile-more-menu lm-more-menu" role="menu" aria-label="More LifeMode pages">
             {moreItems.map((item) => (
-              <Link key={item.href} href={item.href} role="menuitem" onClick={() => setMoreOpen(false)} className="mobile-more-link lm-more-link">
+              <Link key={item.href} href={item.href} role="menuitem" onClick={() => setMoreOpen(false)} aria-current={(item.href === "/stories" ? pathname.startsWith("/stories") : pathname === item.href) ? "page" : undefined} className="mobile-more-link lm-more-link">
                 <span>{item.label}</span><span aria-hidden="true">↗</span>
               </Link>
             ))}
