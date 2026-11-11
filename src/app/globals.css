@@ -7729,3 +7729,98 @@ html[data-theme] .lifemode-plan-shell [class*="e5e1ff"] {
 html[data-theme] .lifemode-plan-shell [class*="6656e8"] {
   background-color: transparent !important;
 }
+
+
+/* Catch arbitrary-hex Tailwind utilities left by the original blue/green/violet palettes. */
+html[data-theme] :is([class*="bg-"][class*="263d2b"],[class*="bg-"][class*="10243d"],[class*="bg-"][class*="315260"],[class*="bg-"][class*="20291f"],[class*="bg-"][class*="29352b"],[class*="bg-"][class*="355239"],[class*="bg-"][class*="497c5d"],[class*="bg-"][class*="0b192a"],[class*="bg-"][class*="071b33"],[class*="bg-"][class*="20281f"],[class*="bg-"][class*="12243b"],[class*="bg-"][class*="071426"],[class*="bg-"][class*="0b1a2e"],[class*="bg-"][class*="49684b"],[class*="bg-"][class*="293f2d"],[class*="bg-"][class*="182219"],[class*="bg-"][class*="202d21"],[class*="bg-"][class*="24392d"],[class*="bg-"][class*="8c3027"],[class*="bg-"][class*="202820"],[class*="bg-"][class*="263c2c"],[class*="bg-"][class*="789264"],[class*="bg-"][class*="1b251b"],[class*="bg-"][class*="4434ba"],[class*="bg-"][class*="30294a"],[class*="bg-"][class*="d1e6b7"],[class*="bg-"][class*="1d3a5d"],[class*="bg-"][class*="071321"],[class*="bg-"][class*="050a10"],[class*="bg-"][class*="10243b"],[class*="bg-"][class*="334431"],[class*="bg-"][class*="9ce6b8"],[class*="bg-"][class*="17251e"],[class*="bg-"][class*="7eaa7c"],[class*="bg-"][class*="83a981"],[class*="bg-"][class*="465443"],[class*="bg-"][class*="d8a7a0"],[class*="bg-"][class*="315b36"],[class*="bg-"][class*="214628"],[class*="bg-"][class*="c59dbd"],[class*="bg-"][class*="806080"],[class*="bg-"][class*="ad5d9c"],[class*="bg-"][class*="e0a4ca"],[class*="bg-"][class*="a8c4e8"],[class*="bg-"][class*="45678f"],[class*="bg-"][class*="091523"],[class*="bg-"][class*="18304d"],[class*="bg-"][class*="0d1c30"],[class*="bg-"][class*="1b3452"],[class*="bg-"][class*="12243a"],[class*="bg-"][class*="284260"],[class*="bg-"][class*="27476c"],[class*="bg-"][class*="6656e8"],[class*="bg-"][class*="e5e1ff"]) {
+  background-color: var(--lm-surface, #111110) !important;
+}
+html[data-theme] :is([class*="text-"][class*="263d2b"],[class*="text-"][class*="10243d"],[class*="text-"][class*="315260"],[class*="text-"][class*="20291f"],[class*="text-"][class*="29352b"],[class*="text-"][class*="355239"],[class*="text-"][class*="497c5d"],[class*="text-"][class*="0b192a"],[class*="text-"][class*="071b33"],[class*="text-"][class*="20281f"],[class*="text-"][class*="12243b"],[class*="text-"][class*="071426"],[class*="text-"][class*="0b1a2e"],[class*="text-"][class*="49684b"],[class*="text-"][class*="293f2d"],[class*="text-"][class*="182219"],[class*="text-"][class*="202d21"],[class*="text-"][class*="24392d"],[class*="text-"][class*="8c3027"],[class*="text-"][class*="202820"],[class*="text-"][class*="263c2c"],[class*="text-"][class*="789264"],[class*="text-"][class*="1b251b"],[class*="text-"][class*="4434ba"],[class*="text-"][class*="30294a"],[class*="text-"][class*="d1e6b7"],[class*="text-"][class*="1d3a5d"],[class*="text-"][class*="071321"],[class*="text-"][class*="050a10"],[class*="text-"][class*="10243b"],[class*="text-"][class*="334431"],[class*="text-"][class*="9ce6b8"],[class*="text-"][class*="17251e"],[class*="text-"][class*="7eaa7c"],[class*="text-"][class*="83a981"],[class*="text-"][class*="465443"],[class*="text-"][class*="d8a7a0"],[class*="text-"][class*="315b36"],[class*="text-"][class*="214628"],[class*="text-"][class*="c59dbd"],[class*="text-"][class*="806080"],[class*="text-"][class*="ad5d9c"],[class*="text-"][class*="e0a4ca"],[class*="text-"][class*="a8c4e8"],[class*="text-"][class*="45678f"],[class*="text-"][class*="091523"],[class*="text-"][class*="18304d"],[class*="text-"][class*="0d1c30"],[class*="text-"][class*="1b3452"],[class*="text-"][class*="12243a"],[class*="text-"][class*="284260"],[class*="text-"][class*="27476c"],[class*="text-"][class*="6656e8"],[class*="text-"][class*="e5e1ff"]) {
+  color: var(--foreground) !important;
+}
+html[data-theme] :is([class*="border-"][class*="263d2b"],[class*="border-"][class*="10243d"],[class*="border-"][class*="315260"],[class*="border-"][class*="20291f"],[class*="border-"][class*="29352b"],[class*="border-"][class*="355239"],[class*="border-"][class*="497c5d"],[class*="border-"][class*="0b192a"],[class*="border-"][class*="071b33"],[class*="border-"][class*="20281f"],[class*="border-"][class*="12243b"],[class*="border-"][class*="071426"],[class*="border-"][class*="0b1a2e"],[class*="border-"][class*="49684b"],[class*="border-"][class*="293f2d"],[class*="border-"][class*="182219"],[class*="border-"][class*="202d21"],[class*="border-"][class*="24392d"],[class*="border-"][class*="8c3027"],[class*="border-"][class*="202820"],[class*="border-"][class*="263c2c"],[class*="border-"][class*="789264"],[class*="border-"][class*="1b251b"],[class*="border-"][class*="4434ba"],[class*="border-"][class*="30294a"],[class*="border-"][class*="d1e6b7"],[class*="border-"][class*="1d3a5d"],[class*="border-"][class*="071321"],[class*="border-"][class*="050a10"],[class*="border-"][class*="10243b"],[class*="border-"][class*="334431"],[class*="border-"][class*="9ce6b8"],[class*="border-"][class*="17251e"],[class*="border-"][class*="7eaa7c"],[class*="border-"][class*="83a981"],[class*="border-"][class*="465443"],[class*="border-"][class*="d8a7a0"],[class*="border-"][class*="315b36"],[class*="border-"][class*="214628"],[class*="border-"][class*="c59dbd"],[class*="border-"][class*="806080"],[class*="border-"][class*="ad5d9c"],[class*="border-"][class*="e0a4ca"],[class*="border-"][class*="a8c4e8"],[class*="border-"][class*="45678f"],[class*="border-"][class*="091523"],[class*="border-"][class*="18304d"],[class*="border-"][class*="0d1c30"],[class*="border-"][class*="1b3452"],[class*="border-"][class*="12243a"],[class*="border-"][class*="284260"],[class*="border-"][class*="27476c"],[class*="border-"][class*="6656e8"],[class*="border-"][class*="e5e1ff"]) {
+  border-color: var(--lm-line, rgba(178,141,80,.24)) !important;
+}
+html[data-theme] :is([class*="from-"][class*="263d2b"],[class*="via-"][class*="263d2b"],[class*="to-"][class*="263d2b"],[class*="from-"][class*="10243d"],[class*="via-"][class*="10243d"],[class*="to-"][class*="10243d"],[class*="from-"][class*="315260"],[class*="via-"][class*="315260"],[class*="to-"][class*="315260"],[class*="from-"][class*="20291f"],[class*="via-"][class*="20291f"],[class*="to-"][class*="20291f"],[class*="from-"][class*="29352b"],[class*="via-"][class*="29352b"],[class*="to-"][class*="29352b"],[class*="from-"][class*="355239"],[class*="via-"][class*="355239"],[class*="to-"][class*="355239"],[class*="from-"][class*="497c5d"],[class*="via-"][class*="497c5d"],[class*="to-"][class*="497c5d"],[class*="from-"][class*="0b192a"],[class*="via-"][class*="0b192a"],[class*="to-"][class*="0b192a"],[class*="from-"][class*="071b33"],[class*="via-"][class*="071b33"],[class*="to-"][class*="071b33"],[class*="from-"][class*="20281f"],[class*="via-"][class*="20281f"],[class*="to-"][class*="20281f"],[class*="from-"][class*="12243b"],[class*="via-"][class*="12243b"],[class*="to-"][class*="12243b"],[class*="from-"][class*="071426"],[class*="via-"][class*="071426"],[class*="to-"][class*="071426"],[class*="from-"][class*="0b1a2e"],[class*="via-"][class*="0b1a2e"],[class*="to-"][class*="0b1a2e"],[class*="from-"][class*="49684b"],[class*="via-"][class*="49684b"],[class*="to-"][class*="49684b"],[class*="from-"][class*="293f2d"],[class*="via-"][class*="293f2d"],[class*="to-"][class*="293f2d"],[class*="from-"][class*="182219"],[class*="via-"][class*="182219"],[class*="to-"][class*="182219"],[class*="from-"][class*="202d21"],[class*="via-"][class*="202d21"],[class*="to-"][class*="202d21"],[class*="from-"][class*="24392d"],[class*="via-"][class*="24392d"],[class*="to-"][class*="24392d"],[class*="from-"][class*="8c3027"],[class*="via-"][class*="8c3027"],[class*="to-"][class*="8c3027"],[class*="from-"][class*="202820"],[class*="via-"][class*="202820"],[class*="to-"][class*="202820"],[class*="from-"][class*="263c2c"],[class*="via-"][class*="263c2c"],[class*="to-"][class*="263c2c"],[class*="from-"][class*="789264"],[class*="via-"][class*="789264"],[class*="to-"][class*="789264"],[class*="from-"][class*="1b251b"],[class*="via-"][class*="1b251b"],[class*="to-"][class*="1b251b"],[class*="from-"][class*="4434ba"],[class*="via-"][class*="4434ba"],[class*="to-"][class*="4434ba"],[class*="from-"][class*="30294a"],[class*="via-"][class*="30294a"],[class*="to-"][class*="30294a"],[class*="from-"][class*="d1e6b7"],[class*="via-"][class*="d1e6b7"],[class*="to-"][class*="d1e6b7"],[class*="from-"][class*="1d3a5d"],[class*="via-"][class*="1d3a5d"],[class*="to-"][class*="1d3a5d"],[class*="from-"][class*="071321"],[class*="via-"][class*="071321"],[class*="to-"][class*="071321"],[class*="from-"][class*="050a10"],[class*="via-"][class*="050a10"],[class*="to-"][class*="050a10"],[class*="from-"][class*="10243b"],[class*="via-"][class*="10243b"],[class*="to-"][class*="10243b"],[class*="from-"][class*="334431"],[class*="via-"][class*="334431"],[class*="to-"][class*="334431"],[class*="from-"][class*="9ce6b8"],[class*="via-"][class*="9ce6b8"],[class*="to-"][class*="9ce6b8"],[class*="from-"][class*="17251e"],[class*="via-"][class*="17251e"],[class*="to-"][class*="17251e"],[class*="from-"][class*="7eaa7c"],[class*="via-"][class*="7eaa7c"],[class*="to-"][class*="7eaa7c"],[class*="from-"][class*="83a981"],[class*="via-"][class*="83a981"],[class*="to-"][class*="83a981"],[class*="from-"][class*="465443"],[class*="via-"][class*="465443"],[class*="to-"][class*="465443"],[class*="from-"][class*="d8a7a0"],[class*="via-"][class*="d8a7a0"],[class*="to-"][class*="d8a7a0"],[class*="from-"][class*="315b36"],[class*="via-"][class*="315b36"],[class*="to-"][class*="315b36"],[class*="from-"][class*="214628"],[class*="via-"][class*="214628"],[class*="to-"][class*="214628"],[class*="from-"][class*="c59dbd"],[class*="via-"][class*="c59dbd"],[class*="to-"][class*="c59dbd"],[class*="from-"][class*="806080"],[class*="via-"][class*="806080"],[class*="to-"][class*="806080"],[class*="from-"][class*="ad5d9c"],[class*="via-"][class*="ad5d9c"],[class*="to-"][class*="ad5d9c"],[class*="from-"][class*="e0a4ca"],[class*="via-"][class*="e0a4ca"],[class*="to-"][class*="e0a4ca"],[class*="from-"][class*="a8c4e8"],[class*="via-"][class*="a8c4e8"],[class*="to-"][class*="a8c4e8"],[class*="from-"][class*="45678f"],[class*="via-"][class*="45678f"],[class*="to-"][class*="45678f"],[class*="from-"][class*="091523"],[class*="via-"][class*="091523"],[class*="to-"][class*="091523"],[class*="from-"][class*="18304d"],[class*="via-"][class*="18304d"],[class*="to-"][class*="18304d"],[class*="from-"][class*="0d1c30"],[class*="via-"][class*="0d1c30"],[class*="to-"][class*="0d1c30"],[class*="from-"][class*="1b3452"],[class*="via-"][class*="1b3452"],[class*="to-"][class*="1b3452"],[class*="from-"][class*="12243a"],[class*="via-"][class*="12243a"],[class*="to-"][class*="12243a"],[class*="from-"][class*="284260"],[class*="via-"][class*="284260"],[class*="to-"][class*="284260"],[class*="from-"][class*="27476c"],[class*="via-"][class*="27476c"],[class*="to-"][class*="27476c"],[class*="from-"][class*="6656e8"],[class*="via-"][class*="6656e8"],[class*="to-"][class*="6656e8"],[class*="from-"][class*="e5e1ff"],[class*="via-"][class*="e5e1ff"],[class*="to-"][class*="e5e1ff"]) {
+  background-image: none !important;
+}
+
+/* Premium surfaces and authentication components must not inherit old navy/forest gradients. */
+html[data-theme="dark"] :is(.premium-panel,.glass-card,.premium-surface,.premium-focus,.theme-choice,.auth-story,.auth-story-v2,.auth-form-panel,.auth-experience) {
+  background: #080808 !important;
+  background-image: none !important;
+  border-color: rgba(197,164,106,.22) !important;
+  color: #f5f2eb !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] :is(.premium-panel,.glass-card,.premium-surface,.premium-focus,.theme-choice,.auth-story,.auth-story-v2,.auth-form-panel,.auth-experience) {
+  background: #ffffff !important;
+  background-image: none !important;
+  border-color: rgba(23,22,20,.12) !important;
+  color: #171614 !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] .auth-brand-mark,
+html[data-theme="dark"] .auth-brand-mark-v2,
+html[data-theme="dark"] .auth-float-icon {
+  background: #c5a46a !important;
+  color: #080808 !important;
+}
+html[data-theme="light"] .auth-brand-mark,
+html[data-theme="light"] .auth-brand-mark-v2,
+html[data-theme="light"] .auth-float-icon {
+  background: #b28d50 !important;
+  color: #ffffff !important;
+}
+html[data-theme] .auth-brand-mark i,
+html[data-theme] .auth-brand-mark-v2 i,
+html[data-theme] .auth-showcase-glow {
+  background: #c5a46a !important;
+  box-shadow: none !important;
+}
+html[data-theme] .auth-mode-tile.is-selected {
+  border-color: var(--accent) !important;
+  background: rgba(197,164,106,.14) !important;
+}
+
+/* The editorial dashboard uses black/charcoal in dark mode and white in light mode. */
+html[data-theme="dark"] .dashboard-shell :is(.dashboard-command,.dashboard-momentum,.dashboard-panel,.dashboard-mission,.dashboard-metric,.dashboard-view-switcher,.dashboard-view-button,.dashboard-brand-mark,.dashboard-badge) {
+  background: #10100f !important;
+  background-image: none !important;
+  border-color: rgba(197,164,106,.22) !important;
+}
+html[data-theme="light"] .dashboard-shell :is(.dashboard-command,.dashboard-momentum,.dashboard-panel,.dashboard-mission,.dashboard-metric,.dashboard-view-switcher,.dashboard-view-button,.dashboard-brand-mark,.dashboard-badge) {
+  background: #ffffff !important;
+  background-image: none !important;
+  border-color: rgba(23,22,20,.12) !important;
+  color: #171614 !important;
+}
+html[data-theme="dark"] .dashboard-shell :is(.dashboard-eyebrow-pulse,.dashboard-shell .progress-ring-value,.dashboard-shell .readiness-fill) {
+  background: #c5a46a !important;
+  stroke: #c5a46a !important;
+}
+html[data-theme="light"] .dashboard-shell :is(.dashboard-eyebrow-pulse,.dashboard-shell .progress-ring-value,.dashboard-shell .readiness-fill) {
+  background: #b28d50 !important;
+  stroke: #b28d50 !important;
+}
+
+/* Keep the Discover progress and completed states gold rather than green. */
+html[data-theme] .discover-universe :is(.du-progress-fill,.du-progress-done,.du-live span,.du-eyebrow i) {
+  background: #c5a46a !important;
+}
+html[data-theme="dark"] .discover-universe :is(.du-topbar,.du-entry,.du-section,.du-quest,.du-quest-card,.du-story-card,.du-realm,.du-empty,.du-skeleton) {
+  background: #10100f !important;
+  background-image: none !important;
+  border-color: rgba(197,164,106,.2) !important;
+}
+html[data-theme="light"] .discover-universe :is(.du-topbar,.du-entry,.du-section,.du-quest,.du-quest-card,.du-story-card,.du-realm,.du-empty,.du-skeleton) {
+  background: #ffffff !important;
+  background-image: none !important;
+  border-color: rgba(23,22,20,.12) !important;
+  color: #171614 !important;
+}
+
+/* Preserve a gold progress ring instead of replacing it with a flat green-derived fill. */
+html[data-theme] .lm-progress-ring {
+  background: conic-gradient(#c5a46a var(--progress), #34302a 0) !important;
+}
