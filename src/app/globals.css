@@ -7540,3 +7540,192 @@ html[data-theme="light"] {
 html[data-theme="dark"] {
   color-scheme: dark;
 }
+
+
+/* Replace legacy route-specific navy, forest and rose styling left by older themes. */
+html[data-theme="dark"] body:has(.dashboard-shell),
+html[data-theme="dark"] .dashboard-shell,
+html[data-theme="dark"] .dashboard-header,
+html[data-theme="dark"] .dashboard-brand-mark,
+html[data-theme="dark"] .dashboard-badge,
+html[data-theme="dark"] .dashboard-mode-select,
+html[data-theme="dark"] .dashboard-sync,
+html[data-theme="dark"] .dashboard-notice,
+html[data-theme="dark"] .dashboard-command,
+html[data-theme="dark"] .dashboard-momentum,
+html[data-theme="dark"] .dashboard-mission,
+html[data-theme="dark"] .dashboard-metric,
+html[data-theme="dark"] .dashboard-panel,
+html[data-theme="dark"] .dashboard-view-switcher,
+html[data-theme="dark"] .dashboard-command .mt-5.grid > div {
+  background: #080808 !important;
+  background-image: none !important;
+  border-color: rgba(197,164,106,.22) !important;
+  color: #f5f2eb !important;
+}
+html[data-theme="dark"] .dashboard-shell :is(.dashboard-brand-period,.dashboard-eyebrow,.dashboard-view-kicker,.dashboard-momentum .text-\[\#d6c29d\]) {
+  color: #c5a46a !important;
+}
+html[data-theme="dark"] .dashboard-shell :is(.dashboard-description,.dashboard-notice,.dashboard-panel p,.dashboard-metric p) {
+  color: #bdb7ad !important;
+}
+html[data-theme="dark"] .dashboard-shell :is(.dashboard-logout,.dashboard-mission > button,.dashboard-view-button.is-active) {
+  background: #c5a46a !important;
+  color: #080808 !important;
+}
+html[data-theme="light"] body:has(.dashboard-shell),
+html[data-theme="light"] .dashboard-shell {
+  background: #ffffff !important;
+  color: #171614 !important;
+}
+html[data-theme="light"] .dashboard-shell :is(.dashboard-header,.dashboard-brand-mark,.dashboard-badge,.dashboard-mode-select,.dashboard-sync,.dashboard-notice,.dashboard-command,.dashboard-momentum,.dashboard-mission,.dashboard-metric,.dashboard-panel,.dashboard-view-switcher,.dashboard-command .mt-5.grid > div) {
+  background: #ffffff !important;
+  background-image: none !important;
+  border-color: rgba(23,22,20,.12) !important;
+  color: #171614 !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] .dashboard-shell :is(.dashboard-brand,.dashboard-welcome,.dashboard-command-title,.dashboard-mission h2,.dashboard-panel h2,.dashboard-view-heading h2,.dashboard-metric p,.dashboard-description,.dashboard-notice) {
+  color: #171614 !important;
+}
+html[data-theme="light"] .dashboard-shell :is(.dashboard-brand-period,.dashboard-eyebrow,.dashboard-view-kicker) {
+  color: #80643a !important;
+}
+html[data-theme="light"] .dashboard-shell :is(.dashboard-logout,.dashboard-mission > button,.dashboard-view-button.is-active) {
+  background: #b28d50 !important;
+  color: #ffffff !important;
+}
+
+/* Authentication screens: neutral surfaces and gold controls in both modes. */
+html[data-theme="dark"] .auth-experience,
+html[data-theme="dark"] .auth-story-v2,
+html[data-theme="dark"] .auth-form-panel,
+html[data-theme="dark"] .auth-brand-mark-v2,
+html[data-theme="dark"] .auth-float-icon,
+html[data-theme="dark"] .auth-consent,
+html[data-theme="dark"] .auth-mode-tile {
+  background: #080808 !important;
+  background-image: none !important;
+  border-color: rgba(197,164,106,.24) !important;
+  color: #f5f2eb !important;
+}
+html[data-theme="dark"] .auth-form-panel button[type="submit"],
+html[data-theme="dark"] .auth-form-panel .auth-submit {
+  background: #c5a46a !important;
+  color: #080808 !important;
+  border-color: #c5a46a !important;
+}
+html[data-theme="light"] .auth-experience,
+html[data-theme="light"] .auth-story-v2,
+html[data-theme="light"] .auth-form-panel,
+html[data-theme="light"] .auth-brand-mark-v2,
+html[data-theme="light"] .auth-float-icon,
+html[data-theme="light"] .auth-consent,
+html[data-theme="light"] .auth-mode-tile {
+  background: #ffffff !important;
+  background-image: none !important;
+  border-color: rgba(23,22,20,.13) !important;
+  color: #171614 !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] .auth-form-panel :is(h1,h2,h3,p,label,a,span) {
+  color: #171614 !important;
+}
+html[data-theme="light"] .auth-form-panel button[type="submit"],
+html[data-theme="light"] .auth-form-panel .auth-submit {
+  background: #b28d50 !important;
+  color: #ffffff !important;
+  border-color: #b28d50 !important;
+}
+html[data-theme="light"] .auth-story-v2 :is(.auth-brand-tag,.auth-showcase-glow,.auth-showcase-orbit) {
+  color: #80643a !important;
+  border-color: rgba(178,141,80,.25) !important;
+}
+
+/* Discover and story surfaces use the same neutral editorial palette in both themes. */
+html[data-theme="light"] .discover-universe,
+html[data-theme="light"] .discover-universe :is(.du-topbar,.du-entry,.du-section,.du-quest,.du-quest-card,.du-story-card,.du-realm,.du-empty,.du-skeleton),
+html[data-theme="light"] .lm-stories-v2,
+html[data-theme="light"] .lm-reader-v2 {
+  background: #ffffff !important;
+  background-image: none !important;
+  border-color: rgba(23,22,20,.12) !important;
+  color: #171614 !important;
+  box-shadow: none !important;
+}
+html[data-theme] .discover-universe :is(.du-live span,.du-eyebrow i,.du-progress-fill,.du-progress-done) {
+  background: #c5a46a !important;
+  color: #c5a46a !important;
+}
+html[data-theme="light"] .discover-universe :is(.du-primary,.du-done-button,.du-journal,.du-filters button.is-active) {
+  background: #b28d50 !important;
+  color: #ffffff !important;
+  border-color: #b28d50 !important;
+}
+html[data-theme="light"] .lm-stories-v2 :is(.lm-stories-nav,.lm-stories-intro,.lm-stories-feature,.lm-stories-library,.lm-stories-card,.lm-stories-footer),
+html[data-theme="light"] .lm-reader-v2 :is(.lm-stories-nav,.lm-reader-hero,.lm-reader-body,.lm-reader-reflection,.lm-reader-end) {
+  background: #ffffff !important;
+  background-image: none !important;
+  color: #171614 !important;
+  border-color: rgba(23,22,20,.12) !important;
+}
+
+/* AI Buddy, goals, planning and profile: remove legacy forest status colours. */
+html[data-theme] :is(.lifemode-buddy-shell,.lm-buddy-shell,.buddy-shell,.lifemode-goals-shell,.lifemode-plan-shell,.lifemode-profile-shell) :is(
+  .lm-progress-ring,.lm-ai-heading > span,.lm-goal-check.done,.lm-goal-tag.done,
+  .lm-status.is-done,.lm-green-dot,.readiness-fill,.progress-ring-value
+) {
+  background: #c5a46a !important;
+  border-color: rgba(197,164,106,.55) !important;
+  color: #17130d !important;
+  box-shadow: none !important;
+}
+html[data-theme] :is(.lifemode-buddy-shell,.lm-buddy-shell,.buddy-shell,.lifemode-goals-shell,.lifemode-plan-shell,.lifemode-profile-shell) :is(.lm-goal-tag.done,.lm-status.is-done,.lm-green-dot) {
+  background: rgba(197,164,106,.16) !important;
+  color: var(--foreground) !important;
+}
+html[data-theme="light"] :is(.lifemode-buddy-shell,.lm-buddy-shell,.buddy-shell,.lifemode-goals-shell,.lifemode-plan-shell,.lifemode-profile-shell) :is(.premium-panel,.lm-goals-card,.lm-progress-card,.lm-ai-card,.lm-mini-card,.lm-checkin,.lm-goal-row,.lm-reader-body) {
+  background: #ffffff !important;
+  background-image: none !important;
+  border-color: rgba(23,22,20,.12) !important;
+  color: #171614 !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] :is(.lifemode-buddy-shell,.lm-buddy-shell,.buddy-shell,.lifemode-goals-shell,.lifemode-plan-shell,.lifemode-profile-shell) :is(h1,h2,h3,p,label,span,a) {
+  color: #171614;
+}
+html[data-theme="light"] .lm-settings-shell :is(.text-red-700,[class*="text-[#8c3027]"]) {
+  color: #171614 !important;
+}
+html[data-theme="light"] .lm-settings-shell :is([class*="bg-[#fff7f5]"],[class*="border-[#d8a7a0]"]) {
+  background: #f8f7f4 !important;
+  border-color: rgba(23,22,20,.14) !important;
+  color: #171614 !important;
+}
+
+/* Footer and the remaining legacy violet/blue plan-state accents. */
+html[data-theme="dark"] .site-footer {
+  background: #080808 !important;
+  color: #d8d2c7 !important;
+  border-color: rgba(197,164,106,.2) !important;
+}
+html[data-theme="light"] .site-footer {
+  background: #ffffff !important;
+  color: #39352f !important;
+  border-color: rgba(23,22,20,.12) !important;
+}
+html[data-theme] .site-footer a {
+  color: var(--foreground) !important;
+}
+html[data-theme="light"] .site-footer a:hover {
+  color: #80643a !important;
+}
+html[data-theme] .lifemode-plan-shell [class*="6656e8"],
+html[data-theme] .lifemode-plan-shell [class*="e5e1ff"] {
+  background: rgba(197,164,106,.16) !important;
+  border-color: rgba(197,164,106,.42) !important;
+  color: var(--foreground) !important;
+}
+html[data-theme] .lifemode-plan-shell [class*="6656e8"] {
+  background-color: transparent !important;
+}
