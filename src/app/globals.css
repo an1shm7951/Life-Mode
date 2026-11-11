@@ -7402,3 +7402,219 @@ html[data-theme="light"] :is(.lifemode-profile-shell,.buddy-shell,.lm-buddy-shel
 html[data-theme="light"] :is(.lifemode-profile-shell,.buddy-shell,.lm-buddy-shell) :is([class*="text-pink"],[class*="text-rose"],[class*="text-fuchsia"],[class*="text-[#8c3027]"]) {
   color: #171614 !important;
 }
+
+
+/* LifeMode palette contract v3 — green and blue are prohibited in both themes;
+   pink/rose/fuchsia are prohibited in light mode. Neutral surfaces + champagne accents only. */
+html[data-theme="dark"] {
+  --background: #000000 !important;
+  --foreground: #f5f2eb !important;
+  --accent: #c5a46a !important;
+  --accent-deep: #9c7d48 !important;
+  --lm-ink: #f5f2eb !important;
+  --lm-paper: #000000 !important;
+  --lm-gold: #c5a46a !important;
+  --lm-gold-bright: #e0c58e !important;
+  --lm-surface: #101010 !important;
+  --lm-surface-soft: #171614 !important;
+}
+html[data-theme="light"] {
+  --background: #ffffff !important;
+  --foreground: #171614 !important;
+  --accent: #b28d50 !important;
+  --accent-deep: #8d6c37 !important;
+  --lm-ink: #171614 !important;
+  --lm-paper: #ffffff !important;
+  --lm-gold: #b28d50 !important;
+  --lm-gold-bright: #c5a46a !important;
+  --lm-surface: #ffffff !important;
+  --lm-surface-soft: #f8f7f4 !important;
+}
+
+/* Tailwind colour utilities: neutralize green and the complete blue/purple family
+   in BOTH themes, including backgrounds, gradient stops, text and borders. */
+html[data-theme="dark"] :is(
+  [class*="bg-green"],[class*="bg-lime"],[class*="bg-emerald"],[class*="bg-teal"],
+  [class*="bg-cyan"],[class*="bg-sky"],[class*="bg-blue"],[class*="bg-indigo"],
+  [class*="bg-violet"],[class*="bg-purple"],
+  [class*="from-green"],[class*="from-lime"],[class*="from-emerald"],[class*="from-teal"],
+  [class*="from-cyan"],[class*="from-sky"],[class*="from-blue"],[class*="from-indigo"],
+  [class*="from-violet"],[class*="from-purple"],
+  [class*="to-green"],[class*="to-lime"],[class*="to-emerald"],[class*="to-teal"],
+  [class*="to-cyan"],[class*="to-sky"],[class*="to-blue"],[class*="to-indigo"],
+  [class*="to-violet"],[class*="to-purple"],
+  [class*="via-green"],[class*="via-lime"],[class*="via-emerald"],[class*="via-teal"],
+  [class*="via-cyan"],[class*="via-sky"],[class*="via-blue"],[class*="via-indigo"],
+  [class*="via-violet"],[class*="via-purple"]
+) {
+  background-color: #111110 !important;
+  background-image: none !important;
+  border-color: rgba(197,164,106,.28) !important;
+}
+html[data-theme="light"] :is(
+  [class*="bg-green"],[class*="bg-lime"],[class*="bg-emerald"],[class*="bg-teal"],
+  [class*="bg-cyan"],[class*="bg-sky"],[class*="bg-blue"],[class*="bg-indigo"],
+  [class*="bg-violet"],[class*="bg-purple"],
+  [class*="from-green"],[class*="from-lime"],[class*="from-emerald"],[class*="from-teal"],
+  [class*="from-cyan"],[class*="from-sky"],[class*="from-blue"],[class*="from-indigo"],
+  [class*="from-violet"],[class*="from-purple"],
+  [class*="to-green"],[class*="to-lime"],[class*="to-emerald"],[class*="to-teal"],
+  [class*="to-cyan"],[class*="to-sky"],[class*="to-blue"],[class*="to-indigo"],
+  [class*="to-violet"],[class*="to-purple"],
+  [class*="via-green"],[class*="via-lime"],[class*="via-emerald"],[class*="via-teal"],
+  [class*="via-cyan"],[class*="via-sky"],[class*="via-blue"],[class*="via-indigo"],
+  [class*="via-violet"],[class*="via-purple"]
+) {
+  background-color: #f8f7f4 !important;
+  background-image: none !important;
+  border-color: rgba(178,141,80,.28) !important;
+}
+html[data-theme="dark"] :is(
+  [class*="text-green"],[class*="text-lime"],[class*="text-emerald"],[class*="text-teal"],
+  [class*="text-cyan"],[class*="text-sky"],[class*="text-blue"],[class*="text-indigo"],
+  [class*="text-violet"],[class*="text-purple"]
+) { color: #d8d2c7 !important; }
+html[data-theme="light"] :is(
+  [class*="text-green"],[class*="text-lime"],[class*="text-emerald"],[class*="text-teal"],
+  [class*="text-cyan"],[class*="text-sky"],[class*="text-blue"],[class*="text-indigo"],
+  [class*="text-violet"],[class*="text-purple"]
+) { color: #171614 !important; }
+html[data-theme="dark"] :is(
+  [class*="border-green"],[class*="border-lime"],[class*="border-emerald"],[class*="border-teal"],
+  [class*="border-cyan"],[class*="border-sky"],[class*="border-blue"],[class*="border-indigo"],
+  [class*="border-violet"],[class*="border-purple"]
+) { border-color: rgba(197,164,106,.28) !important; }
+html[data-theme="light"] :is(
+  [class*="border-green"],[class*="border-lime"],[class*="border-emerald"],[class*="border-teal"],
+  [class*="border-cyan"],[class*="border-sky"],[class*="border-blue"],[class*="border-indigo"],
+  [class*="border-violet"],[class*="border-purple"]
+) { border-color: rgba(178,141,80,.28) !important; }
+
+/* Light mode: eliminate pink-family fills, gradient stops, text and borders. */
+html[data-theme="light"] :is(
+  [class*="bg-pink"],[class*="bg-rose"],[class*="bg-fuchsia"],[class*="bg-magenta"],
+  [class*="from-pink"],[class*="from-rose"],[class*="from-fuchsia"],[class*="from-magenta"],
+  [class*="to-pink"],[class*="to-rose"],[class*="to-fuchsia"],[class*="to-magenta"],
+  [class*="via-pink"],[class*="via-rose"],[class*="via-fuchsia"],[class*="via-magenta"]
+) {
+  background-color: #f8f7f4 !important;
+  background-image: none !important;
+  border-color: rgba(178,141,80,.24) !important;
+}
+html[data-theme="light"] :is(
+  [class*="text-pink"],[class*="text-rose"],[class*="text-fuchsia"],[class*="text-magenta"]
+) { color: #171614 !important; }
+html[data-theme="light"] :is(
+  [class*="border-pink"],[class*="border-rose"],[class*="border-fuchsia"],[class*="border-magenta"]
+) { border-color: rgba(178,141,80,.24) !important; }
+
+/* Known legacy hard-coded LifeMode greens/teals/blues in arbitrary Tailwind classes. */
+html[data-theme="dark"] :is(
+  [class*="315260"],[class*="497c5d"],[class*="42664b"],[class*="24392d"],
+  [class*="355239"],[class*="263d2b"],[class*="dce6cd"],[class*="53624e"],
+  [class*="465443"],[class*="87917f"],[class*="9eaa98"],[class*="cfe0ca"],
+  [class*="b8d7b4"],[class*="c5dfbd"],[class*="83a981"],[class*="33452d"],
+  [class*="172219"],[class*="263f37"],[class*="17201b"],[class*="41412d"],
+  [class*="1d241c"],[class*="202820"],[class*="d8f0cf"],[class*="d1e6b7"],
+  [class*="eef1ec"],[class*="f3f5f0"],[class*="151814"]
+) {
+  color: #e9e3d7 !important;
+  background-color: #111110 !important;
+  background-image: none !important;
+  border-color: rgba(197,164,106,.28) !important;
+}
+html[data-theme="light"] :is(
+  [class*="315260"],[class*="497c5d"],[class*="42664b"],[class*="24392d"],
+  [class*="355239"],[class*="263d2b"],[class*="dce6cd"],[class*="53624e"],
+  [class*="465443"],[class*="87917f"],[class*="9eaa98"],[class*="cfe0ca"],
+  [class*="b8d7b4"],[class*="c5dfbd"],[class*="83a981"],[class*="33452d"],
+  [class*="172219"],[class*="263f37"],[class*="17201b"],[class*="41412d"],
+  [class*="1d241c"],[class*="202820"],[class*="d8f0cf"],[class*="d1e6b7"],
+  [class*="eef1ec"],[class*="f3f5f0"],[class*="151814"]
+) {
+  color: #171614 !important;
+  background-color: #f8f7f4 !important;
+  background-image: none !important;
+  border-color: rgba(178,141,80,.24) !important;
+}
+
+/* Custom Discover art previously used moss/olive gradients; replace with neutral black,
+   charcoal, white and gold while preserving the orbital artwork. */
+html[data-theme="dark"] .discover-universe :is(.du-entry,.du-section,.du-quest,.du-realm,.du-realm-art,.du-quest-card,.du-story-card,.du-empty,.du-skeleton) {
+  background-color: #080808 !important;
+  background-image: none !important;
+  color: #f5f2eb !important;
+  border-color: rgba(197,164,106,.22) !important;
+}
+html[data-theme="dark"] .discover-universe :is(.du-entry:before,.du-portal:before,.du-portal-core,.du-portal-core>div,.du-realm-art:before,.du-story-card:before) {
+  background: radial-gradient(circle, rgba(197,164,106,.16), transparent 70%) !important;
+}
+html[data-theme="dark"] .discover-universe .du-portal-core>div {
+  background: radial-gradient(circle at 50% 45%, #302719, #080808 72%) !important;
+}
+html[data-theme="dark"] .discover-universe :is(.du-live,.du-realm-index,.du-realm-desc,.du-quest-intro>p,.du-entry-meta,.du-entry-foot,.du-story-meta,.du-story-index) {
+  color: #aaa49a !important;
+}
+html[data-theme="light"] .discover-universe :is(.du-entry,.du-section,.du-quest,.du-realm,.du-realm-art,.du-quest-card,.du-story-card,.du-empty,.du-skeleton) {
+  background-color: #ffffff !important;
+  background-image: none !important;
+  color: #171614 !important;
+  border-color: rgba(23,22,20,.12) !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] .discover-universe :is(.du-entry:before,.du-portal:before,.du-portal-core,.du-portal-core>div,.du-realm-art:before,.du-story-card:before) {
+  background: radial-gradient(circle, rgba(178,141,80,.14), transparent 70%) !important;
+}
+html[data-theme="light"] .discover-universe :is(.du-entry h1,.du-heading h2,.du-quest-intro h2,.du-closing h2,.du-realm-title,.du-quest-card h3,.du-story-card h3) {
+  color: #171614 !important;
+}
+html[data-theme="light"] .discover-universe :is(.du-live,.du-realm-index,.du-realm-desc,.du-quest-intro>p,.du-entry-meta,.du-entry-foot,.du-story-meta,.du-story-index,.du-quest-note) {
+  color: #68635a !important;
+}
+html[data-theme="light"] .discover-universe :is(.du-entry h1 em,.du-heading h2 em,.du-quest-intro h2 em,.du-closing h2 em,.du-realm-enter,.du-story-footer a) {
+  color: #8d6c37 !important;
+}
+html[data-theme="light"] .discover-universe .du-portal-core>div {
+  background: radial-gradient(circle at 50% 45%, #f4ead8, #ffffff 72%) !important;
+}
+
+/* Story tone variants must not reintroduce rose/purple in light mode. */
+html[data-theme="light"] :is(.tone-rose,.tone-violet) .lm-story-art,
+html[data-theme="light"] .lm-stories-v2 :is(.lm-stories-feature-art,.lm-stories-card-art) {
+  background-color: #f8f7f4 !important;
+  background-image: none !important;
+  border-color: rgba(178,141,80,.24) !important;
+}
+html[data-theme="light"] .lm-stories-v2 :is(.lm-stories-nav,.lm-stories-intro,.lm-stories-feature,.lm-stories-library,.lm-stories-card,.lm-stories-footer),
+html[data-theme="light"] .lm-reader-v2 :is(.lm-stories-nav,.lm-reader-hero,.lm-reader-body,.lm-reader-reflection,.lm-reader-end) {
+  background-color: #ffffff !important;
+  background-image: none !important;
+  color: #171614 !important;
+}
+html[data-theme="light"] .lm-stories-v2 :is(.lm-stories-eyebrow,.lm-stories-read,.lm-stories-back),
+html[data-theme="light"] .lm-reader-v2 :is(.lm-stories-eyebrow,.lm-reader-chapter,.lm-reader-end>span) {
+  color: #8d6c37 !important;
+}
+html[data-theme="light"] .lm-reader-v2 :is(.lm-reader-paragraph,.lm-reader-heading>p,.lm-reader-heading>span,.lm-reader-reflection p) {
+  color: #4f4a42 !important;
+}
+
+/* Rebrand legacy status markers and custom theme text that used green/blue names or hexes. */
+html[data-theme="dark"] .lm-green-dot,
+html[data-theme="dark"] .lm-status.is-done,
+html[data-theme="light"] .lm-green-dot,
+html[data-theme="light"] .lm-status.is-done {
+  background: rgba(197,164,106,.16) !important;
+  border-color: rgba(197,164,106,.4) !important;
+  color: #b28d50 !important;
+}
+html[data-theme="dark"] .lifemode-profile-shell [class*="315260"],
+html[data-theme="dark"] .lifemode-profile-shell [class*="text-green"],
+html[data-theme="dark"] .lifemode-profile-shell [class*="text-blue"],
+html[data-theme="dark"] .lifemode-buddy-shell [class*="text-green"],
+html[data-theme="dark"] .lifemode-buddy-shell [class*="text-blue"] { color: #d8d2c7 !important; }
+html[data-theme="light"] .lifemode-profile-shell [class*="315260"],
+html[data-theme="light"] .lifemode-profile-shell [class*="text-green"],
+html[data-theme="light"] .lifemode-profile-shell [class*="text-blue"],
+html[data-theme="light"] .lifemode-buddy-shell [class*="text-green"],
+html[data-theme="light"] .lifemode-buddy-shell [class*="text-blue"] { color: #171614 !important; }
