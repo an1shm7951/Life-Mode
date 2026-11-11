@@ -90,8 +90,8 @@ function MobileNavContent() {
         <button type="button" className={moreOpen || moreActive ? "lm-more-trigger is-active" : "lm-more-trigger"} aria-expanded={moreOpen} aria-haspopup="menu" aria-controls="lifemode-more-menu" aria-label="More navigation" onClick={() => setMoreOpen((open) => !open)}>More <span aria-hidden="true">⌄</span></button>
       </header>
 
-      <button type="button" className={moreOpen || moreActive ? "lm-mobile-more-trigger is-active" : "lm-mobile-more-trigger"} aria-expanded={moreOpen} aria-haspopup="menu" aria-controls="lifemode-more-menu" aria-label="More navigation" onClick={() => setMoreOpen((open) => !open)}>
-        Explore <span aria-hidden="true">⌄</span>
+      <button type="button" className={moreOpen || moreActive ? "lm-mobile-more-trigger is-active" : "lm-mobile-more-trigger"} aria-expanded={moreOpen} aria-haspopup="menu" aria-controls="lifemode-more-menu" aria-label="Explore more LifeMode features" onClick={() => setMoreOpen((open) => !open)}>
+        <span className="lm-explore-spark" aria-hidden="true">✦</span><span>Explore</span><span className="lm-explore-arrow" aria-hidden="true">↗</span>
       </button>
 
       {moreOpen ? (
