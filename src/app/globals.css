@@ -8017,3 +8017,155 @@ html[data-theme="light"] :is(.site-footer,.mobile-nav,.mobile-nav-shell) {
   background: #ffffff !important;
   color: #171614 !important;
 }
+
+
+/* FINAL PALETTE LOCK — loading screen intentionally excluded */
+:root {
+  --lm-gold: #c5a46a !important;
+  --lm-gold-2: #dfc18a !important;
+  --lm-page: #000000 !important;
+  --lm-surface: #111111 !important;
+  --lm-surface-strong: #191919 !important;
+  --lm-ink: #ffffff !important;
+  --lm-muted: #c7c2b8 !important;
+  --lm-stroke: rgba(197,164,106,.28) !important;
+  --accent: #c5a46a !important;
+  --accent-deep: #a9874d !important;
+  --background: #000000 !important;
+  --foreground: #ffffff !important;
+}
+html[data-theme="dark"] {
+  color-scheme: dark !important;
+  --lm-page: #000000 !important;
+  --lm-surface: #111111 !important;
+  --lm-surface-strong: #191919 !important;
+  --lm-ink: #ffffff !important;
+  --lm-muted: #c7c2b8 !important;
+  --lm-stroke: rgba(197,164,106,.28) !important;
+  --lm-accent: #c5a46a !important;
+  --accent: #c5a46a !important;
+  --accent-deep: #a9874d !important;
+  --background: #000000 !important;
+  --foreground: #ffffff !important;
+}
+html[data-theme="light"] {
+  color-scheme: light !important;
+  --lm-page: #ffffff !important;
+  --lm-surface: #ffffff !important;
+  --lm-surface-strong: #f7f7f7 !important;
+  --lm-ink: #171614 !important;
+  --lm-muted: #5f5b54 !important;
+  --lm-stroke: rgba(169,135,77,.30) !important;
+  --lm-accent: #a9874d !important;
+  --accent: #a9874d !important;
+  --accent-deep: #8c6d3e !important;
+  --background: #ffffff !important;
+  --foreground: #171614 !important;
+}
+
+/* App canvas. Do not touch the loading-screen subtree. */
+html[data-theme="dark"],
+html[data-theme="dark"] body,
+html[data-theme="dark"] body main,
+html[data-theme="dark"] body #__next {
+  background: #000000 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+}
+html[data-theme="light"],
+html[data-theme="light"] body,
+html[data-theme="light"] body main,
+html[data-theme="light"] body #__next {
+  background: #ffffff !important;
+  background-image: none !important;
+  color: #171614 !important;
+}
+
+/* Normalize utility-driven surfaces and gradients on every non-loading page. */
+html[data-theme="dark"] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="bg-"],
+html[data-theme="dark"] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="from-"],
+html[data-theme="dark"] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="via-"],
+html[data-theme="dark"] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="to-"] {
+  background-color: #111111 !important;
+  background-image: none !important;
+}
+html[data-theme="light"] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="bg-"],
+html[data-theme="light"] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="from-"],
+html[data-theme="light"] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="via-"],
+html[data-theme="light"] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="to-"] {
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+
+/* Keep gold as the only chromatic accent, regardless of old utility names. */
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="bg-emerald"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="bg-green"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="bg-blue"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="bg-indigo"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="bg-violet"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="bg-purple"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="bg-pink"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="bg-rose"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="bg-fuchsia"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="bg-teal"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="bg-cyan"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="bg-orange"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="bg-red"] {
+  background: #c5a46a !important;
+  background-image: none !important;
+  color: #17130d !important;
+}
+
+/* Text defaults stay high-contrast; former colored status text becomes gold. */
+html[data-theme="dark"] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="text-"] {
+  color: #ffffff !important;
+}
+html[data-theme="light"] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="text-"] {
+  color: #171614 !important;
+}
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="text-emerald"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="text-green"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="text-blue"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="text-indigo"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="text-violet"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="text-purple"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="text-pink"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="text-rose"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="text-fuchsia"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="text-teal"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="text-cyan"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="text-orange"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="text-red"] {
+  color: #c5a46a !important;
+}
+
+/* Neutral borders and form controls; gold is reserved for focus/selection. */
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="border-emerald"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="border-green"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="border-blue"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="border-pink"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="border-purple"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="border-violet"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="border-rose"] {
+  border-color: rgba(197,164,106,.48) !important;
+}
+html[data-theme="dark"] body input:not([type="checkbox"]):not([type="radio"]),
+html[data-theme="dark"] body textarea,
+html[data-theme="dark"] body select {
+  background: #111111 !important;
+  color: #ffffff !important;
+  border-color: rgba(197,164,106,.38) !important;
+}
+html[data-theme="light"] body input:not([type="checkbox"]):not([type="radio"]),
+html[data-theme="light"] body textarea,
+html[data-theme="light"] body select {
+  background: #ffffff !important;
+  color: #171614 !important;
+  border-color: rgba(169,135,77,.38) !important;
+}
+html[data-theme] body :focus-visible {
+  outline-color: #c5a46a !important;
+}
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *) svg {
+  color: inherit;
+}
