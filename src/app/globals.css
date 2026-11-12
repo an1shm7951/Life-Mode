@@ -8169,3 +8169,66 @@ html[data-theme] body :focus-visible {
 html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *) svg {
   color: inherit;
 }
+
+/* Premium mobile Explore call-to-action: visible, tactile, and on-palette. */
+@media (max-width: 699px) {
+  .lm-mobile-more-trigger {
+    position: fixed !important;
+    top: auto !important;
+    right: 16px !important;
+    bottom: calc(88px + env(safe-area-inset-bottom)) !important;
+    z-index: 105 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    min-width: 148px !important;
+    min-height: 54px !important;
+    padding: 0 19px !important;
+    border: 1px solid #e5cc98 !important;
+    border-radius: 999px !important;
+    background: linear-gradient(135deg,#ead7ad 0%,#c9ad78 58%,#b9965e 100%) !important;
+    color: #17130d !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,.34), 0 0 0 4px rgba(201,173,120,.11), inset 0 1px rgba(255,255,255,.55) !important;
+    font-size: 14px !important;
+    font-weight: 750 !important;
+    letter-spacing: .035em !important;
+    line-height: 1 !important;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .18s ease, box-shadow .18s ease, filter .18s ease !important;
+  }
+  .lm-mobile-more-trigger .lm-explore-spark {
+    display: grid !important;
+    width: 25px !important;
+    height: 25px !important;
+    place-items: center !important;
+    border-radius: 50% !important;
+    background: rgba(23,19,13,.12) !important;
+    color: #17130d !important;
+    font-size: 15px !important;
+  }
+  .lm-mobile-more-trigger .lm-explore-arrow {
+    margin-left: 1px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+  }
+  .lm-mobile-more-trigger:hover,
+  .lm-mobile-more-trigger:active {
+    border-color: #f0dfbd !important;
+    background: linear-gradient(135deg,#f0dfbd 0%,#d7bd8d 58%,#c9a66e 100%) !important;
+    color: #17130d !important;
+    box-shadow: 0 13px 34px rgba(0,0,0,.4), 0 0 0 5px rgba(201,173,120,.15), inset 0 1px rgba(255,255,255,.65) !important;
+    transform: translateY(-2px) !important;
+  }
+  .lm-mobile-more-trigger:focus-visible {
+    outline: 3px solid #f0dfbd !important;
+    outline-offset: 4px !important;
+  }
+  .lm-mobile-more-trigger.is-active {
+    color: #17130d !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,.34), 0 0 0 5px rgba(201,173,120,.17) !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lm-mobile-more-trigger { transition: none !important; }
+}
