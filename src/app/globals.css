@@ -8319,3 +8319,70 @@ html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-load
   background-image: none !important;
   border-color: rgba(197,164,106,.32) !important;
 }
+
+
+/* SETTINGS PAGE PALETTE OVERRIDE — scoped to settings; loading UI is untouched. */
+html[data-theme="dark"] .lm-settings-shell,
+html[data-theme="dark"] .lm-settings-shell > header {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border-color: rgba(197,164,106,.32) !important;
+}
+html[data-theme="light"] .lm-settings-shell,
+html[data-theme="light"] .lm-settings-shell > header {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+  color: #171614 !important;
+  border-color: rgba(169,135,77,.34) !important;
+}
+html[data-theme="dark"] .lm-settings-shell :is(.premium-panel,.theme-choice,.nav-button,.nav-button-dark),
+html[data-theme="dark"] .lm-settings-shell li {
+  background: #101010 !important;
+  background-color: #101010 !important;
+  background-image: none !important;
+  border-color: rgba(197,164,106,.32) !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] .lm-settings-shell :is(.premium-panel,.theme-choice,.nav-button,.nav-button-dark),
+html[data-theme="light"] .lm-settings-shell li {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+  border-color: rgba(169,135,77,.34) !important;
+  color: #171614 !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] .lm-settings-shell :is(button,a, p, span, h1, h2, h3, label) {
+  color: #ffffff !important;
+}
+html[data-theme="light"] .lm-settings-shell :is(button,a, p, span, h1, h2, h3, label) {
+  color: #171614 !important;
+}
+html[data-theme] .lm-settings-shell :is(a.nav-button,a.nav-button-dark,.theme-choice.is-selected) {
+  border-color: #c5a46a !important;
+  background: #c5a46a !important;
+  background-image: none !important;
+  color: #17130d !important;
+}
+html[data-theme] .lm-settings-shell button:not(.theme-choice) {
+  border-color: rgba(197,164,106,.62) !important;
+  background: #c5a46a !important;
+  background-image: none !important;
+  color: #17130d !important;
+  box-shadow: none !important;
+}
+html[data-theme] .lm-settings-shell a:not(.nav-button):not(.nav-button-dark) {
+  color: #b08d50 !important;
+}
+html[data-theme="dark"] .lm-settings-shell :is(.theme-choice-symbol,.theme-choice-indicator) {
+  background: #c5a46a !important;
+  color: #17130d !important;
+}
+html[data-theme="light"] .lm-settings-shell :is(.theme-choice-symbol,.theme-choice-indicator) {
+  background: #c5a46a !important;
+  color: #17130d !important;
+}
