@@ -8232,3 +8232,157 @@ html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-load
 @media (prefers-reduced-motion: reduce) {
   .lm-mobile-more-trigger { transition: none !important; }
 }
+
+
+/* STRICT THEME CLEANUP — remove legacy CSS-painted blue, green and pink accents.
+   Loading screen elements remain deliberately untouched. */
+html[data-theme] body::before,
+html[data-theme] body::after,
+html[data-theme] body:has(.dashboard-shell)::before,
+html[data-theme] body:has(.dashboard-shell)::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+
+/* Decorative pseudo-elements were a source of the leftover colored glows. */
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)::before,
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)::after {
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* Neutralize legacy hand-written component styles (not just Tailwind classes). */
+html[data-theme="dark"] :is(.premium-focus,.premium-panel,.glass-card,.premium-surface,.theme-choice,.mobile-nav,.nav-button,.nav-button-dark,.goal-row.is-complete,.auth-story,.auth-story-v2,.auth-form-panel,.auth-experience,.dashboard-command,.dashboard-momentum,.dashboard-panel,.dashboard-mission,.dashboard-metric,.dashboard-view-switcher,.du-entry,.du-section,.du-quest,.du-quest-card,.du-story-card,.du-realm,.lm-stories-feature,.lm-stories-card,.lm-reader-body) {
+  background-color: #111111 !important;
+  background-image: none !important;
+  border-color: rgba(197,164,106,.28) !important;
+  color: #ffffff !important;
+}
+html[data-theme="light"] :is(.premium-focus,.premium-panel,.glass-card,.premium-surface,.theme-choice,.mobile-nav,.nav-button,.nav-button-dark,.goal-row.is-complete,.auth-story,.auth-story-v2,.auth-form-panel,.auth-experience,.dashboard-command,.dashboard-momentum,.dashboard-panel,.dashboard-mission,.dashboard-metric,.dashboard-view-switcher,.du-entry,.du-section,.du-quest,.du-quest-card,.du-story-card,.du-realm,.lm-stories-feature,.lm-stories-card,.lm-reader-body) {
+  background-color: #ffffff !important;
+  background-image: none !important;
+  border-color: rgba(169,135,77,.30) !important;
+  color: #171614 !important;
+}
+
+/* Gold replaces the old colored completion, progress, selection and navigation states. */
+html[data-theme] :is(.goal-row.is-complete,.mobile-nav-item.is-active,.theme-choice.is-selected) {
+  background: rgba(197,164,106,.14) !important;
+  border-color: rgba(197,164,106,.55) !important;
+  color: var(--foreground) !important;
+  box-shadow: none !important;
+}
+html[data-theme] :is(.goal-complete-mark,.theme-choice-symbol,.theme-choice.is-selected .theme-choice-indicator,.du-progress-fill,.du-progress-done,.du-live span,.du-eyebrow i,.dashboard-eyebrow-pulse,.readiness-fill,.progress-ring-value,.lm-green-dot) {
+  background: #c5a46a !important;
+  background-image: none !important;
+  border-color: #c5a46a !important;
+  color: #17130d !important;
+  box-shadow: none !important;
+}
+html[data-theme] :is(.progress-ring-value) { stroke: #c5a46a !important; }
+html[data-theme] :is(.progress-ring-track) { stroke: rgba(197,164,106,.24) !important; }
+html[data-theme] :is(.lm-progress-ring,.progress-ring) {
+  background: conic-gradient(#c5a46a var(--progress, 0%), #252525 0) !important;
+}
+
+/* Hand-authored dashboard and sign-in typography had blue status/heading colors. */
+html[data-theme="dark"] :is(.dashboard-welcome,.dashboard-description,.dashboard-inspiration-quote blockquote,.dashboard-notice a,.auth-brand-period,.auth-eyebrow,.auth-step-indicator,.auth-mode-hint,.auth-story h1 em,.auth-story-description,.auth-orbit-label span,.auth-story-footer,.auth-form-title,.auth-form-subtitle) {
+  color: #ffffff !important;
+}
+html[data-theme="light"] :is(.dashboard-welcome,.dashboard-description,.dashboard-inspiration-quote blockquote,.dashboard-notice a,.auth-brand-period,.auth-eyebrow,.auth-step-indicator,.auth-mode-hint,.auth-story h1 em,.auth-story-description,.auth-orbit-label span,.auth-story-footer,.auth-form-title,.auth-form-subtitle) {
+  color: #171614 !important;
+}
+html[data-theme] :is(.dashboard-brand-mark,.dashboard-badge,.auth-brand-mark,.auth-brand-mark-v2,.auth-float-icon,.auth-showcase-glow,.ascension-spark) {
+  background: #c5a46a !important;
+  background-image: none !important;
+  border-color: rgba(197,164,106,.55) !important;
+  color: #17130d !important;
+  box-shadow: none !important;
+}
+html[data-theme] :is(.ascension-rings,.ascension-beam,.ascension-horizon,.ambient-glow-one,.ambient-glow-two,.ambient-glow-three,.ambient-scene-cursor) {
+  background: none !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border-color: rgba(197,164,106,.22) !important;
+}
+
+/* Catch remaining semantic color classes from hand-authored components. */
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="green"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="emerald"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="blue"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="pink"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="purple"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="violet"],
+html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-loading):not(.app-loading *):not(.loading-overlay):not(.loading-overlay *)[class*="rose"] {
+  background-image: none !important;
+  border-color: rgba(197,164,106,.32) !important;
+}
+
+
+/* SETTINGS PAGE PALETTE OVERRIDE — scoped to settings; loading UI is untouched. */
+html[data-theme="dark"] .lm-settings-shell,
+html[data-theme="dark"] .lm-settings-shell > header {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border-color: rgba(197,164,106,.32) !important;
+}
+html[data-theme="light"] .lm-settings-shell,
+html[data-theme="light"] .lm-settings-shell > header {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+  color: #171614 !important;
+  border-color: rgba(169,135,77,.34) !important;
+}
+html[data-theme="dark"] .lm-settings-shell :is(.premium-panel,.theme-choice,.nav-button,.nav-button-dark),
+html[data-theme="dark"] .lm-settings-shell li {
+  background: #101010 !important;
+  background-color: #101010 !important;
+  background-image: none !important;
+  border-color: rgba(197,164,106,.32) !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] .lm-settings-shell :is(.premium-panel,.theme-choice,.nav-button,.nav-button-dark),
+html[data-theme="light"] .lm-settings-shell li {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+  border-color: rgba(169,135,77,.34) !important;
+  color: #171614 !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] .lm-settings-shell :is(button,a, p, span, h1, h2, h3, label) {
+  color: #ffffff !important;
+}
+html[data-theme="light"] .lm-settings-shell :is(button,a, p, span, h1, h2, h3, label) {
+  color: #171614 !important;
+}
+html[data-theme] .lm-settings-shell :is(a.nav-button,a.nav-button-dark,.theme-choice.is-selected) {
+  border-color: #c5a46a !important;
+  background: #c5a46a !important;
+  background-image: none !important;
+  color: #17130d !important;
+}
+html[data-theme] .lm-settings-shell button:not(.theme-choice) {
+  border-color: rgba(197,164,106,.62) !important;
+  background: #c5a46a !important;
+  background-image: none !important;
+  color: #17130d !important;
+  box-shadow: none !important;
+}
+html[data-theme] .lm-settings-shell a:not(.nav-button):not(.nav-button-dark) {
+  color: #b08d50 !important;
+}
+html[data-theme="dark"] .lm-settings-shell :is(.theme-choice-symbol,.theme-choice-indicator) {
+  background: #c5a46a !important;
+  color: #17130d !important;
+}
+html[data-theme="light"] .lm-settings-shell :is(.theme-choice-symbol,.theme-choice-indicator) {
+  background: #c5a46a !important;
+  color: #17130d !important;
+}
