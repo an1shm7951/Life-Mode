@@ -4,9 +4,12 @@
 begin;
 
 -- Profiles are private by default. Under-18 accounts cannot opt into public discovery.
+-- Public profile discovery is disabled for all accounts until LifeMode has a
+-- trustworthy age-eligibility gate. Client-editable auth metadata is not proof
+-- of age, so do not expose any profile rows publicly in the meantime.
 update public.profiles
 set is_public = false
-where age_band = 'under_18' and is_public = true;
+where is_public = true;
 
 drop policy if exists "Users can read own profile" on public.profiles;
 create policy "Users can read own profile"
@@ -30,55 +33,19 @@ to authenticated
 using ((select auth.uid()) = user_id)
 with check (
   (select auth.uid()) = user_id
-  and (age_band = 'adult' or is_public = false)
+  and is_public = false
 );
 
 -- Do not expose raw profile rows to anonymous clients. Public discovery uses
 -- a narrow, explicitly allow-listed view instead.
-revoke select on public.profiles from anon;
+-- Anonymous clients cannot read raw profile or proof rows. All profiles remain
+-- private until an age-eligibility mechanism is implemented and reviewed.
+revoke select on public.profiles from public, anon;
 grant select, insert, update on public.profiles to authenticated;
 
-create or replace view public.public_profiles
-with (security_barrier = true)
-as
-select
-  user_id,
-  display_name,
-  active_mode,
-  bio,
-  skills,
-  created_at
-from public.profiles
-where is_public = true
-  and age_band = 'adult';
-
-revoke all on public.public_profiles from public;
-grant select on public.public_profiles to anon, authenticated;
-
--- Keep raw proof rows private. The public view intentionally omits evidence
--- paths, file names, storage metadata, and other private fields.
-revoke select on public.proof_posts from anon;
+-- Proof posts are private to their owner; no public view is exposed yet.
+revoke select on public.proof_posts from public, anon;
 grant select, insert, update, delete on public.proof_posts to authenticated;
-
-create or replace view public.public_proof_posts
-with (security_barrier = true)
-as
-select
-  proof.id,
-  proof.user_id,
-  proof.mode,
-  proof.text,
-  proof.visibility,
-  proof.created_at
-from public.proof_posts as proof
-join public.profiles as profile
-  on profile.user_id = proof.user_id
-where profile.is_public = true
-  and profile.age_band = 'adult'
-  and proof.visibility in ('profile', 'public');
-
-revoke all on public.public_proof_posts from public;
-grant select on public.public_proof_posts to anon, authenticated;
 
 -- A database-backed limiter is shared across Vercel serverless instances.
 create table if not exists public.ai_buddy_rate_limit_events (
