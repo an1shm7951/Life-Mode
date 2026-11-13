@@ -8232,3 +8232,114 @@ html[data-theme] body :not(.loading-screen):not(.loading-screen *):not(.app-load
 @media (prefers-reduced-motion: reduce) {
   .lm-mobile-more-trigger { transition: none !important; }
 }
+
+
+/* Dashboard mode switcher — a primary, responsive control for changing LifeMode. */
+.lm-mode-switcher {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto;
+  align-items: center;
+  gap: 18px;
+  margin: 22px 0 18px;
+  padding: 20px 22px;
+  border: 1px solid rgba(197,164,106,.38);
+  border-radius: 22px;
+  background: linear-gradient(115deg,rgba(197,164,106,.12),rgba(197,164,106,.035) 54%,transparent);
+  color: var(--foreground, #171614);
+  box-shadow: 0 12px 36px rgba(0,0,0,.07);
+}
+html[data-theme="dark"] .lm-mode-switcher {
+  background: linear-gradient(115deg,rgba(197,164,106,.15),rgba(197,164,106,.055) 54%,#101010);
+  color: #fff;
+  border-color: rgba(197,164,106,.42);
+}
+html[data-theme="light"] .lm-mode-switcher {
+  background: linear-gradient(115deg,#fbf7ee,#fff 65%);
+  color: #171614;
+  border-color: rgba(169,135,77,.38);
+}
+.lm-mode-switcher-copy { display:grid; gap:5px; min-width:0; }
+.lm-mode-switcher-eyebrow {
+  color:#a9874d; font-size:10px; font-weight:800; letter-spacing:.19em;
+}
+.lm-mode-switcher-copy strong { font-size:clamp(21px,2.3vw,29px); line-height:1.1; font-weight:700; }
+.lm-mode-switcher-copy > span:last-child { max-width:660px; color:inherit; opacity:.68; font-size:13px; line-height:1.5; }
+.lm-mode-switcher-trigger {
+  display:inline-flex; align-items:center; justify-content:center; gap:12px;
+  min-height:48px; padding:0 20px; border:1px solid #c5a46a; border-radius:999px;
+  background:#c5a46a; color:#17130d; font-size:13px; font-weight:800; letter-spacing:.02em;
+  white-space:nowrap; transition:transform .18s ease,filter .18s ease,box-shadow .18s ease;
+}
+.lm-mode-switcher-trigger:hover { filter:brightness(1.07); transform:translateY(-1px); box-shadow:0 8px 22px rgba(197,164,106,.2); }
+.lm-mode-switcher-trigger:focus-visible,.lm-mode-option:focus-visible { outline:3px solid #c5a46a; outline-offset:3px; }
+.lm-mode-options {
+  grid-column:1/-1; padding-top:17px; border-top:1px solid rgba(197,164,106,.25);
+}
+.lm-mode-options > p { margin:0 0 12px; font-size:12px; opacity:.68; }
+.lm-mode-options-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+.lm-mode-option {
+  position:relative; display:grid; align-content:start; gap:7px; min-height:108px;
+  padding:15px; text-align:left; border:1px solid rgba(197,164,106,.24); border-radius:15px;
+  background:rgba(127,127,127,.045); color:inherit; transition:border-color .18s ease,background .18s ease,transform .18s ease;
+}
+.lm-mode-option:hover { border-color:rgba(197,164,106,.72); transform:translateY(-1px); }
+.lm-mode-option.is-active { border-color:#c5a46a; background:rgba(197,164,106,.13); }
+.lm-mode-option > span { font-size:15px; font-weight:750; }
+.lm-mode-option small { font-size:11px; line-height:1.45; opacity:.65; }
+.lm-mode-option b { color:#a9874d; font-size:9px; letter-spacing:.14em; }
+@media(max-width:700px) {
+  .lm-mode-switcher { grid-template-columns:minmax(0,1fr); gap:14px; margin:16px 0; padding:17px; border-radius:18px; }
+  .lm-mode-switcher-trigger { width:100%; min-height:48px; }
+  .lm-mode-options-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .lm-mode-option { min-height:116px; padding:12px; }
+}
+@media(max-width:380px) {
+  .lm-mode-options-grid { grid-template-columns:1fr; }
+  .lm-mode-option { min-height:auto; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .lm-mode-switcher-trigger,.lm-mode-option { transition:none; }
+}
+
+
+/* Viewport-pinned navigation: render from document.body and keep both controls
+   above page content, independent of scroll position or transformed app shells. */
+@media (max-width: 699px) {
+  body > .mobile-nav.lm-floating-nav {
+    position: fixed !important;
+    inset-inline: max(10px, env(safe-area-inset-left)) max(10px, env(safe-area-inset-right)) !important;
+    left: max(10px, env(safe-area-inset-left)) !important;
+    right: max(10px, env(safe-area-inset-right)) !important;
+    bottom: max(10px, env(safe-area-inset-bottom)) !important;
+    z-index: 10000 !important;
+    display: grid !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: none !important;
+  }
+  body > .lm-mobile-more-trigger {
+    position: fixed !important;
+    top: auto !important;
+    right: max(16px, env(safe-area-inset-right)) !important;
+    bottom: calc(92px + env(safe-area-inset-bottom)) !important;
+    z-index: 10001 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* Light mode typography is consistently black; gold remains a surface/border accent. */
+html[data-theme="light"] body {
+  color: #171614 !important;
+}
+html[data-theme="light"] body :is(h1,h2,h3,h4,h5,h6,p,span,small,label,li,a,strong,em,dt,dd,th,td,legend,summary),
+html[data-theme="light"] body [class*="text-"] {
+  color: #171614 !important;
+}
+html[data-theme="light"] :is(.discover-universe,.lm-stories,.lm-stories-v2,.lm-reader-v2,.lm-game,.auth-experience) :is(h1,h2,h3,h4,h5,h6,p,span,small,label,li,a,strong,em,dt,dd,th,td,legend,summary),
+html[data-theme="light"] :is(.discover-universe,.lm-stories,.lm-stories-v2,.lm-reader-v2,.lm-game,.auth-experience) [class*="text-"] {
+  color: inherit !important;
+}

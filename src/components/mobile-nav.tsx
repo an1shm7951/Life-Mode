@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { usePathname, useSearchParams } from "next/navigation";
 
 const primaryItems = [
@@ -33,6 +34,11 @@ function MobileNavContent() {
   const searchParams = useSearchParams();
   const view = searchParams.get("view") ?? "";
   const [moreOpen, setMoreOpen] = useState(false);
+  const [portalMounted, setPortalMounted] = useState(false);
+
+  useEffect(() => {
+    setPortalMounted(true);
+  }, []);
 
   useEffect(() => {
     setMoreOpen(false);
@@ -62,7 +68,9 @@ function MobileNavContent() {
     pathname === item.href
   );
 
-  return (
+  if (!portalMounted) return null;
+
+  return createPortal((
     <>
       <header className="lm-desktop-nav">
         <Link href="/dashboard" className="lm-desktop-brand">life<span>mode</span><i>.</i></Link>
@@ -115,5 +123,5 @@ function MobileNavContent() {
         ))}
       </nav>
     </>
-  );
+  ), document.body);
 }
