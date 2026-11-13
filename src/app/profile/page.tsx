@@ -157,7 +157,7 @@ export default function ProfilePage() {
           .split(",")
           .map((skill) => skill.trim())
           .filter(Boolean),
-        is_public: profile.age_band === "adult" && profile.is_public,
+        is_public: false,
         active_mode: activeMode,
       });
       setProfile(updatedProfile);
@@ -215,21 +215,15 @@ export default function ProfilePage() {
                 Public
                 <input
                   type="checkbox"
-                  checked={profile.is_public && profile.age_band === "adult"}
-                  disabled={profile.age_band !== "adult"}
-                  onChange={() =>
-                    setProfile((current) =>
-                      current && current.age_band === "adult"
-                        ? { ...current, is_public: !current.is_public }
-                        : current,
-                    )
-                  }
+                  checked={false}
+                  disabled
+                  aria-describedby="public-profile-status"
                   className="h-4 w-4 accent-[#181713] disabled:cursor-not-allowed disabled:opacity-50"
                 />
               </label>
-              {profile.age_band === "under_18" ? (
-                <span className="text-xs text-[#696257]">Public profiles are available to adults only.</span>
-              ) : null}
+              <span id="public-profile-status" className="max-w-56 text-right text-xs text-[#696257]">
+                Public sharing is temporarily disabled while privacy controls are strengthened.
+              </span>
             </div>
           </div>
 
