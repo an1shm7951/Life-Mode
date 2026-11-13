@@ -8301,3 +8301,45 @@ html[data-theme="light"] .lm-mode-switcher {
 @media(prefers-reduced-motion:reduce) {
   .lm-mode-switcher-trigger,.lm-mode-option { transition:none; }
 }
+
+
+/* Viewport-pinned navigation: render from document.body and keep both controls
+   above page content, independent of scroll position or transformed app shells. */
+@media (max-width: 699px) {
+  body > .mobile-nav.lm-floating-nav {
+    position: fixed !important;
+    inset-inline: max(10px, env(safe-area-inset-left)) max(10px, env(safe-area-inset-right)) !important;
+    left: max(10px, env(safe-area-inset-left)) !important;
+    right: max(10px, env(safe-area-inset-right)) !important;
+    bottom: max(10px, env(safe-area-inset-bottom)) !important;
+    z-index: 10000 !important;
+    display: grid !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: none !important;
+  }
+  body > .lm-mobile-more-trigger {
+    position: fixed !important;
+    top: auto !important;
+    right: max(16px, env(safe-area-inset-right)) !important;
+    bottom: calc(92px + env(safe-area-inset-bottom)) !important;
+    z-index: 10001 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* Light mode typography is consistently black; gold remains a surface/border accent. */
+html[data-theme="light"] body {
+  color: #171614 !important;
+}
+html[data-theme="light"] body :is(h1,h2,h3,h4,h5,h6,p,span,small,label,li,a,strong,em,dt,dd,th,td,legend,summary),
+html[data-theme="light"] body [class*="text-"] {
+  color: #171614 !important;
+}
+html[data-theme="light"] :is(.discover-universe,.lm-stories,.lm-stories-v2,.lm-reader-v2,.lm-game,.auth-experience) :is(h1,h2,h3,h4,h5,h6,p,span,small,label,li,a,strong,em,dt,dd,th,td,legend,summary),
+html[data-theme="light"] :is(.discover-universe,.lm-stories,.lm-stories-v2,.lm-reader-v2,.lm-game,.auth-experience) [class*="text-"] {
+  color: inherit !important;
+}
