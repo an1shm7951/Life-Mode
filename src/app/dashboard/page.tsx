@@ -92,6 +92,7 @@ function DashboardContent() {
   const [statusMessage, setStatusMessage] = useState("Ready when you are");
   const [isBuddyLoading, setIsBuddyLoading] = useState(false);
   const [dashboardView, setDashboardView] = useState<DashboardView>("today");
+  const [showModePicker, setShowModePicker] = useState(false);
   const [checkinMood, setCheckinMood] = useState("");
   const [checkinNote, setCheckinNote] = useState("");
   const [checkinSaved, setCheckinSaved] = useState(false);
@@ -691,14 +692,51 @@ function DashboardContent() {
           </div>
         </header>
 
+        <section className="lm-mode-switcher" aria-label="LifeMode">
+          <div className="lm-mode-switcher-copy">
+            <span className="lm-mode-switcher-eyebrow">YOUR CURRENT MODE</span>
+            <strong>{activeModeData?.name ?? "Choose your mode"}</strong>
+            <span>{activeModeData?.focus ?? "Shape LifeMode around what matters to you."}</span>
+          </div>
+          <button
+            type="button"
+            className="lm-mode-switcher-trigger"
+            aria-expanded={showModePicker}
+            aria-controls="lm-mode-options"
+            onClick={() => setShowModePicker((open) => !open)}
+          >
+            {showModePicker ? "Close" : "Switch mode"} <span aria-hidden="true">{showModePicker ? "−" : "⌄"}</span>
+          </button>
+          {showModePicker ? (
+            <div id="lm-mode-options" className="lm-mode-options">
+              <p>Choose the space that fits your focus right now.</p>
+              <div className="lm-mode-options-grid">
+                {modes.map((mode) => (
+                  <button
+                    key={mode.id}
+                    type="button"
+                    className={`lm-mode-option ${state.activeMode === mode.id ? "is-active" : ""}`}
+                    aria-pressed={state.activeMode === mode.id}
+                    onClick={() => {
+                      void switchMode(mode.id);
+                      setShowModePicker(false);
+                    }}
+                  >
+                    <span>{mode.name}</span>
+                    <small>{mode.focus}</small>
+                    {state.activeMode === mode.id ? <b aria-label="Current mode">CURRENT</b> : null}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : null}
+        </section>
+
         <div className="lm-quick-actions">
           <button type="button" onClick={beginFirstGoal}>ϟ <span>Quick Actions</span></button>
           <button type="button" onClick={() => router.push("/stats")}>▥ <span>Stats</span></button>
           <button type="button" onClick={() => router.push("/subscription")}>♛ <span>Premium</span></button>
           <button type="button" onClick={() => router.push("/planning")}>▦ <span>Calendar</span></button>
-          <select aria-label="Choose your mode" value={state.activeMode} onChange={e => switchMode(e.target.value as LifeModeId)}>
-            {modes.map(mode => <option key={mode.id} value={mode.id}>{mode.name}</option>)}
-          </select>
         </div>
 
         <main className="lm-main">
