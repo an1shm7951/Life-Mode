@@ -28,36 +28,39 @@ export default function SignupPage() {
     setMessage("");
     setIsSubmitting(true);
 
-    const numericAge = Number(age);
+    try {
+      const numericAge = Number(age);
 
-    if (!Number.isInteger(numericAge) || numericAge < 13 || numericAge > 120) {
-      setMessage("Enter a valid age. LifeMode accounts currently require age 13+.");
-      setIsSubmitting(false);
-      return;
-    }
+      if (!Number.isInteger(numericAge) || numericAge < 13 || numericAge > 120) {
+        setMessage("Enter a valid age. LifeMode accounts currently require age 13+.");
+        return;
+      }
 
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          first_name: firstName,
-          age_band: numericAge >= 18 ? "adult" : "under_18",
-          first_mode: mode,
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            first_name: firstName,
+            age_band: numericAge >= 18 ? "adult" : "under_18",
+            first_mode: mode,
+          },
         },
-      },
-    });
+      });
 
-    if (error) {
-      setMessage(error.message);
+      if (error) {
+        setMessage(error.message);
+        return;
+      }
+
+      setMessage(
+        "Account created. Check your email if Supabase asks for confirmation, then log in.",
+      );
+    } catch {
+      setMessage("We couldn't reach the sign-up service. Check your connection and try again.");
+    } finally {
       setIsSubmitting(false);
-      return;
     }
-
-    setMessage(
-      "Account created. Check your email if Supabase asks for confirmation, then log in.",
-    );
-    setIsSubmitting(false);
   }
 
   return (

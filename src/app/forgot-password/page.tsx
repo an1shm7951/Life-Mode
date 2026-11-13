@@ -14,19 +14,23 @@ export default function ForgotPasswordPage() {
     setMessage("");
     setIsSubmitting(true);
 
-    const redirectTo = `${window.location.origin}/reset-password`;
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo,
-    });
+    try {
+      const redirectTo = `${window.location.origin}/reset-password`;
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo,
+      });
 
-    if (error) {
-      setMessage(error.message);
+      if (error) {
+        setMessage(error.message);
+        return;
+      }
+
+      setMessage("If an account exists for that address, a password reset email will arrive shortly.");
+    } catch {
+      setMessage("We couldn't reach the password recovery service. Check your connection and try again.");
+    } finally {
       setIsSubmitting(false);
-      return;
     }
-
-    setMessage("Password reset email sent. Check your inbox.");
-    setIsSubmitting(false);
   }
 
   return (

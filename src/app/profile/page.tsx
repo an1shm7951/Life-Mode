@@ -43,6 +43,8 @@ export default function ProfilePage() {
   const [profile, setProfile] = useState<ProfileRow | null>(null);
   const [skillsText, setSkillsText] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
   const [statusMessage, setStatusMessage] = useState("Saved to Supabase");
 
   const completedGoals = useMemo(
@@ -56,94 +58,138 @@ export default function ProfilePage() {
   const recentProof = proofPosts.slice(0, 4);
 
   useEffect(() => {
+    let cancelled = false;
+
     async function loadProfile() {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
+      try {
+        const {
+          data: { user },
+          error: authError,
+        } = await supabase.auth.getUser();
 
-      if (!user) {
-        router.push("/login");
-        return;
-      }
+        if (authError) throw authError;
 
-      const metadata = user.user_metadata;
-      const hasAgeAccess =
-        metadata?.age_band === "adult" ||
-        metadata?.age_band === "under_18" ||
-        (Number.isFinite(Number(metadata?.age)) && Number(metadata?.age) >= 13);
+        if (!user) {
+          router.push("/login");
+          return;
+        }
 
-      if (!hasAgeAccess || typeof metadata?.first_mode !== "string") {
-        router.push("/onboarding");
-        return;
-      }
-
-      setEmail(user.email ?? "");
-      const firstName = metadata?.first_name;
-      const name =
-        typeof firstName === "string" && firstName.trim()
-          ? firstName
-          : user.email?.split("@")[0] ?? "LifeMode user";
-      setDisplayName(name);
-      setUserId(user.id);
-
-      const userMode = metadata?.first_mode;
-      const normalizedMode =
-        typeof userMode === "string" ? userMode.toLowerCase() : "student";
-      const fallbackMode = Object.hasOwn(modeNames, normalizedMode)
-        ? (normalizedMode as LifeModeId)
-        : "student";
-      const loadedProfile = await ensureProfile({
-        userId: user.id,
-        displayName: name,
-        activeMode: fallbackMode,
-        ageBand:
+        const metadata = user.user_metadata;
+        const hasAgeAccess =
+          metadata?.age_band === "adult" ||
           metadata?.age_band === "under_18" ||
-          Number(metadata?.age) < 18
-            ? "under_18"
-            : "adult",
-      });
-      const [loadedGoals, loadedProofPosts, loadedOpportunityActions] =
-        await Promise.all([
-          fetchGoals(user.id),
-          fetchProofPosts(user.id),
-          fetchOpportunityActions(user.id),
-        ]);
+          (Number.isFinite(Number(metadata?.age)) && Number(metadata?.age) >= 13);
 
-      setProfile(loadedProfile);
-      setActiveMode(loadedProfile.active_mode);
-      setSkillsText(loadedProfile.skills.join(", "));
-      setGoals(loadedGoals);
-      setProofPosts(loadedProofPosts);
-      setOpportunityActions(loadedOpportunityActions);
+        if (!hasAgeAccess || typeof metadata?.first_mode !== "string") {
+          router.push("/onboarding");
+          return;
+        }
 
-      setIsLoading(false);
+        const firstName = metadata?.first_name;
+        const name =
+          typeof firstName === "string" && firstName.trim()
+            ? firstName
+            : user.email?.split("@")[0] ?? "LifeMode user";
+
+        const userMode = metadata?.first_mode;
+        const normalizedMode =
+          typeof userMode === "string" ? userMode.toLowerCase() : "student";
+        const fallbackMode = Object.hasOwn(modeNames, normalizedMode)
+          ? (normalizedMode as LifeModeId)
+          : "student";
+
+        const loadedProfile = await ensureProfile({
+          userId: user.id,
+          displayName: name,
+          activeMode: fallbackMode,
+          ageBand:
+            metadata?.age_band === "under_18" ||
+            Number(metadata?.age) < 18
+              ? "under_18"
+              : "adult",
+        });
+        const [loadedGoals, loadedProofPosts, loadedOpportunityActions] =
+          await Promise.all([
+            fetchGoals(user.id),
+            fetchProofPosts(user.id),
+            fetchOpportunityActions(user.id),
+          ]);
+
+        if (cancelled) return;
+
+        setEmail(user.email ?? "");
+        setDisplayName(name);
+        setUserId(user.id);
+        setProfile(loadedProfile);
+        setActiveMode(loadedProfile.active_mode);
+        setSkillsText(loadedProfile.skills.join(", "));
+        setGoals(loadedGoals);
+        setProofPosts(loadedProofPosts);
+        setOpportunityActions(loadedOpportunityActions);
+        setLoadError("");
+      } catch (error) {
+        if (cancelled) return;
+        console.error("Profile load failed:", error);
+        setLoadError("We couldn't load your profile. Check your connection and try again.");
+      } finally {
+        if (!cancelled) setIsLoading(false);
+      }
     }
 
-    loadProfile();
+    void loadProfile();
+    return () => {
+      cancelled = true;
+    };
   }, [router]);
 
   async function saveProfile() {
-    if (!profile || !userId) {
+    if (!profile || !userId || isSaving) {
       return;
     }
 
+    setIsSaving(true);
     setStatusMessage("Saving profile...");
-    const updatedProfile = await updateProfile(userId, {
-      bio: profile.bio,
-      skills: skillsText
-        .split(",")
-        .map((skill) => skill.trim())
-        .filter(Boolean),
-      is_public: profile.is_public,
-      active_mode: activeMode,
-    });
-    setProfile(updatedProfile);
-    setSkillsText(updatedProfile.skills.join(", "));
-    setStatusMessage("Saved to Supabase");
+
+    try {
+      const updatedProfile = await updateProfile(userId, {
+        bio: profile.bio,
+        skills: skillsText
+          .split(",")
+          .map((skill) => skill.trim())
+          .filter(Boolean),
+        is_public: false,
+        active_mode: activeMode,
+      });
+      setProfile(updatedProfile);
+      setSkillsText(updatedProfile.skills.join(", "));
+      setStatusMessage("Saved to Supabase");
+    } catch (error) {
+      console.error("Profile save failed:", error);
+      setStatusMessage("Couldn't save changes. Please try again.");
+    } finally {
+      setIsSaving(false);
+    }
   }
 
   if (isLoading) {
     return <LoadingCard label="Loading proof profile..." />;
+  }
+
+  if (loadError || !profile) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-[#f7f5ef] px-5 text-[#181713]">
+        <section className="max-w-lg rounded-lg border border-[#d8d1c2] bg-white p-6 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#7b3f2a]">LifeMode</p>
+          <h1 className="mt-3 text-2xl font-semibold">Profile unavailable</h1>
+          <p role="alert" className="mt-3 text-sm leading-6 text-[#5f5a50]">
+            {loadError || "Your profile could not be loaded."}
+          </p>
+          <button onClick={() => window.location.reload()} className="mt-5 h-11 rounded-lg bg-[#181713] px-4 text-sm font-semibold text-white">
+            Try again
+          </button>
+        </section>
+      </main>
+    );
   }
 
   return (
@@ -164,21 +210,21 @@ export default function ProfilePage() {
               <h1 className="mt-2 text-4xl font-semibold">{displayName}</h1>
               <p className="mt-2 text-sm text-[#5f5a50]">{email}</p>
             </div>
-            <label className="flex items-center gap-2 rounded-lg border border-[#dfd8c8] bg-[#fffdf8] px-3 py-2 text-sm font-semibold">
-              Public
-              <input
-                type="checkbox"
-                checked={profile?.is_public ?? false}
-                onChange={() =>
-                  setProfile((current) =>
-                    current
-                      ? { ...current, is_public: !current.is_public }
-                      : current,
-                  )
-                }
-                className="h-4 w-4 accent-[#181713]"
-              />
-            </label>
+            <div className="grid justify-items-end gap-1">
+              <label className="flex items-center gap-2 rounded-lg border border-[#dfd8c8] bg-[#fffdf8] px-3 py-2 text-sm font-semibold">
+                Public
+                <input
+                  type="checkbox"
+                  checked={false}
+                  disabled
+                  aria-describedby="public-profile-status"
+                  className="h-4 w-4 accent-[#181713] disabled:cursor-not-allowed disabled:opacity-50"
+                />
+              </label>
+              <span id="public-profile-status" className="max-w-56 text-right text-xs text-[#696257]">
+                Public sharing is temporarily disabled while privacy controls are strengthened.
+              </span>
+            </div>
           </div>
 
           <div className="mt-6 grid gap-4">
@@ -205,9 +251,10 @@ export default function ProfilePage() {
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <button
                 onClick={saveProfile}
-                className="h-11 rounded-lg bg-[#181713] px-4 text-sm font-semibold text-white"
+                disabled={isSaving}
+                className="h-11 rounded-lg bg-[#181713] px-4 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Save profile
+                {isSaving ? "Saving..." : "Save profile"}
               </button>
               <span className="text-sm font-semibold text-[#5f5a50]">
                 {statusMessage}
