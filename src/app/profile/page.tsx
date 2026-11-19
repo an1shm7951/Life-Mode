@@ -59,30 +59,42 @@ export default function ProfilePage() {
 
   const handleProfilePointerMove = (event: ReactPointerEvent<HTMLElement>) => {
     if (event.pointerType !== "mouse") return;
-    const target = event.target;
-    if (!(target instanceof Element) || target.closest("input, textarea, button, a, label")) return;
-    const card = target.closest<HTMLElement>(".profile-motion-card");
-    if (!card) return;
-    const bounds = card.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width;
-    const y = (event.clientY - bounds.top) / bounds.height;
-    const rotateY = (x - 0.5) * 5;
-    const rotateX = (0.5 - y) * 4;
-    card.style.setProperty("--profile-pointer-x", `${Math.round(x * 100)}%`);
-    card.style.setProperty("--profile-pointer-y", `${Math.round(y * 100)}%`);
-    card.style.transform = `perspective(1100px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
-    card.style.boxShadow = "0 24px 58px rgba(0,0,0,.16), 0 0 0 1px rgba(197,164,106,.22)";
-    card.style.backgroundImage = "radial-gradient(380px circle at var(--profile-pointer-x) var(--profile-pointer-y), rgba(197,164,106,.13), transparent 72%)";
-  };
-
-  const resetProfilePointer = (event: ReactPointerEvent<HTMLElement>) => {
+    const stage = event.currentTarget;
+    const stageBounds = stage.getBoundingClientRect();
+    stage.style.setProperty("--profile-pointer-x", `${event.clientX - stageBounds.left}px`);
+    stage.style.setProperty("--profile-pointer-y", `${event.clientY - stageBounds.top}px`);
     const target = event.target;
     if (!(target instanceof Element)) return;
     const card = target.closest<HTMLElement>(".profile-motion-card");
-    if (!card) return;
-    card.style.transform = "";
-    card.style.boxShadow = "";
-    card.style.backgroundImage = "";
+    if (card) {
+      const bounds = card.getBoundingClientRect();
+      const x = (event.clientX - bounds.left) / bounds.width;
+      const y = (event.clientY - bounds.top) / bounds.height;
+      card.style.setProperty("--card-pointer-x", `${Math.round(x * 100)}%`);
+      card.style.setProperty("--card-pointer-y", `${Math.round(y * 100)}%`);
+      card.style.transform = `perspective(1200px) rotateX(${(0.5 - y) * 9}deg) rotateY(${(x - 0.5) * 11}deg) translateY(-6px) scale(1.012)`;
+      card.style.boxShadow = "0 28px 70px rgba(0,0,0,.17), 0 0 0 1px rgba(197,164,106,.42)";
+    }
+    const magnetic = target.closest<HTMLElement>(".profile-magnetic");
+    if (magnetic) {
+      const bounds = magnetic.getBoundingClientRect();
+      const dx = (event.clientX - (bounds.left + bounds.width / 2)) / bounds.width;
+      const dy = (event.clientY - (bounds.top + bounds.height / 2)) / bounds.height;
+      magnetic.style.transform = `translate3d(${dx * 7}px, ${dy * 5}px, 0)`;
+    }
+  };
+
+  const resetProfilePointer = (event: ReactPointerEvent<HTMLElement>) => {
+    const stage = event.currentTarget;
+    stage.style.removeProperty("--profile-pointer-x");
+    stage.style.removeProperty("--profile-pointer-y");
+    stage.querySelectorAll<HTMLElement>(".profile-motion-card").forEach((card) => {
+      card.style.transform = "";
+      card.style.boxShadow = "";
+    });
+    stage.querySelectorAll<HTMLElement>(".profile-magnetic").forEach((item) => {
+      item.style.transform = "";
+    });
   };
 
   const handleProfileTouchStart = (event: ReactPointerEvent<HTMLElement>) => {
@@ -90,21 +102,21 @@ export default function ProfilePage() {
     const target = event.target;
     if (!(target instanceof Element)) return;
     const card = target.closest<HTMLElement>(".profile-motion-card");
+    const magnetic = target.closest<HTMLElement>(".profile-magnetic");
     if (card) {
-      card.style.transform = "scale(.988)";
-      card.style.borderColor = "rgba(197,164,106,.62)";
+      card.style.transform = "scale(.975)";
+      card.style.boxShadow = "0 12px 34px rgba(0,0,0,.15), 0 0 0 1px rgba(197,164,106,.5)";
     }
+    if (magnetic) magnetic.style.transform = "scale(.96)";
   };
 
   const handleProfileTouchEnd = (event: ReactPointerEvent<HTMLElement>) => {
     if (event.pointerType !== "touch") return;
-    const target = event.target;
-    if (!(target instanceof Element)) return;
-    const card = target.closest<HTMLElement>(".profile-motion-card");
-    if (card) {
-      card.style.transform = "";
-      card.style.borderColor = "";
-    }
+    const stage = event.currentTarget;
+    stage.querySelectorAll<HTMLElement>(".profile-motion-card, .profile-magnetic").forEach((item) => {
+      item.style.transform = "";
+      item.style.boxShadow = "";
+    });
   };
 
   useEffect(() => {
@@ -243,15 +255,41 @@ export default function ProfilePage() {
   }
 
   return (
-    <main onPointerMove={handleProfilePointerMove} onPointerLeave={resetProfilePointer} onPointerDown={handleProfileTouchStart} onPointerUp={handleProfileTouchEnd} onPointerCancel={handleProfileTouchEnd} className="lifemode-profile-shell min-h-screen bg-[#f5f2eb] pb-28 text-[#24221e] lg:pb-0">
+    <main onPointerMove={handleProfilePointerMove} onPointerLeave={resetProfilePointer} onPointerDown={handleProfileTouchStart} onPointerUp={handleProfileTouchEnd} onPointerCancel={handleProfileTouchEnd} className="profile-interactive-stage lifemode-profile-shell min-h-screen bg-[#f5f2eb] pb-28 text-[#24221e] lg:pb-0" style={{ backgroundImage: "radial-gradient(700px circle at var(--profile-pointer-x, 50%) var(--profile-pointer-y, 0px), rgba(197,164,106,.15), transparent 70%)" }}>
       <AppHeader title="Proof Profile" subtitle="Show proof, not just claims." />
+      <style jsx global>{`
+        .profile-motion-card {
+          position: relative;
+          overflow: hidden;
+          transform-style: preserve-3d;
+          will-change: transform, box-shadow;
+          transition: transform 320ms cubic-bezier(.2,.8,.2,1), box-shadow 320ms ease, border-color 320ms ease;
+        }
+        .profile-motion-card::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          opacity: 0;
+          background: radial-gradient(420px circle at var(--card-pointer-x, 50%) var(--card-pointer-y, 50%), rgba(197,164,106,.24), transparent 72%);
+          transition: opacity 240ms ease;
+        }
+        .profile-motion-card:hover::after { opacity: 1; }
+        .profile-magnetic { will-change: transform; }
+        @media (prefers-reduced-motion: reduce) {
+          .profile-motion-card, .profile-magnetic, .profile-interactive-stage {
+            transition: none !important;
+            transform: none !important;
+          }
+        }
+      `}</style>
 
       <section className="mx-auto flex max-w-[1440px] justify-end px-5 pt-5 sm:px-8 lg:px-10 xl:px-14">
         <ThemePicker />
       </section>
 
       <section className="mx-auto grid max-w-[1440px] gap-5 px-5 py-6 sm:px-8 lg:grid-cols-[minmax(340px,0.82fr)_minmax(0,1.18fr)] lg:gap-7 lg:px-10 lg:py-8 xl:gap-9 xl:px-14">
-        <section className="premium-panel profile-motion-card rounded-lg p-5 lg:p-8 xl:p-9" style={{ transformStyle: "preserve-3d", transition: "transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease" }}>
+        <section className="premium-panel profile-motion-card rounded-lg p-5 lg:p-8 xl:p-9" >
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#7b3f2a]">
@@ -302,7 +340,7 @@ export default function ProfilePage() {
               <button
                 onClick={saveProfile}
                 disabled={isSaving}
-                className="h-11 rounded-lg bg-[#181713] px-4 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
+                className="profile-magnetic h-11 rounded-lg bg-[#181713] px-5 text-sm font-semibold text-white shadow-[0_8px_24px_rgba(24,23,19,.16)] transition-transform duration-200 ease-out disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSaving ? "Saving..." : "Save profile"}
               </button>
@@ -326,7 +364,7 @@ export default function ProfilePage() {
               value={String(opportunityActions.length)}
             />
           </div>
-          <div className="profile-motion-card rounded-lg border border-[#d8d1c2] bg-[#181713] p-6 text-[#f5f1e8] shadow-sm xl:flex xl:items-end xl:justify-between xl:gap-10" style={{ transition: "transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease" }}>
+          <div className="profile-motion-card rounded-lg border border-[#d8d1c2] bg-[#181713] p-6 text-[#f5f1e8] shadow-sm xl:flex xl:items-end xl:justify-between xl:gap-10">
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#d6c29d]">
               Profile promise
             </p>
@@ -418,13 +456,13 @@ function AppHeader({ title, subtitle }: { title: string; subtitle: string }) {
           <p className="mt-1 text-sm text-[#5f5a50]">{subtitle}</p>
         </div>
         <nav className="flex flex-col gap-3 sm:flex-row lg:gap-2">
-          <Link className="nav-button" href="/dashboard">
+          <Link className="nav-button profile-magnetic transition-transform duration-200 ease-out" href="/dashboard">
             Dashboard
           </Link>
-          <Link className="nav-button" href="/subscription">
+          <Link className="nav-button profile-magnetic transition-transform duration-200 ease-out" href="/subscription">
             Plus
           </Link>
-          <Link className="nav-button gap-2" href="/settings">
+          <Link className="nav-button profile-magnetic gap-2 transition-transform duration-200 ease-out" href="/settings">
             <SettingsIcon />
             Settings
           </Link>
