@@ -8343,3 +8343,62 @@ html[data-theme="light"] :is(.discover-universe,.lm-stories,.lm-stories-v2,.lm-r
 html[data-theme="light"] :is(.discover-universe,.lm-stories,.lm-stories-v2,.lm-reader-v2,.lm-game,.auth-experience) [class*="text-"] {
   color: inherit !important;
 }
+
+
+/* LIFE MODE — unified app-wide interaction system */
+.lm-global-motion-root { min-height: 100%; }
+.lm-global-motion-root.lm-route-enter { animation: lm-route-enter 520ms cubic-bezier(.2,.8,.2,1) both; }
+@keyframes lm-route-enter {
+  from { opacity: .72; transform: translate3d(0,10px,0); filter: blur(2px); }
+  to { opacity: 1; transform: translate3d(0,0,0); filter: blur(0); }
+}
+.lm-global-motion-card {
+  --lm-pointer-x: 50%;
+  --lm-pointer-y: 50%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 420ms cubic-bezier(.2,.8,.2,1), box-shadow 420ms cubic-bezier(.2,.8,.2,1), border-color 320ms ease, opacity 700ms cubic-bezier(.2,.8,.2,1), filter 700ms ease;
+  will-change: transform;
+}
+.lm-global-motion-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(340px circle at var(--lm-pointer-x) var(--lm-pointer-y), rgba(197,164,106,.19), transparent 72%);
+  transition: opacity 300ms ease;
+}
+.lm-global-motion-card > * { position: relative; z-index: 1; }
+.lm-global-motion-card.lm-pointer-active::before { opacity: 1; }
+.lm-global-motion-card.lm-motion-visible { opacity: 1; filter: none; }
+.lm-global-motion-card:not(.lm-motion-visible) { opacity: .01; filter: blur(5px); transform: translate3d(0,22px,0) scale(.985); }
+.lm-global-motion-card.lm-motion-visible:hover:not(.profile-motion-card) {
+  transform: perspective(1200px) rotateX(var(--lm-tilt-y,0deg)) rotateY(var(--lm-tilt-x,0deg)) translate3d(0,-4px,0) scale(1.006);
+  box-shadow: 0 22px 54px rgba(0,0,0,.14), 0 0 0 1px rgba(197,164,106,.22);
+}
+.lm-global-motion-card.lm-motion-pressed, button.lm-motion-pressed, a.lm-motion-pressed {
+  transform: scale(.985);
+  transition-duration: 120ms;
+}
+.lm-global-motion-root button, .lm-global-motion-root a, .lm-desktop-nav a, .lm-tablet-nav a, .lm-mobile-more-trigger, .lm-more-trigger {
+  transition: transform 220ms cubic-bezier(.2,.8,.2,1), box-shadow 260ms ease, border-color 220ms ease, background-color 220ms ease;
+}
+.lm-global-motion-root button:hover:not(:disabled), .lm-global-motion-root a:hover { transform: translateY(-2px); }
+.lm-global-motion-root :is(input,textarea,select):focus {
+  box-shadow: 0 0 0 4px rgba(197,164,106,.15), 0 8px 24px rgba(0,0,0,.08);
+  transition: box-shadow 220ms ease, border-color 220ms ease;
+}
+@media (hover: none) {
+  .lm-global-motion-card { transform: none !important; }
+  .lm-global-motion-card::before { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lm-global-motion-root, .lm-global-motion-root *, .lm-global-motion-root *::before, .lm-global-motion-root *::after {
+    animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important;
+    transition-duration: .01ms !important; transform: none !important; filter: none !important;
+  }
+  .lm-global-motion-card, .lm-global-motion-card:not(.lm-motion-visible) { opacity: 1 !important; }
+}
