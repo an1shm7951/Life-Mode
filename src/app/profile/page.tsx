@@ -402,9 +402,15 @@ export default function ProfilePage() {
                 </article>
               ))
             ) : (
-              <p className="rounded-lg border border-[#dfd8c8] bg-[#fffdf8] p-4 text-sm text-[#5f5a50]">
-                Add proof from the dashboard and it will appear here.
-              </p>
+              <div className="rounded-lg border border-[#dfd8c8] bg-[#fffdf8] p-5 sm:p-6">
+                <p className="text-base font-semibold text-[#24221e]">No proof entries found yet</p>
+                <p className="mt-2 max-w-xl text-sm leading-6 text-[#5f5a50]">
+                  Proof appears here after it is saved in Today → Proof. Your profile is checking all LifeModes, not just the currently selected one.
+                </p>
+                <Link href="/dashboard?view=proof" className="nav-button profile-magnetic mt-4 w-fit">
+                  Create a proof entry <span aria-hidden="true">↗</span>
+                </Link>
+              </div>
             )}
           </div>
         </section>
