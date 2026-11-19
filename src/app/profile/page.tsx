@@ -196,12 +196,12 @@ export default function ProfilePage() {
     <main className="lifemode-profile-shell min-h-screen bg-[#f5f2eb] pb-28 text-[#24221e] lg:pb-0">
       <AppHeader title="Proof Profile" subtitle="Show proof, not just claims." />
 
-      <section className="mx-auto max-w-7xl px-5 pt-6 sm:px-8">
+      <section className="mx-auto flex max-w-[1440px] justify-end px-5 pt-5 sm:px-8 lg:px-10 xl:px-14">
         <ThemePicker />
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-5 px-5 py-6 sm:px-8 lg:grid-cols-[0.9fr_1.1fr]">
-        <section className="premium-panel rounded-lg p-5">
+      <section className="mx-auto grid max-w-[1440px] gap-5 px-5 py-6 sm:px-8 lg:grid-cols-[minmax(340px,0.82fr)_minmax(0,1.18fr)] lg:gap-7 lg:px-10 lg:py-8 xl:gap-9 xl:px-14">
+        <section className="premium-panel rounded-lg p-5 lg:p-8 xl:p-9">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#7b3f2a]">
@@ -264,7 +264,7 @@ export default function ProfilePage() {
         </section>
 
         <section className="grid gap-5">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             <Metric label="Proof score" value={`${proofScore}%`} />
             <Metric
               label="Proof posts"
@@ -276,7 +276,7 @@ export default function ProfilePage() {
               value={String(opportunityActions.length)}
             />
           </div>
-          <div className="rounded-lg border border-[#d8d1c2] bg-[#181713] p-5 text-[#f5f1e8] shadow-sm">
+          <div className="rounded-lg border border-[#d8d1c2] bg-[#181713] p-6 text-[#f5f1e8] shadow-sm xl:flex xl:items-end xl:justify-between xl:gap-10">
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#d6c29d]">
               Profile promise
             </p>
@@ -287,17 +287,17 @@ export default function ProfilePage() {
         </section>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 pb-10 sm:px-8">
+      <section className="mx-auto max-w-[1440px] px-5 pb-8 sm:px-8 lg:px-10 xl:px-14">
         <section className="premium-panel rounded-lg p-5">
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#7b3f2a]">
             Recent Proof
           </p>
-          <div className="mt-4 grid gap-3 md:grid-cols-2">
+          <div className="mt-5 grid gap-4 md:grid-cols-2 xl:gap-5">
             {recentProof.length ? (
               recentProof.map((proof) => (
                 <article
                   key={proof.id}
-                  className="glass-card rounded-lg border border-[#dfd8c8] bg-[#fffdf8] p-4"
+                  className="glass-card rounded-lg border border-[#dfd8c8] bg-[#fffdf8] p-5 lg:p-6"
                 >
                   <div className="flex items-center justify-between gap-3">
                     <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[#7b3f2a]">
@@ -321,7 +321,7 @@ export default function ProfilePage() {
           </div>
         </section>
       </section>
-      <section className="mx-auto max-w-7xl px-5 pb-10 sm:px-8">
+      <section className="mx-auto max-w-[1440px] px-5 pb-10 sm:px-8 lg:px-10 xl:px-14">
         <section className="premium-panel rounded-lg p-5">
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#315260]">
             Account and settings
@@ -356,7 +356,7 @@ function formatDateTime(value: string) {
 function AppHeader({ title, subtitle }: { title: string; subtitle: string }) {
   return (
     <header className="border-b border-[#d8d1c2] bg-[#fbfaf6]">
-      <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
+      <div className="mx-auto flex max-w-[1440px] flex-col gap-5 px-5 py-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-10 lg:py-6 xl:px-14">
         <div>
           <Link
             href="/dashboard"
@@ -367,7 +367,7 @@ function AppHeader({ title, subtitle }: { title: string; subtitle: string }) {
           <h1 className="mt-2 text-3xl font-semibold">{title}</h1>
           <p className="mt-1 text-sm text-[#5f5a50]">{subtitle}</p>
         </div>
-        <nav className="flex flex-col gap-3 sm:flex-row">
+        <nav className="flex flex-col gap-3 sm:flex-row lg:gap-2">
           <Link className="nav-button" href="/dashboard">
             Dashboard
           </Link>
