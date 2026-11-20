@@ -52,7 +52,7 @@ export default function RootLayout({
         <Script id="lifemode-theme-bootstrap" strategy="beforeInteractive">
           {themeBootstrap}
         </Script>
-        {children}
+        <GlobalMotion>{children}</GlobalMotion>
         <SiteFooter />
         <ThemeRuntime />        <ServiceWorkerRegistration />
       </body>
