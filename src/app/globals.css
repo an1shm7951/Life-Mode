@@ -8402,3 +8402,88 @@ html[data-theme="light"] :is(.discover-universe,.lm-stories,.lm-stories-v2,.lm-r
   }
   .lm-global-motion-card, .lm-global-motion-card:not(.lm-motion-visible) { opacity: 1 !important; }
 }
+
+
+/* Global motion v2 — deliberately visible, but restrained and fast. */
+.lm-global-motion-root { min-height: 100%; }
+.lm-global-motion-root.lm-route-enter { animation: lm-route-enter-v2 460ms cubic-bezier(.2,.75,.25,1) both; }
+@keyframes lm-route-enter-v2 {
+  from { opacity: .58; }
+  to { opacity: 1; }
+}
+.lm-global-motion-card {
+  --lm-pointer-x: 50%;
+  --lm-pointer-y: 50%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition:
+    transform 380ms cubic-bezier(.2,.8,.2,1),
+    box-shadow 380ms cubic-bezier(.2,.8,.2,1),
+    border-color 260ms ease,
+    opacity 620ms cubic-bezier(.2,.8,.2,1),
+    filter 620ms ease;
+  will-change: transform;
+}
+.lm-global-motion-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(360px circle at var(--lm-pointer-x) var(--lm-pointer-y), rgba(197,164,106,.24), transparent 70%);
+  transition: opacity 260ms ease;
+}
+.lm-global-motion-card > * { position: relative; z-index: 1; }
+.lm-global-motion-card.lm-pointer-active::before { opacity: 1; }
+.lm-global-motion-card.lm-motion-visible { opacity: 1; filter: none; }
+.lm-global-motion-card:not(.lm-motion-visible) {
+  opacity: .01;
+  filter: blur(4px);
+  transform: translate3d(0,18px,0) scale(.99);
+}
+@media (hover: hover) and (pointer: fine) {
+  .lm-global-motion-card.lm-motion-visible:hover:not(.profile-motion-card) {
+    transform: perspective(1100px) rotateX(var(--lm-tilt-y,0deg)) rotateY(var(--lm-tilt-x,0deg)) translate3d(0,-5px,0) scale(1.008);
+    box-shadow: 0 24px 58px rgba(0,0,0,.16), 0 0 0 1px rgba(197,164,106,.28);
+  }
+  .lm-global-motion-root button:hover:not(:disabled),
+  .lm-global-motion-root a:hover {
+    transform: translateY(-2px);
+  }
+}
+.lm-global-motion-card.lm-motion-tap,
+.lm-global-motion-root button.lm-motion-tap,
+.lm-global-motion-root a.lm-motion-tap {
+  animation: lm-tap-feedback 420ms cubic-bezier(.2,.8,.2,1);
+}
+@keyframes lm-tap-feedback {
+  0% { filter: brightness(1); box-shadow: 0 0 0 0 rgba(197,164,106,0); }
+  32% { filter: brightness(1.13); box-shadow: 0 0 0 5px rgba(197,164,106,.2), 0 12px 32px rgba(0,0,0,.12); }
+  100% { filter: brightness(1); box-shadow: 0 0 0 0 rgba(197,164,106,0); }
+}
+.lm-global-motion-card.lm-motion-pressed,
+.lm-global-motion-root button.lm-motion-pressed,
+.lm-global-motion-root a.lm-motion-pressed {
+  filter: brightness(1.1);
+}
+.lm-global-motion-root :is(input,textarea,select):focus {
+  box-shadow: 0 0 0 4px rgba(197,164,106,.17), 0 8px 24px rgba(0,0,0,.09);
+  transition: box-shadow 220ms ease, border-color 220ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lm-global-motion-root,
+  .lm-global-motion-root *,
+  .lm-global-motion-root *::before,
+  .lm-global-motion-root *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .lm-global-motion-card,
+  .lm-global-motion-card:not(.lm-motion-visible) { opacity: 1 !important; }
+}
