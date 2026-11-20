@@ -37,20 +37,21 @@ export function GlobalMotion({ children }: { children: React.ReactNode }) {
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const observed = new WeakSet<Element>();
-    const revealObserver =
-      !reduceMotion && "IntersectionObserver" in window
-        ? new IntersectionObserver(
-            (entries) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  entry.target.classList.add("lm-motion-visible", "is-in-view");
-                  revealObserver.unobserve(entry.target);
-                }
-              });
-            },
-            { threshold: 0.06, rootMargin: "0px 0px -4% 0px" },
-          )
-        : null;
+    let revealObserver: IntersectionObserver | null = null;
+    if (!reduceMotion && "IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("lm-motion-visible", "is-in-view");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.06, rootMargin: "0px 0px -4% 0px" },
+      );
+      revealObserver = observer;
+    }
 
     const enhance = (scope: ParentNode) => {
       const candidates: Element[] = [];
