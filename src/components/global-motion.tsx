@@ -22,7 +22,9 @@ const motionTargets = [
   ".schedule-card",
   ".settings-card",
   ".profile-motion-card",
-  ".lm-global-motion-card",
+  "[class*='card']",
+  "article",
+  "[data-motion]",
 ].join(",");
 
 export function GlobalMotion({ children }: { children: React.ReactNode }) {
@@ -35,23 +37,22 @@ export function GlobalMotion({ children }: { children: React.ReactNode }) {
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const observed = new WeakSet<Element>();
-    const revealObserver = reduceMotion
-      ? null
-      : new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("lm-motion-visible");
-                entry.target.classList.add("is-in-view");
-                revealObserver?.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.08, rootMargin: "0px 0px -5% 0px" },
-        );
+    const revealObserver =
+      !reduceMotion && "IntersectionObserver" in window
+        ? new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("lm-motion-visible", "is-in-view");
+                  revealObserver.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.06, rootMargin: "0px 0px -4% 0px" },
+          )
+        : null;
 
     const enhance = (scope: ParentNode) => {
-      if (reduceMotion) return;
       const candidates: Element[] = [];
       if (scope instanceof Element && scope.matches(motionTargets)) candidates.push(scope);
       scope.querySelectorAll?.(motionTargets).forEach((element) => candidates.push(element));
@@ -59,7 +60,11 @@ export function GlobalMotion({ children }: { children: React.ReactNode }) {
         if (observed.has(element)) return;
         observed.add(element);
         element.classList.add("lm-global-motion-card");
-        revealObserver?.observe(element);
+        if (reduceMotion || !revealObserver) {
+          element.classList.add("lm-motion-visible", "is-in-view");
+        } else {
+          revealObserver.observe(element);
+        }
       });
     };
 
@@ -81,12 +86,12 @@ export function GlobalMotion({ children }: { children: React.ReactNode }) {
       if (!card || card.classList.contains("profile-motion-card")) return;
       const bounds = card.getBoundingClientRect();
       if (!bounds.width || !bounds.height) return;
-      const x = (event.clientX - bounds.left) / bounds.width;
-      const y = (event.clientY - bounds.top) / bounds.height;
+      const x = Math.max(0, Math.min(1, (event.clientX - bounds.left) / bounds.width));
+      const y = Math.max(0, Math.min(1, (event.clientY - bounds.top) / bounds.height));
       card.style.setProperty("--lm-pointer-x", `${Math.round(x * 100)}%`);
       card.style.setProperty("--lm-pointer-y", `${Math.round(y * 100)}%`);
-      card.style.setProperty("--lm-tilt-x", `${(x - 0.5) * 4.2}deg`);
-      card.style.setProperty("--lm-tilt-y", `${(0.5 - y) * 3.6}deg`);
+      card.style.setProperty("--lm-tilt-x", `${(x - 0.5) * 7}deg`);
+      card.style.setProperty("--lm-tilt-y", `${(0.5 - y) * 6}deg`);
       card.classList.add("lm-pointer-active");
     };
 
@@ -100,13 +105,21 @@ export function GlobalMotion({ children }: { children: React.ReactNode }) {
       card.classList.remove("lm-pointer-active");
     };
 
+    let tapTimer: number | undefined;
     const handlePointerDown = (event: PointerEvent) => {
       const target = event.target;
       if (!(target instanceof Element)) return;
       target.closest(".lm-global-motion-card, button, a")?.classList.add("lm-motion-pressed");
     };
     const handlePointerUp = () => {
-      root.querySelectorAll(".lm-motion-pressed").forEach((element) => element.classList.remove("lm-motion-pressed"));
+      root.querySelectorAll(".lm-motion-pressed").forEach((element) => {
+        element.classList.remove("lm-motion-pressed");
+        element.classList.add("lm-motion-tap");
+      });
+      window.clearTimeout(tapTimer);
+      tapTimer = window.setTimeout(() => {
+        root.querySelectorAll(".lm-motion-tap").forEach((element) => element.classList.remove("lm-motion-tap"));
+      }, 460);
     };
 
     root.addEventListener("pointermove", handlePointerMove, { passive: true });
@@ -118,6 +131,7 @@ export function GlobalMotion({ children }: { children: React.ReactNode }) {
     return () => {
       mutationObserver.disconnect();
       revealObserver?.disconnect();
+      window.clearTimeout(tapTimer);
       root.removeEventListener("pointermove", handlePointerMove);
       root.removeEventListener("pointerout", resetCard);
       root.removeEventListener("pointerdown", handlePointerDown);
@@ -130,8 +144,8 @@ export function GlobalMotion({ children }: { children: React.ReactNode }) {
     const root = rootRef.current;
     if (!root) return;
     root.classList.remove("lm-route-enter");
-    void root.offsetWidth;
-    root.classList.add("lm-route-enter");
+    const frame = window.requestAnimationFrame(() => root.classList.add("lm-route-enter"));
+    return () => window.cancelAnimationFrame(frame);
   }, [pathname]);
 
   return (
