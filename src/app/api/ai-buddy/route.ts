@@ -7,9 +7,8 @@ import type { AiBuddyRequest } from "@/lib/lifemode/types";
 import { authenticateRequest } from "@/lib/supabase/server-auth";
 import { lifeModes } from "@/lib/lifemode/data";
 
-const requestLog = new Map<string, number[]>();
 const REQUEST_LIMIT = 20;
-const REQUEST_WINDOW_MS = 60_000;
+const REQUEST_WINDOW_SECONDS = 60;
 
 export async function POST(request: NextRequest) {
   const authentication = await authenticateRequest(request);
@@ -67,19 +66,29 @@ export async function POST(request: NextRequest) {
         .map((item) => ({ ...item, content: item.content.slice(0, 4000) }))
     : [];
 
-  const now = Date.now();
-  const recentRequests = (requestLog.get(authentication.user.id) ?? []).filter(
-    (timestamp) => now - timestamp < REQUEST_WINDOW_MS,
+  const { data: withinLimit, error: rateLimitError } = await authentication.client.rpc(
+    "consume_ai_buddy_rate_limit",
+    {
+      p_user_id: authentication.user.id,
+      p_limit: REQUEST_LIMIT,
+      p_window_seconds: REQUEST_WINDOW_SECONDS,
+    },
   );
 
-  if (recentRequests.length >= REQUEST_LIMIT) {
+  if (rateLimitError || typeof withinLimit !== "boolean") {
+    console.error("AI Buddy rate limiter unavailable:", rateLimitError);
     return NextResponse.json(
-      { error: "AI Buddy is taking a short breather. Try again in a minute." },
-      { status: 429 },
+      { error: "AI Buddy is temporarily unavailable. Please try again shortly." },
+      { status: 503, headers: { "Cache-Control": "no-store" } },
     );
   }
 
-  requestLog.set(authentication.user.id, [...recentRequests, now]);
+  if (!withinLimit) {
+    return NextResponse.json(
+      { error: "AI Buddy is taking a short breather. Try again in a minute." },
+      { status: 429, headers: { "Cache-Control": "no-store" } },
+    );
+  }
 
   const { data: savedGoals, error: goalsError } = await authentication.client
     .from("goals")
