@@ -8412,3 +8412,70 @@ html[data-theme="light"] :is(.discover-universe,.lm-stories,.lm-stories-v2,.lm-r
     filter: none !important;
   }
 }
+
+
+/* LIFE MODE — visible, mobile-safe interaction motion.
+   These effects are CSS-only: no observers, scroll gating, or hidden content. */
+.lm-global-motion-root.lm-route-enter {
+  animation: lm-route-arrive 480ms cubic-bezier(.2,.75,.25,1) both;
+}
+@keyframes lm-route-arrive {
+  from { opacity: .94; transform: translate3d(0,12px,0) scale(.996); }
+  to { opacity: 1; transform: translate3d(0,0,0) scale(1); }
+}
+
+/* Give each screen a clear entrance, with a short stagger for its main regions. */
+.lm-global-motion-root main > * {
+  animation: lm-region-arrive 420ms cubic-bezier(.2,.75,.25,1) both;
+}
+.lm-global-motion-root main > *:nth-child(1) { animation-delay: 20ms; }
+.lm-global-motion-root main > *:nth-child(2) { animation-delay: 65ms; }
+.lm-global-motion-root main > *:nth-child(3) { animation-delay: 110ms; }
+.lm-global-motion-root main > *:nth-child(4) { animation-delay: 155ms; }
+.lm-global-motion-root main > *:nth-child(n+5) { animation-delay: 190ms; }
+@keyframes lm-region-arrive {
+  from { opacity: .78; transform: translate3d(0,10px,0); }
+  to { opacity: 1; transform: translate3d(0,0,0); }
+}
+
+/* Card hover is desktop-only; touch devices get a brief press response instead. */
+.lm-global-motion-root :is(.premium-panel,.glass-card,.lm-goals-card,.lm-proof-item,
+  .lm-stat-card,.connection-card,.story-card,.discover-card,.buddy-card,
+  .plan-card,.schedule-card,.settings-card,.profile-motion-card,article,[class*="card"]) {
+  transition: transform 240ms cubic-bezier(.2,.8,.2,1),
+    box-shadow 240ms ease, border-color 220ms ease, background-color 220ms ease;
+}
+@media (hover:hover) and (pointer:fine) {
+  .lm-global-motion-root :is(.premium-panel,.glass-card,.lm-goals-card,.lm-proof-item,
+    .lm-stat-card,.connection-card,.story-card,.discover-card,.buddy-card,
+    .plan-card,.schedule-card,.settings-card,.profile-motion-card,article,[class*="card"]):hover {
+    transform: translate3d(0,-3px,0);
+    box-shadow: 0 14px 34px rgba(0,0,0,.13), 0 0 0 1px rgba(197,164,106,.2);
+  }
+}
+.lm-global-motion-root :is(button,a,[role="button"]) {
+  transition: transform 170ms cubic-bezier(.2,.8,.2,1),
+    box-shadow 200ms ease, background-color 200ms ease, border-color 200ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.lm-global-motion-root :is(button,a,[role="button"]):active {
+  transform: scale(.975);
+  transition-duration: 90ms;
+}
+
+/* Menus, dialogs, and expandable surfaces enter cleanly without blocking input. */
+.lm-global-motion-root :is([role="dialog"],[role="menu"],[data-state="open"],details[open] > *) {
+  animation: lm-overlay-arrive 220ms cubic-bezier(.2,.75,.25,1) both;
+}
+@keyframes lm-overlay-arrive {
+  from { opacity: .7; transform: translate3d(0,7px,0) scale(.99); }
+  to { opacity: 1; transform: translate3d(0,0,0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lm-global-motion-root.lm-route-enter,
+  .lm-global-motion-root main > *,
+  .lm-global-motion-root :is([role="dialog"],[role="menu"],[data-state="open"],details[open] > *) {
+    animation: none !important;
+  }
+}
