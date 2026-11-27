@@ -12,6 +12,8 @@ LifeMode is in early access. Do not describe the current Privacy Notice or Terms
 - [ ] Confirm the official support and privacy contact address.
 - [ ] Confirm the official notice address and grievance / privacy escalation process where required.
 - [ ] Have the proposed proprietary LICENSE notice reviewed by the rights holder.
+- [ ] Conduct trademark clearance for "LifeMode" and confusingly similar names in intended launch markets and relevant software/service classes.
+- [ ] Confirm rights to the domain and all brand marks; do not use registered-mark symbols unless registration is verified.
 
 ## Personal data inventory
 
