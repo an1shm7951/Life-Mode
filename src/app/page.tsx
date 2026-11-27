@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { InstallButton } from "@/components/install-button";
 import { LiquidBackground } from "@/components/liquid-background";
+import { ScrollReveal } from "@/components/scroll-reveal";
 
 const features = [
   { number: "01", name: "Today", detail: "Turn the day into a clear set of meaningful actions.", mark: "◷" },
@@ -14,6 +15,7 @@ const features = [
 export default function HomePage() {
   return (
     <main className="lm-launch">
+      <ScrollReveal />
       <section className="lm-hero">
         <LiquidBackground />
         <nav className="lm-nav" aria-label="Main navigation">
