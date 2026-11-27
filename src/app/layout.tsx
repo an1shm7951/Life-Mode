@@ -22,27 +22,33 @@ const themeBootstrap = `(() => {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://lifemode.vercel.app"),
-  title: { default: "LifeMode — Make your days mean something", template: "%s | LifeMode" },
-  description: "A considered space for your goals, plans, progress and the people who move you forward. Build your LifeMode, one intentional day at a time.",
+  title: {
+    default: "LifeMode — Your Personal Operating System",
+    template: "%s | LifeMode",
+  },
+  description:
+    "LifeMode is an AI-assisted personal operating system for bringing goals, plans, progress and personal growth into one considered space.",
   applicationName: "LifeMode",
-  alternates: { canonical: "/" },
+  category: "productivity",
   openGraph: {
     type: "website",
-    url: "https://lifemode.vercel.app",
     siteName: "LifeMode",
-    title: "LifeMode — Make your days mean something",
-    description: "A considered space for your goals, plans, progress and the people who move you forward.",
+    title: "LifeMode — Your Personal Operating System",
+    description:
+      "Bring your goals, plans, progress and personal growth into one considered space with LifeMode.",
   },
   twitter: {
-    card: "summary",
-    title: "LifeMode — Make your days mean something",
-    description: "A considered space for your goals, plans and progress.",
+    card: "summary_large_image",
+    title: "LifeMode — Your Personal Operating System",
+    description:
+      "An AI-assisted personal operating system for goals, plans, progress and personal growth.",
   },
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [
       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
       { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+      { url: "/lifemode-icon.svg", type: "image/svg+xml" },
     ],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
