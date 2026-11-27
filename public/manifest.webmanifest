@@ -2,7 +2,7 @@
   "id": "/",
   "name": "LifeMode",
   "short_name": "LifeMode",
-  "description": "A considered space for your goals, plans, progress and the people who move you forward.",
+  "description": "An AI-assisted personal operating system for goals, plans, progress and personal growth.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

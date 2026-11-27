@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LifeMode
 
-## Getting Started
+**LifeMode is an AI-assisted Personal Operating System** for bringing goals, daily plans, progress and personal growth into one considered space.
 
-First, run the development server:
+Production site: https://lifemode.vercel.app
+
+## Product direction
+
+LifeMode is built around three connected pillars:
+
+1. **Intelligence** — AI assistance that helps people think through plans and next steps.
+2. **Integration** — a connected home for goals, planning, proof of progress and personal workflows.
+3. **Growth** — tools that make progress visible and help people reflect and keep moving.
+
+LifeMode is in early access. Product capabilities, integrations and policies may change as the service develops.
+
+## Technology
+
+- Next.js 16 App Router
+- React 19
+- TypeScript
+- Supabase Authentication and Postgres
+- Tailwind CSS 4
+- Vercel deployment
+
+## Local development
+
+Requirements: Node.js compatible with the installed Next.js release and npm.
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Quality checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run test:smoke
+npm run build
+```
 
-## Learn More
+## Environment variables
 
-To learn more about Next.js, take a look at the following resources:
+Configure project secrets in the hosting provider. Never commit secrets or expose service-role keys through `NEXT_PUBLIC_*` variables.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Common configuration includes:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY` (server-only; only where an audited server route requires it)
+- AI provider keys used by enabled server-side features
 
-## Deploy on Vercel
+See `docs/public-deployment.md` for the deployment checklist.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## SEO and public routes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The public sitemap is generated at `/sitemap.xml`; crawler rules are generated at `/robots.txt`. Only public informational pages belong in the sitemap. Authenticated app routes and account flows are marked noindex.
+
+See `docs/SEO_LAUNCH_CHECKLIST.md` for Search Console and Webmaster Tools setup.
+
+## Privacy, terms and licensing
+
+The privacy notice and terms are early-access summaries, not final legal agreements. Before broad public release, complete `docs/LEGAL_REVIEW_CHECKLIST.md` with qualified counsel and the actual service operator.
+
+The project source is intended to be proprietary. See `LICENSE` and `docs/THIRD_PARTY_LICENSES.md`. Third-party package licenses remain separate from the LifeMode source license.

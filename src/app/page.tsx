@@ -1,7 +1,53 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { InstallButton } from "@/components/install-button";
 import { LiquidBackground } from "@/components/liquid-background";
 import { ScrollReveal } from "@/components/scroll-reveal";
+
+export const metadata: Metadata = {
+  title: "Your Personal Operating System",
+  description:
+    "LifeMode brings goals, daily plans, proof of progress and AI assistance together in one personal operating system.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "LifeMode — Your Personal Operating System",
+    description:
+      "Bring your goals, plans, progress and personal growth into one considered space.",
+    url: "/",
+  },
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://lifemode.vercel.app/#organization",
+      name: "LifeMode",
+      url: "https://lifemode.vercel.app/",
+      logo: "https://lifemode.vercel.app/lifemode-icon.svg",
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://lifemode.vercel.app/#website",
+      name: "LifeMode",
+      url: "https://lifemode.vercel.app/",
+      publisher: { "@id": "https://lifemode.vercel.app/#organization" },
+      inLanguage: "en",
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://lifemode.vercel.app/#software",
+      name: "LifeMode",
+      applicationCategory: "ProductivityApplication",
+      operatingSystem: "Web",
+      url: "https://lifemode.vercel.app/",
+      description:
+        "An AI-assisted personal operating system for organizing goals, plans, progress and personal growth.",
+      publisher: { "@id": "https://lifemode.vercel.app/#organization" },
+    },
+  ],
+};
 
 const features = [
   { number: "01", name: "Today", detail: "Turn the day into a clear set of meaningful actions.", mark: "◷" },
@@ -15,6 +61,10 @@ const features = [
 export default function HomePage() {
   return (
     <main className="lm-launch">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <ScrollReveal />
       <section className="lm-hero">
         <LiquidBackground />
@@ -29,14 +79,14 @@ export default function HomePage() {
         </nav>
 
         <div className="lm-hero-content">
-          <p className="lm-eyebrow"><span /> A PERSONAL OPERATING SPACE</p>
-          <h1>Make your days<br /><em>mean something.</em></h1>
-          <p className="lm-hero-copy">A considered space for your goals, plans, progress and the people who move you forward.</p>
+          <p className="lm-eyebrow"><span /> YOUR PERSONAL OPERATING SYSTEM</p>
+          <h1>Your life,<br /><em>one system.</em></h1>
+          <p className="lm-hero-copy">Bring your goals, daily plans, progress and personal growth into one calm, intelligent space.</p>
           <div className="lm-hero-actions">
             <Link href="/signup" className="lm-button lm-button-gold">Create your LifeMode <span>↗</span></Link>
             <InstallButton />
           </div>
-          <p className="lm-hero-note">Your life. Your pace. Your next chapter.</p>
+          <p className="lm-hero-note">Think clearly. Act intentionally. Keep growing.</p>
         </div>
 
         <div className="lm-hero-index" aria-hidden="true"><span>01</span><i /> THE EVERYDAY, INTENTIONALLY</div>
@@ -44,15 +94,15 @@ export default function HomePage() {
       </section>
 
       <section className="lm-intro" id="philosophy">
-        <p className="lm-eyebrow lm-eyebrow-dark">LESS NOISE. MORE DIRECTION.</p>
-        <h2>Your life is not a checklist.<br /><em>It is a work in progress.</em></h2>
-        <p>LifeMode brings the pieces of personal growth into one calm, intentional space — so you can focus less on keeping everything together and more on moving forward.</p>
+        <p className="lm-eyebrow lm-eyebrow-dark">INTELLIGENCE. INTEGRATION. GROWTH.</p>
+        <h2>Your life is not a checklist.<br /><em>It is a system you shape.</em></h2>
+        <p>LifeMode connects the everyday work of living well: setting direction, planning what matters, keeping proof of progress and reflecting on what comes next. AI assistance helps you think through the work without taking your decisions away.</p>
       </section>
 
       <section className="lm-features" id="experience">
         <div className="lm-section-heading">
-          <div><p className="lm-eyebrow">THE LIFEMode EXPERIENCE</p><h2>Everything has<br /><em>its place.</em></h2></div>
-          <p>Small steps, visible progress, a clearer sense of where you are going.</p>
+          <div><p className="lm-eyebrow">THE LIFEMODE EXPERIENCE</p><h2>Everything has<br /><em>its place.</em></h2></div>
+          <p>One connected place for the goals you set, the actions you take and the progress you make.</p>
         </div>
         <div className="lm-feature-grid">
           {features.map((feature) => (
@@ -63,6 +113,7 @@ export default function HomePage() {
             </article>
           ))}
         </div>
+        <p className="lm-feature-footnote">LifeMode is evolving. Features and integrations may vary during early access.</p>
       </section>
 
       <section className="lm-manifesto">
@@ -75,8 +126,8 @@ export default function HomePage() {
 
       <footer className="lm-footer">
         <Link href="/" className="lm-wordmark"><span className="lm-mark">L</span> LIFEMODE</Link>
-        <p>Make your days mean something.</p>
-        <div><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link><Link href="/login">Log in</Link></div>
+        <p>Your life. One system.</p>
+        <div><Link href="/about">About</Link><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link><Link href="/login">Log in</Link></div>
         <small>© {new Date().getFullYear()} LifeMode. Built for the life ahead.</small>
       </footer>
     </main>
