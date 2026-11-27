@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import "./launch.css";
 import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
 import { GlobalMotion } from "@/components/global-motion";
 import { ThemeRuntime } from "@/components/theme-runtime";
@@ -20,8 +21,23 @@ const themeBootstrap = `(() => {
 })();`;
 
 export const metadata: Metadata = {
-  title: "LifeMode",
-  description: "Build your life, prove your progress, and find your people.",
+  metadataBase: new URL("https://lifemode.vercel.app"),
+  title: { default: "LifeMode — Make your days mean something", template: "%s | LifeMode" },
+  description: "A considered space for your goals, plans, progress and the people who move you forward. Build your LifeMode, one intentional day at a time.",
+  applicationName: "LifeMode",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "https://lifemode.vercel.app",
+    siteName: "LifeMode",
+    title: "LifeMode — Make your days mean something",
+    description: "A considered space for your goals, plans, progress and the people who move you forward.",
+  },
+  twitter: {
+    card: "summary",
+    title: "LifeMode — Make your days mean something",
+    description: "A considered space for your goals, plans and progress.",
+  },
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [
@@ -30,31 +46,20 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "black-translucent",
-    title: "LifeMode",
-  },
+  appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "LifeMode" },
 };
 
-export const viewport: Viewport = {
-  themeColor: "#080808",
-};
+export const viewport: Viewport = { themeColor: "#080807" };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <body className="min-h-full flex flex-col">
-        <Script id="lifemode-theme-bootstrap" strategy="beforeInteractive">
-          {themeBootstrap}
-        </Script>
+        <Script id="lifemode-theme-bootstrap" strategy="beforeInteractive">{themeBootstrap}</Script>
         <GlobalMotion>{children}</GlobalMotion>
         <SiteFooter />
-        <ThemeRuntime />        <ServiceWorkerRegistration />
+        <ThemeRuntime />
+        <ServiceWorkerRegistration />
       </body>
     </html>
   );
