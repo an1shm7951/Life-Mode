@@ -31,6 +31,7 @@ export function LiquidBackground() {
 
   return (
     <div className="lm-liquid" aria-hidden="true">
+      <svg className="lm-liquid-defs" xmlns="http://www.w3.org/2000/svg" focusable="false"><filter id="lm-liquid-warp" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="0.009 0.015" numOctaves="2" seed="5" result="noise"><animate attributeName="baseFrequency" dur="18s" values="0.009 0.015;0.016 0.023;0.009 0.015" repeatCount="indefinite" /></feTurbulence><feDisplacementMap in="SourceGraphic" in2="noise" scale="34" xChannelSelector="R" yChannelSelector="G" /></filter></svg>
       <div className="lm-liquid-orb lm-liquid-orb-one" />
       <div className="lm-liquid-orb lm-liquid-orb-two" />
       <div className="lm-liquid-cursor" />
