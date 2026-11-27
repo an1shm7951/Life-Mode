@@ -1,5 +1,5 @@
--- Lock the AI Buddy limiter to server-defined values so authenticated
--- clients cannot choose a shorter window to prune their own recent events.
+-- Keep the AI Buddy rate limiter server-only. The API route authenticates
+-- the user first, then calls this function using the server-side service role.
 create or replace function public.consume_ai_buddy_rate_limit(
   p_user_id uuid,
   p_limit integer default 20,
@@ -14,7 +14,7 @@ declare
   request_count integer;
   window_start timestamptz;
 begin
-  if auth.uid() is null or auth.uid() <> p_user_id then
+  if auth.role() <> 'service_role' then
     raise exception 'Not authorised' using errcode = '42501';
   end if;
 
@@ -47,5 +47,5 @@ begin
 end;
 $function$;
 
-revoke all on function public.consume_ai_buddy_rate_limit(uuid, integer, integer) from public, anon;
-grant execute on function public.consume_ai_buddy_rate_limit(uuid, integer, integer) to authenticated;
+revoke all on function public.consume_ai_buddy_rate_limit(uuid, integer, integer) from public, anon, authenticated;
+grant execute on function public.consume_ai_buddy_rate_limit(uuid, integer, integer) to service_role;
