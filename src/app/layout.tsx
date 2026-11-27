@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
+import { GlobalMotion } from "@/components/global-motion";
 import { ThemeRuntime } from "@/components/theme-runtime";
 import { SiteFooter } from "@/components/site-footer";
 import Script from "next/script";
@@ -51,7 +52,7 @@ export default function RootLayout({
         <Script id="lifemode-theme-bootstrap" strategy="beforeInteractive">
           {themeBootstrap}
         </Script>
-        {children}
+        <GlobalMotion>{children}</GlobalMotion>
         <SiteFooter />
         <ThemeRuntime />        <ServiceWorkerRegistration />
       </body>
