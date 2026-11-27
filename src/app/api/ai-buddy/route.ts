@@ -5,6 +5,7 @@ import {
 } from "@/lib/lifemode/ai-buddy";
 import type { AiBuddyRequest } from "@/lib/lifemode/types";
 import { authenticateRequest } from "@/lib/supabase/server-auth";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { lifeModes } from "@/lib/lifemode/data";
 
 const REQUEST_LIMIT = 20;
@@ -66,7 +67,15 @@ export async function POST(request: NextRequest) {
         .map((item) => ({ ...item, content: item.content.slice(0, 4000) }))
     : [];
 
-  const { data: withinLimit, error: rateLimitError } = await authentication.client.rpc(
+  const admin = createAdminClient();
+  if (!admin) {
+    return NextResponse.json(
+      { error: "AI Buddy is temporarily unavailable. Please try again shortly." },
+      { status: 503, headers: { "Cache-Control": "no-store" } },
+    );
+  }
+
+  const { data: withinLimit, error: rateLimitError } = await admin.rpc(
     "consume_ai_buddy_rate_limit",
     {
       p_user_id: authentication.user.id,
