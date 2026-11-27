@@ -22,15 +22,15 @@ export default function PrivacyPage() {
             details, medical records, or other highly sensitive information.
           </PolicySection>
           <PolicySection title="Who can see your data">
-            Personal work is private by default. A proof profile is only public
-            when you explicitly enable its public setting. LifeMode does not
-            sell personal data.
+            Profiles and personal work are currently private. Public profile discovery
+            is disabled while age eligibility and privacy safeguards are reviewed.
+            LifeMode does not sell personal data.
           </PolicySection>
           <PolicySection title="Security and control">
             Authentication and database access rules are provided through
             Supabase. You may remove individual goals, proof posts, and tracked
-            opportunities inside the app. Account export and full deletion are
-            available from the Proof Profile page.
+            opportunities inside the app. Account export and deletion controls
+            are available in Settings.
           </PolicySection>
           <PolicySection title="Age limits">
             Accounts currently require users to be at least 13. Dating remains
