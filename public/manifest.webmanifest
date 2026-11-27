@@ -1,16 +1,18 @@
-
 {
   "id": "/",
   "name": "LifeMode",
   "short_name": "LifeMode",
-  "description": "Your personal workspace for student life, fitness, career, business, and personal growth.",
+  "description": "A considered space for your goals, plans, progress and the people who move you forward.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#0C0D10",
-  "theme_color": "#0C0D10",
-  "categories": ["productivity", "lifestyle"],
+  "background_color": "#080807",
+  "theme_color": "#080807",
+  "categories": [
+    "productivity",
+    "lifestyle"
+  ],
   "icons": [
     {
       "src": "/icon-192.png",
