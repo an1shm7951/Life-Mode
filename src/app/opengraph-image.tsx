@@ -26,7 +26,7 @@ export default function OpenGraphImage() {
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
           <div style={{ fontSize: 18, letterSpacing: "5px", color: "#c4a765" }}>YOUR PERSONAL OPERATING SYSTEM</div>
-          <div style={{ fontSize: 82, lineHeight: 1.04, fontWeight: 600, letterSpacing: "-3px" }}>
+          <div style={{ display: "flex", flexDirection: "column", fontSize: 82, lineHeight: 1.04, fontWeight: 600, letterSpacing: "-3px" }}>
             Your life,
             <br />
             <span style={{ color: "#d7bd83", fontFamily: "Georgia, serif", fontStyle: "italic" }}>one system.</span>
