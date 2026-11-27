@@ -80,3 +80,25 @@
 .lm-global-motion-root:has(.lm-launch) + .site-footer{display:none}
 .lm-launch .lm-eyebrow{color:#c9a66b}
 .lm-launch a:focus-visible,.lm-launch button:focus-visible,.lm-feature-card:focus-visible{outline:2px solid #e5c993;outline-offset:4px}
+
+/* LifeMode brand system: warm gold, black and ivory across the app */
+:root{--background:#f4f1e9;--foreground:#17140f;--glass-line:rgba(164,128,70,.22);--glass-border:rgba(164,128,70,.18);--glass-shadow:0 20px 55px rgba(40,30,15,.08);--accent:#b38b50;--accent-deep:#8c6836}
+html[data-theme="dark"]{--background:#080807;--foreground:#f5f1e8;--glass-line:rgba(220,190,135,.16);--glass-border:rgba(220,190,135,.18);--glass-shadow:0 22px 60px rgba(0,0,0,.42);--accent:#d0ad70;--accent-deep:#9e793f}
+body{background:radial-gradient(ellipse at 75% 4%,rgba(198,158,91,.12),transparent 34rem),linear-gradient(145deg,#fbf9f4,#f1eee6 58%,#f8f5ed)!important;color:var(--foreground)}
+html[data-theme="dark"] body{background:radial-gradient(ellipse at 75% 4%,rgba(168,124,57,.14),transparent 34rem),linear-gradient(145deg,#11100d,#080807 58%,#12100c)!important;color:var(--foreground)}
+body::before{background:radial-gradient(ellipse 28rem 22rem at 18% 35%,rgba(190,151,88,.10),transparent 72%),radial-gradient(ellipse 30rem 24rem at 84% 62%,rgba(158,119,61,.08),transparent 74%)!important;mix-blend-mode:multiply}
+body::after{background:radial-gradient(ellipse 31rem 30rem at 28% 76%,rgba(201,166,107,.08),transparent 72%),radial-gradient(ellipse 32rem 26rem at 72% 25%,rgba(155,116,58,.08),transparent 74%)!important}
+html[data-theme="dark"] body::before,html[data-theme="dark"] body::after{mix-blend-mode:screen}
+:focus-visible{outline-color:rgba(185,145,82,.7)!important}
+input[type="checkbox"],input[type="radio"]{accent-color:#b38b50!important}
+button[class*="bg-[#181713]"],.nav-button-dark{background:linear-gradient(115deg,#e2c48f,#b38b50)!important;color:#17120a!important;box-shadow:0 9px 28px rgba(155,116,58,.22)!important}
+button[class*="bg-[#181713]"]:hover:not(:disabled),.nav-button-dark:hover{box-shadow:0 14px 38px rgba(155,116,58,.3)!important}
+.premium-panel,.glass-card{border-color:rgba(174,139,82,.24)!important;background:linear-gradient(145deg,rgba(255,255,255,.78),rgba(246,241,230,.58))!important;box-shadow:0 1px 0 rgba(255,255,255,.85) inset,0 16px 42px rgba(53,40,18,.08)!important}
+html[data-theme="dark"] .premium-panel,html[data-theme="dark"] .glass-card{border-color:rgba(220,190,135,.2)!important;background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.018))!important;box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 18px 48px rgba(0,0,0,.34)!important}
+.theme-choice.is-selected .theme-choice-indicator{background:linear-gradient(145deg,#e2c48f,#9e793f)!important}
+.nav-button{border-color:rgba(174,139,82,.3)!important;color:#302719!important}
+html[data-theme="dark"] .nav-button{background:rgba(25,22,16,.8)!important;border-color:rgba(220,190,135,.24)!important;color:#eee4d2!important}
+html[data-theme="dark"] main{color:var(--foreground)}
+.lm-liquid-defs{position:absolute;width:0;height:0;overflow:hidden}
+.lm-liquid-cursor{position:absolute;width:min(62vw,760px);height:min(62vw,760px);left:var(--lm-pointer-x,72%);top:var(--lm-pointer-y,38%);transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 45% 45%,rgba(235,198,130,.34),rgba(169,119,54,.18) 30%,rgba(98,65,29,.08) 54%,transparent 72%);filter:url(#lm-liquid-warp);mix-blend-mode:screen;will-change:left,top}
+@media(max-width:760px){.lm-liquid-cursor{display:none}}
